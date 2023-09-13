@@ -33,11 +33,15 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
                 </div>
                 <div className='flex flex-col w-full mt-10 gap-1'>
                     <label className='text-xl text-white'>Email Address</label>
-                    <input className='border-[1px] border-black indent-1 rounded-md py-4' type='email' />
+                    <input className='border-[1px] border-black indent-1 rounded-md py-4' type='email'
+                        value = {email} onChange = {(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className='flex flex-col gap-1 mt-5'>
                     <label className='text-xl text-white'>Password</label>
-                    <input className='border-[1px] border-black indent-1 rounded-md py-4' type='password' />
+                    <input className='border-[1px] border-black indent-1 rounded-md py-4' type='password'
+                      value = {password} onChange = {(e) => setPassword(e.target.value)}
+                    />
                 </div>
                 <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'>LOGIN</button>
             </form>
