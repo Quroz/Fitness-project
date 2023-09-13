@@ -11,9 +11,9 @@ const createToken = (_id) => {
 
 const login = async (req,res) => {
     
-    const {firstName, lastName, email, password} = req.body
+    const {email, password} = req.body
 
-    if(!email || !password || !firstName || !lastName){
+    if(!email || !password){
         return res.status(404).json({Error: "Both fields must be filled"})
     }
 
@@ -37,9 +37,9 @@ const login = async (req,res) => {
 
 const signup = async (req,res) => {
     
-    const {firstName, lastName, email, password} = req.body
+    const {email, password} = req.body
 
-    if(!email || !password || !firstName || !lastName){
+    if(!email || !password){
         return res.status(404).json({Error: "Both fields must be filled"})
     }
 

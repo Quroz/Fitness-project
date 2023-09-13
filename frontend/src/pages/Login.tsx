@@ -1,10 +1,27 @@
-import * as React from 'react';
+import React, {useState} from "react"
 import {Link} from "react-router-dom"
+import {useAccount} from "../hooks/useAccount"
 
 export interface IAppProps {
+    login: Function,
+    loginError: String,
+    signup: Function,
+    signupError: String,
+    logout: Function,
 }
 
 export default function Login (props: IAppProps) {
+
+
+const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  async function clickHandler(){
+    await login(email,password)
+  }
+
   return (
     <div className='w-full h-screen'>
         <div className='w-full m-auto my-20 flex h-full'>
