@@ -3,10 +3,15 @@ const mongoose = require("mongoose")
 const cors = require("cors")
 require('dotenv').config()
 
+const userAuthentication = require("./routes/userRoutes")
+
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+
+app.use("/api/user", userAuthentication)
 
 
 mongoose.connect(process.env.DATABASE, {
