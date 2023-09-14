@@ -11,7 +11,7 @@ function App() {
   return (
 		<div>
 			<NavbarView />
-
+      
 			<BrowserRouter>
 				<Routes>
 					<Route path="/login" element={<Login />} />
