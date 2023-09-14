@@ -43,7 +43,9 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
                       value = {password} onChange = {(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'>LOGIN</button>
+                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
+                onClick = {clickHandler}
+                >LOGIN</button>
             </form>
             <div className='w-full h-full flex-1 bg-red-500'>
                 <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
