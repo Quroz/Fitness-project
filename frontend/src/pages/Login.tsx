@@ -13,7 +13,7 @@ export interface IAppProps {
 export default function Login (props: IAppProps) {
 
 
-const {login, loginError} = useAccount({})
+   const {login, loginError ,signup ,signupError ,logout} = useAccount(props)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -25,7 +25,7 @@ const {login, loginError} = useAccount({})
   return (
     <div className='w-full h-screen'>
         <div className='w-full m-auto my-20 flex h-full'>
-            <form className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
+            <div className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
                 <h1 className='text-4xl font-bold text-white'>Login</h1>
                 <div className='flex gap-2 mt-2'>
                     <p className='text-md text-gray-100'>Don't have an account yet?</p>
@@ -47,7 +47,7 @@ const {login, loginError} = useAccount({})
                 <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
                 onClick = {clickHandler}
                 >LOGIN</button>
-            </form>
+            </div>
             <div className='w-full h-full flex-1 bg-red-500'>
                 <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
             </div>

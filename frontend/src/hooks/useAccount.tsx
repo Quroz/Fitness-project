@@ -10,48 +10,55 @@ export function useAccount(props: IAppProps) {
 
   async function login(email: String,password: String){
 
+
     setLoginError(null)
 
-    const response = await fetch("http://localhost:4000/api/user/login", {
-        method: "POST",
-        body: JSON.stringify({email,password}),
-        headers: {"Content-Type": "application/json"}
-    })
+    const response = await fetch('http://localhost:4000/api/user/login/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({email,password})
+  })
+
     const data = await response.json()
 
     if(response.status !== 200){
+        alert(data.Error)
         setLoginError(data.Error)
         console.log(data.Error)
     }
     else{
+        localStorage.setItem("userFittness", JSON.stringify(data))
         alert("Succed")
-        localStorage.setItem("User", JSON.stringify(data))
-        window.location.reload()
     }
   }
 
   async function signup(email: String,password: String){
         setSignupError(null)
 
-        const response = await fetch("http://localhost:4000/api/user/signup", {
+        const response = await fetch('http://localhost:4000/api/user/login/', {
           method: "POST",
-          body: JSON.stringify({email,password}),
-          headers: {"Content-Type": "application/json"}
-        })
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({email,password})
+      })
        const data = await response.json()
 
        if(response.status !== 200){
+          alert(data.Error)
           setSignupError(data.Error)
           console.log(data.Error)
         }
       else{
-          localStorage.setItem("User", JSON.stringify(data))
+          localStorage.setItem("userFittness", JSON.stringify(data))
           window.location.reload()
       }
   }
 
   function logout(){
-    localStorage.removeItem("User")
+    localStorage.removeItem("userFittness")
   }
 
 
