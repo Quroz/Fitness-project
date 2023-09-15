@@ -3,6 +3,10 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import WorkoutPlan from "./pages/WorkoutPlan";
 
+const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
+
+console.log("loggedIn", loggedUser)
+
 
 function App() {
   return (
@@ -18,6 +22,7 @@ function App() {
               </Routes>
             </div>
           </div>
+
       </BrowserRouter>
     </div>
   );
