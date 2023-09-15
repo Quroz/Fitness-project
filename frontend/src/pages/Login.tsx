@@ -13,7 +13,7 @@ export interface IAppProps {
 export default function Login (props: IAppProps) {
 
 
-const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+const {login, loginError} = useAccount({})
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -43,7 +43,10 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
                       value = {password} onChange = {(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'>LOGIN</button>
+                {loginError && <p className='text-red-500 text-center mt-5 text-md'>{loginError}</p>}
+                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
+                onClick = {clickHandler}
+                >LOGIN</button>
             </form>
             <div className='w-full h-full flex-1 bg-red-500'>
                 <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
