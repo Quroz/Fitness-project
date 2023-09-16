@@ -17,9 +17,18 @@ import StartPage from "./pages/StartPage";
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
+
+
+  const pathname = window.location.pathname;
+
 	return (
 		<div>
 			<BrowserRouter>
+
+            {loggedIn && (pathname == "/login" || pathname == "/" || pathname == "/signup" ) &&
+            <Navigate to = "/dashboard"/>
+            }
+
             {!loggedIn && 
               <Routes>
                 <Route path="/" element={<StartPage/>} />
@@ -27,14 +36,16 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
               </Routes>
             }
+
             {loggedIn && 
                 <div className="flex">
                   <NavbarView />
                   <div className="flex-1">
                     <Routes>
                         {/*The same order of the navbar icons drawn in my sketch-Rakin */}
-                      
-                        <Route path="/dashboard" element={<Dashboard />} />
+
+                          
+                        <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to ="/login"/>}/>
                         <Route path="/workoutplan" element={<Workout />} />
                         <Route path="/progress" element={<Progress />} />
                         <Route path="/explore" element={<Explore />} />

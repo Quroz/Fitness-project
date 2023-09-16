@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAccount } from "../hooks/useAccount";
 
 export interface IAppProps {}
@@ -12,11 +12,15 @@ export default function Signup(props: IAppProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   async function clickHandler() {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
     } else {
       await signup(email, password);
+      navigate("/dashboard");
+      window.location.reload();
     }
   }
 

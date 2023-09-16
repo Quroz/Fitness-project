@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {useAccount} from "../hooks/useAccount"
 
 export interface IAppProps {
@@ -12,14 +12,18 @@ export interface IAppProps {
 
 export default function Login (props: IAppProps) {
 
+  const navigate = useNavigate();
 
-const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+
+  const {login, loginError ,signup ,signupError ,logout} = useAccount({})
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   async function clickHandler(){
     await login(email,password)
+    navigate("/dashboard");
+    window.location.reload();
   }
 
   return (
