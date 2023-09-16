@@ -10,11 +10,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Import icons and images
-import DashboardIcon from "../Assets/Navbar/dashboard.png";
-import WorkoutPlanIcon from "../Assets/Navbar/workout.png";
-import ProgressionIcon from "../Assets/Navbar/progress.png";
-import ExploreIcon from "../Assets/Navbar/explore.png";
-import SettingsIcon from "../Assets/Navbar/settings.png";
+
+import DashboardIcon from "../assets/Navbar/dashboard.png";
+import WorkoutPlanIcon from "../assets/Navbar/workout.png";
+import ProgressionIcon from "../assets/Navbar/progress.png";
+import ExploreIcon from "../assets/Navbar/explore.png";
 
 /* REGARDING THE STYLING OF THE NAVBAR:
 ______________________________________

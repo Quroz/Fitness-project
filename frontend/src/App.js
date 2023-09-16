@@ -9,7 +9,7 @@ import Signup from "./pages/SignupView";
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Progress from "./pages/Progress";
-import Workoutplan from "./pages/Workoutplan";
+import Workoutplan from "./pages/WorkoutPlan";
 import Explore from "./pages/Explore";
 import Settings from "./pages/Settings";
 
