@@ -1,9 +1,9 @@
 // Imported libraries and components
-import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-// Imported log in and sign up pages 
-import Login from "./pages/Login"
-import Signup from "./pages/SignupView"
+// Imported log in and sign up pages
+import Login from "./pages/Login";
+import Signup from "./pages/SignupView";
 
 /*Import all the view pages */
 import NavbarView from "./components/Navbar";
@@ -16,7 +16,7 @@ import Settings from "./pages/Settings";
 // create model
 
 function App() {
-  return (
+	return (
 		<div>
 			<BrowserRouter>
 				<div className="flex">
@@ -26,7 +26,7 @@ function App() {
 							<Route path="/login" element={<Login />} />
 							<Route path="/signup" element={<Signup />} />
 
-							{/*The same order of the navbar icons */}
+							{/*The same order of the navbar icons drawn in my sketch-Rakin */}
 							<Route path="/dashboard" element={<Dashboard />} />
 							<Route path="/workoutplan" element={<Workoutplan />} />
 							<Route path="/progress" element={<Progress />} />

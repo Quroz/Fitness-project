@@ -37,13 +37,13 @@ function NavbarView() {
 					<img src={DashboardIcon} alt="Dashboard Icon" />
 				</Link>
 				<Link to="/workoutplan">
-					<img src={WorkoutPlanIcon} alt="Workout Plan Icon" className="my-4" />
+					<img src={WorkoutPlanIcon} alt="Workout Plan Icon" className="my-2" />
 				</Link>
 				<Link to="/progress">
-					<img src={ProgressionIcon} alt="Progression Icon" className="my-4" />
+					<img src={ProgressionIcon} alt="Progression Icon" className="my-2" />
 				</Link>
 				<Link to="/explore">
-					<img src={ExploreIcon} alt="Explore Icon" className="my-4" />
+					<img src={ExploreIcon} alt="Explore Icon" className="my-2" />
 				</Link>
 			</nav>
 		</div>
