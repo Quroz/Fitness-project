@@ -24,14 +24,14 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
 
   return (
     <div className='w-full h-screen'>
-        <div className='w-full m-auto my-20 flex h-full'>
+        <div className='flex w-full h-full m-auto my-20'>
             <form className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
                 <h1 className='text-4xl font-bold text-white'>Login</h1>
                 <div className='flex gap-2 mt-2'>
-                    <p className='text-md text-gray-100'>Don't have an account yet?</p>
-                    <Link to = "/signup"><p className='font-bold underline hover:text-green-200 text-gray-100'>Sign up</p></Link>
+                    <p className='text-gray-100 text-md'>Don't have an account yet?</p>
+                    <Link to = "/signup"><p className='font-bold text-gray-100 underline hover:text-green-200'>Sign up</p></Link>
                 </div>
-                <div className='flex flex-col w-full mt-10 gap-1'>
+                <div className='flex flex-col w-full gap-1 mt-10'>
                     <label className='text-xl text-white'>Email Address</label>
                     <input className='border-[1px] border-black indent-1 rounded-md py-4' type='email'
                         value = {email} onChange = {(e) => setEmail(e.target.value)}
@@ -43,10 +43,10 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
                       value = {password} onChange = {(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'>LOGIN</button>
+                <button className='p-4 mt-12 text-xl text-center text-white bg-green-400 rounded-md hover:bg-green-300'>LOGIN</button>
             </form>
-            <div className='w-full h-full flex-1 bg-red-500'>
-                <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
+            <div className='flex-1 w-full h-full bg-red-500'>
+                <img className='object-cover w-full h-full' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
             </div>
         </div>
     </div>
