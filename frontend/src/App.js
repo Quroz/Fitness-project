@@ -3,7 +3,8 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 
 import StartPage from "./pages/StartPage"
-import WorkoutPlan from "./pages/WorkoutPlan";
+import Home from "./pages/Home"
+
 
 
 const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
@@ -13,17 +14,12 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-          <div className="flex">
-            <div className="h-screen w-48 bg-red-500"/>
-            <div className="flex-1">
               <Routes>
                   <Route path = "/" element = {loggedUser ? <StartPage/> : <Navigate to = "/login"/>}/>
                   <Route path = "/login" element = {<Login/>}/>
                   <Route path = "/signup" element =  {<Signup/>}/>
-                  <Route path = "/workoutplan" element = {<WorkoutPlan/>}/>
+                  <Route path = "/home" element = {<Home/>}/>
               </Routes>
-            </div>
-          </div>
         </BrowserRouter>
     </div>
   );
