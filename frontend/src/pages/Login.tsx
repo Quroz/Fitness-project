@@ -49,10 +49,7 @@ export default function Login (props: IAppProps) {
                 onClick = {clickHandler}
                 >LOGIN</button>
             </div>
-                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
-                onClick = {clickHandler}
-                >LOGIN</button>
-            <div className='w-full h-full flex-1 bg-red-500'>
+            <div className='w-full h-full flex-1'>
                 <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
             </div>
         </div>

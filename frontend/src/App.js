@@ -13,12 +13,12 @@ const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
 function App() {
   return (
     <div>
-      <BrowserRouter>
+        <BrowserRouter>
               <Routes>
-                  <Route path = "/" element = {loggedUser ? <StartPage/> : <Navigate to = "/login"/>}/>
-                  <Route path = "/login" element = {<Login/>}/>
-                  <Route path = "/signup" element =  {<Signup/>}/>
-                  <Route path = "/home" element = {<Home/>}/>
+                  <Route path = "/" element = {<StartPage/>}/>
+                  <Route path = "/login" element = {loggedUser ? <Home/> : <Navigate to = "/login"/>}/>
+                  <Route path = "/signup" element =  {loggedUser ? <Home/> : <Navigate to = "/signup"/>}/>
+                  <Route path = "/home" element = {loggedUser ? <Home/> : <Navigate to = "/login"/>}/>
               </Routes>
         </BrowserRouter>
     </div>
