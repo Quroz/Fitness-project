@@ -24,7 +24,7 @@ const {login, loginError ,signup ,signupError ,logout} = useAccount({})
 
   return (
     <div className='w-full h-screen'>
-        <div className='flex w-full h-full m-auto my-20'>
+        <div className='flex w-full h-full'>
             <div className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
                 <h1 className='text-4xl font-bold text-white'>Login</h1>
                 <div className='flex gap-2 mt-2'>
