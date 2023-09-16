@@ -1,28 +1,42 @@
-import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
-import Login from "./pages/Login"
-import Signup from "./pages/Signup"
+// Imported libraries and components
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-import StartPage from "./pages/StartPage"
-import Home from "./pages/Home"
+// Imported log in and sign up pages
+import Login from "./pages/Login";
+import Signup from "./pages/SignupView";
 
+/*Import all the view pages */
+import NavbarView from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Progress from "./pages/Progress";
+import Explore from "./pages/Explore";
+import Settings from "./pages/Settings";
 
-
-const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
-
+// create model
 
 function App() {
-  return (
-    <div>
-        <BrowserRouter>
-              <Routes>
-                  <Route path = "/" element = {<StartPage/>}/>
-                  <Route path = "/login" element = {loggedUser ? <Home/> : <Navigate to = "/login"/>}/>
-                  <Route path = "/signup" element =  {loggedUser ? <Home/> : <Navigate to = "/signup"/>}/>
-                  <Route path = "/home" element = {loggedUser ? <Home/> : <Navigate to = "/login"/>}/>
-              </Routes>
-        </BrowserRouter>
-    </div>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				<div className="flex">
+					<NavbarView />
+					<div className="flex-1">
+						<Routes>
+							<Route path="/login" element={<Login />} />
+							<Route path="/signup" element={<Signup />} />
+
+							{/*The same order of the navbar icons drawn in my sketch-Rakin */}
+							<Route path="/dashboard" element={<Dashboard />} />
+							<Route path="/workoutplan" element={<Workoutplan />} />
+							<Route path="/progress" element={<Progress />} />
+							<Route path="/explore" element={<Explore />} />
+							<Route path="/settings" element={<Settings />} />
+						</Routes>
+					</div>
+				</div>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;
