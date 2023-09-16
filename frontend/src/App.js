@@ -9,7 +9,7 @@ import Signup from "./pages/SignupView";
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Progress from "./pages/Progress";
-import Workoutplan from "./pages/WorkoutPlan";
+import WorkoutPlan from "./pages/Workout";
 import Explore from "./pages/Explore";
 import Settings from "./pages/Settings";
 
@@ -28,7 +28,7 @@ function App() {
 
 							{/*The same order of the navbar icons drawn in my sketch-Rakin */}
 							<Route path="/dashboard" element={<Dashboard />} />
-							<Route path="/workoutplan" element={<Workoutplan />} />
+							<Route path="/workoutplan" element={<WorkoutPlan />} />
 							<Route path="/progress" element={<Progress />} />
 							<Route path="/explore" element={<Explore />} />
 							<Route path="/settings" element={<Settings />} />
