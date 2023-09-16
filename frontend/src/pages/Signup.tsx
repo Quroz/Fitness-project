@@ -1,4 +1,7 @@
+
 import React, {useState} from "react"
+
+
 import {Link} from "react-router-dom"
 import {useAccount} from "../hooks/useAccount"
 
@@ -6,6 +9,7 @@ export interface IAppProps {
 }
 
 export default function Signup (props: IAppProps) {
+
 
     const {login, loginError ,signup ,signupError ,logout} = useAccount(props)
 
@@ -25,6 +29,21 @@ export default function Signup (props: IAppProps) {
     }
 
     
+  const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+
+
+
+  async function submitHandler(){
+
+     if(password === confirmPassword){
+      await signup(email,password)
+     }
+     else{
+      setError("Passwords do not match");
+     }
+ 
+  }
+
 
   return (
     <div className='w-full h-screen'>
@@ -38,13 +57,18 @@ export default function Signup (props: IAppProps) {
                 <div className='flex flex-col w-full mt-10 gap-1'>
                     <label className='text-xl text-white'>Email Address</label>
                     <input className='border-[1px] border-black indent-1 rounded-md py-4' type='email'
-                    value={email} onChange={(e) => setEmail(e.target.value)}
+
+
+                    value={email} onChange = {(e) => setEmail(e.target.value)}
+
                     />
                 </div>
                 <div className='flex flex-col gap-1 mt-5'>
                     <label className='text-xl text-white'>Password</label>
+
                     <input className='border-[1px] border-black indent-1 rounded-md py-4' type='password'
                     value={password} onChange={(e) => setPassword(e.target.value)}
+
                     />
                 </div>
                 <div className='flex flex-col gap-1 mt-5'>
@@ -59,6 +83,16 @@ export default function Signup (props: IAppProps) {
                 onClick={clickHandler}
                 >SIGNUP</button>
             </div>
+
+                    <input className='border-[1px] border-black indent-1 rounded-md py-4' type='password' 
+                    value={confirmPassword} onChange = {(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+                <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
+                onClick = {submitHandler}
+                >SIGNUP</button>
+            </form>
+
             <div className='w-full h-full flex-1 bg-red-500'>
                 <img className='w-full h-full object-cover' src = "https://i0.wp.com/www.strengthlog.com/wp-content/uploads/2022/11/Strength-training-programs.jpg?fit=1988%2C1327&ssl=1"/>
             </div>
