@@ -36,7 +36,7 @@ export function useAccount(props: IAppProps) {
   async function signup(email: String,password: String){
         setSignupError(null)
 
-        const response = await fetch('http://localhost:4000/api/user/login/', {
+        const response = await fetch('http://localhost:4000/api/user/signup/', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
