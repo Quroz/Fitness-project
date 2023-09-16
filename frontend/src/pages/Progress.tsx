@@ -2,7 +2,9 @@ import React from 'react'
 
 function Progress() {
   return (
-    <div>This is the progress view</div>
+    <div>
+      This is the progress view
+      </div>
   );
 }
 

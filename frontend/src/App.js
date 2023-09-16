@@ -2,14 +2,14 @@
 import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 
 // Imported log in and sign up pages 
-import Login from "./pages/LoginView"
+import Login from "./pages/Login"
 import Signup from "./pages/SignupView"
 
 /*Import all the view pages */
-import NavbarView from "./components/NavbarView";
-import Dashboard from "./pages/DashboardView";
-import Progress from "./pages/ProgressView";
-import Workoutplan from "./pages/WorkoutplanView";
+import NavbarView from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Progress from "./pages/Progress";
+import Workoutplan from "./pages/Workoutplan";
 import Explore from "./pages/Explore";
 import Settings from "./pages/Settings";
 

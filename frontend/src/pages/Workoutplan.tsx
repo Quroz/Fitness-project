@@ -2,7 +2,9 @@ import React from 'react'
 
 function Workoutplan() {
   return (
-    <div>Workoutplan</div>
+    <div>Workoutplan
+      <h2>Filip: detta var din sida</h2>
+    </div>
   )
 }
 
