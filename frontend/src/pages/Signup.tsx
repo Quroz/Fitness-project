@@ -28,7 +28,7 @@ export default function Signup (props: IAppProps) {
 
   return (
     <div className='w-full h-screen'>
-        <div className='w-full m-auto my-20 flex h-full'>
+        <div className='w-full m-auto flex h-full'>
             <div className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
                 <h1 className='text-4xl font-bold text-white'>Signup</h1>
                 <div className='flex gap-2 mt-2'>
@@ -53,8 +53,8 @@ export default function Signup (props: IAppProps) {
                     value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
-                {signupError && <p className='text-red-500 text-center mt-5 text-md'>{signupError}</p>}
-                {error && <p className='text-red-500 text-center mt-5 text-md'>{error}</p>}
+                {signupError && <p className='text-red-500 mt-1 text-md'>{signupError}</p>}
+                {error && <p className='text-red-500 mt-1 text-md'>{error}</p>}
                 <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
                 onClick={clickHandler}
                 >SIGNUP</button>

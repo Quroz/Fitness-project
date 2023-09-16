@@ -24,7 +24,7 @@ export default function Login (props: IAppProps) {
 
   return (
     <div className='w-full h-screen'>
-        <div className='w-full m-auto my-20 flex h-full'>
+        <div className='w-full m-auto flex h-full'>
             <div className='w-[40%] bg-black h-full flex flex-col px-4 py-16'>
                 <h1 className='text-4xl font-bold text-white'>Login</h1>
                 <div className='flex gap-2 mt-2'>
@@ -43,7 +43,7 @@ export default function Login (props: IAppProps) {
                       value = {password} onChange = {(e) => setPassword(e.target.value)}
                     />
                 </div>
-                {loginError && <p className='text-red-500 text-center mt-5 text-md'>{loginError}</p>}
+                {loginError && <p className='text-red-500 mt-1 text-md'>{loginError}</p>}
                 <button className='text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl'
                 onClick = {clickHandler}
                 >LOGIN</button>
