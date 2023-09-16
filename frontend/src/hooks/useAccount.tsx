@@ -24,7 +24,6 @@ export function useAccount(props: IAppProps) {
     const data = await response.json()
 
     if(response.status !== 200){
-        alert(data.Error)
         setLoginError(data.Error)
         console.log(data.Error)
     }
@@ -47,7 +46,6 @@ export function useAccount(props: IAppProps) {
        const data = await response.json()
 
        if(response.status !== 200){
-          alert(data.Error)
           setSignupError(data.Error)
           console.log(data.Error)
         }

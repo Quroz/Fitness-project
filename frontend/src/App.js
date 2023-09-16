@@ -1,11 +1,12 @@
 import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+
+import StartPage from "./pages/StartPage"
 import WorkoutPlan from "./pages/WorkoutPlan";
 
-const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
 
-console.log("loggedIn", loggedUser)
+const loggedUser = JSON.parse(localStorage.getItem("userFittness"))
 
 
 function App() {
@@ -16,14 +17,14 @@ function App() {
             <div className="h-screen w-48 bg-red-500"/>
             <div className="flex-1">
               <Routes>
+                  <Route path = "/" element = {loggedUser ? <StartPage/> : <Navigate to = "/login"/>}/>
                   <Route path = "/login" element = {<Login/>}/>
                   <Route path = "/signup" element =  {<Signup/>}/>
                   <Route path = "/workoutplan" element = {<WorkoutPlan/>}/>
               </Routes>
             </div>
           </div>
-
-      </BrowserRouter>
+        </BrowserRouter>
     </div>
   );
 }
