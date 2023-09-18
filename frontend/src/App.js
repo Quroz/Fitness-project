@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 // Imported log in and sign up pages
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
-import React, {useEffect} from 'react'
 /*Import all the view pages */
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -19,29 +18,6 @@ import Workouts from "./pages/Workouts";
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
-
-  useEffect(() => {
-    
-    async function test(){
-          const url = 'https://exercisedb.p.rapidapi.com/exercises/bodyPartList';
-          const options = {
-            method: 'GET',
-            headers: {
-              'X-RapidAPI-Key': '083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2',
-              'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-            }
-          };
-
-          try {
-            const response = await fetch(url, options);
-            const result = await response.text();
-            console.log(result);
-          } catch (error) {
-            console.error(error);
-          }
-}
- test();
-  },[])
 
 
   const pathname = window.location.pathname;

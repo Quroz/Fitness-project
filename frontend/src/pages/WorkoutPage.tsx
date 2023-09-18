@@ -64,7 +64,7 @@ const WorkoutPage = (props: Props) => {
                  
             </div>
             <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[30%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
-                <AddWorkout setAddWorkout = {setAddWorkout}/>
+                {/*<AddWorkout setAddWorkout = {setAddWorkout}/>*/}
             </div>
     </div>
   )
