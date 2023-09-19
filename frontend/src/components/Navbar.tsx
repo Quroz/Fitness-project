@@ -31,7 +31,7 @@ First div --> flexbox with column direction
 
 function NavbarView() {
 	return (
-		<div className="flex flex-col w-20 min-h-screen bg-lime-300 ">
+		<div className="flex flex-col w-20 fixed h-screen bg-lime-300 ">
 			<nav className="flex-col">
 				<Link to="/dashboard">
 					<img src={DashboardIcon} alt="Dashboard Icon" />
