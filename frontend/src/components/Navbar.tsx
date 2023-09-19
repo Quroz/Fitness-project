@@ -33,12 +33,13 @@ function NavbarView({}: Props) {
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore'
 	/*If link is pressed, the icon is to have a darker background */
 	return (
-		<div className="flex flex-col h-screen bg-gray-200 w-11 ">
-			<nav className="flex-col object-center mt-20 mr-2">
-				<div className="space-y-4">
+		<div className="flex flex-col h-screen bg-zinc-100 w-11 ">
+			<nav className="flex flex-col justify-between object-center h-screen mt-20 mr-2 ">
+				{/*This is the 4 icons */}
+				<div className="flex flex-col space-y-4">
 					<div
 						className={`${
-							thisPage === "dashboard" ? "bg-green-100	" : "bg-transparent"
+							thisPage === "dashboard" ? "bg-green-100 border border-black	" : "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("dashboard")}
 					>
@@ -48,7 +49,9 @@ function NavbarView({}: Props) {
 					</div>
 					<div
 						className={`${
-							thisPage === "workoutplan" ? "bg-green-100	" : "bg-transparent"
+							thisPage === "workoutplan"
+								? "bg-green-100 border border-black "
+								: "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("workoutplan")}
 					>
@@ -60,9 +63,10 @@ function NavbarView({}: Props) {
 							/>
 						</Link>
 					</div>
+
 					<div
 						className={`${
-							thisPage === "progress" ? "bg-green-100" : "bg-transparent"
+							thisPage === "progress" ? "bg-green-100 border border-black" : "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("progress")}
 					>
@@ -76,7 +80,7 @@ function NavbarView({}: Props) {
 					</div>
 					<div
 						className={`${
-							thisPage === "explore" ? "bg-green-100" : "bg-transparent"
+							thisPage === "explore" ? "bg-green-100 border border-black" : "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("explore")}
 					>
@@ -85,6 +89,7 @@ function NavbarView({}: Props) {
 						</Link>
 					</div>
 				</div>
+				<div>Logout</div>
 			</nav>
 		</div>
 	);
