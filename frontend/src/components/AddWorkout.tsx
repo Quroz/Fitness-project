@@ -13,6 +13,8 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
 
   const bodyParts = Array.from(new Set(data.map((item: any) => item.bodyPart)));
   const workoutName = Array.from(new Set(data.map((item: any) => item.name)));
+  const target = Array.from(new Set(data.map((item: any) => item.target)));
+  const equipment = Array.from(new Set(data.map((item: any) => item.equipment)));
 
   return (
 
@@ -26,7 +28,7 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
         <div className='flex flex-col flex-1 gap-4 p-4 bg-gray-100 rounded-b-md'>
              <div className='flex flex-col gap-4'>
                 <div className='flex flex-col gap-4'>
-                  <label className='text-lg'>Name of the workout plan</label>
+                  <label className='text-lg'>Name of the workout</label>
                   <select id="workoutName" name="workoutName">
                    {workoutName?.map((item: any) => (
                     <>
@@ -43,6 +45,26 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
                     </>
                    ))}
                 </select>
+                <label className='text-lg'>Muscle target</label>
+                 <select id="bodypart" name="bodypart">
+                   {target?.map((item: any) => (
+                    <>
+                    <option>{item}</option>
+                    </>
+                   ))}
+                </select>
+                <label className='text-lg'>Equipment</label>
+                 <select id="bodypart" name="bodypart">
+                   {equipment?.map((item: any) => (
+                    <>
+                    <option>{item}</option>
+                    </>
+                   ))}
+                </select>
+                <label className='text-lg'>Amount of sets</label>
+                <input type="number" id="sets" name="sets" min="1" max="100" />
+                <label className='text-lg'>Amount of reps</label>
+                <input type="number" id="sets" name="sets" min="1" max="100" />
             </div>
             <button className='px-2 py-2 mt-8 text-sm font-bold text-white rounded-md bg-lime-300 hover:bg-lime-200'>Add</button>
         </div>
