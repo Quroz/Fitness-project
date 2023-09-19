@@ -10,11 +10,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Import icons and images
-
 import DashboardIcon from "../assets/Navbar/dashboard.png";
 import WorkoutPlanIcon from "../assets/Navbar/workout.png";
 import ProgressionIcon from "../assets/Navbar/progress.png";
 import ExploreIcon from "../assets/Navbar/explore.png";
+import SettingsIcon from "../assets/Navbar/settings.png";
+import LogoutIcon from "../assets/Navbar/logout.png";
 
 /* REGARDING THE STYLING OF THE NAVBAR:
 ______________________________________
@@ -30,16 +31,18 @@ First div --> flexbox with column direction
 type Props = {};
 
 function NavbarView({}: Props) {
-	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore'
+	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
 	return (
-		<div className="flex flex-col h-screen bg-zinc-100 w-11 ">
-			<nav className="flex flex-col justify-between object-center h-screen mt-20 mr-2 ">
+		<div className="flex flex-col h-screen bg-zinc-100 w-11">
+			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20 mr-2 ">
 				{/*This is the 4 icons */}
 				<div className="flex flex-col space-y-4">
 					<div
 						className={`${
-							thisPage === "dashboard" ? "bg-green-100 border border-black	" : "bg-transparent"
+							thisPage === "dashboard"
+								? "bg-green-100 border border-black	"
+								: "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("dashboard")}
 					>
@@ -66,7 +69,9 @@ function NavbarView({}: Props) {
 
 					<div
 						className={`${
-							thisPage === "progress" ? "bg-green-100 border border-black" : "bg-transparent"
+							thisPage === "progress"
+								? "bg-green-100 border border-black"
+								: "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("progress")}
 					>
@@ -80,7 +85,9 @@ function NavbarView({}: Props) {
 					</div>
 					<div
 						className={`${
-							thisPage === "explore" ? "bg-green-100 border border-black" : "bg-transparent"
+							thisPage === "explore"
+								? "bg-green-100 border border-black"
+								: "bg-transparent"
 						} transform transition-transform hover:scale-105`}
 						onClick={() => setThisPage("explore")}
 					>
@@ -89,7 +96,19 @@ function NavbarView({}: Props) {
 						</Link>
 					</div>
 				</div>
-				<div>Logout</div>
+				{/*This is the logout button and settings*/}
+				<div className="flex flex-col space-y-4">
+					<div onClick={() => console.log("Log out!!")}>
+						<div>
+							<img src={LogoutIcon} alt="Logout Icon" />
+						</div>
+					</div>
+					<div>
+						<Link to="/settings">
+							<img src={SettingsIcon} alt="Settings Icon" />
+						</Link>
+					</div>
+				</div>
 			</nav>
 		</div>
 	);

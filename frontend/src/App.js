@@ -53,6 +53,7 @@ function App() {
                         <Route path="/pageitem" element={<PageItem />} />
                         <Route path="/workoutplan" element={<WorkoutPage />} />
                         <Route path="/test" element={<Workouts />} />
+                        <Route path="/settings" element={<Settings />} />
                     </Routes>
                   </div>
                 </div>
