@@ -23,7 +23,7 @@ const WorkoutPage = (props: Props) => {
                      >My workouts</button>
                  </div>
                  {myWorkouts && 
-                        <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/70 rounded-md'>
+                        <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
                             <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100'>
                                 <h1 className='font-[700]'>Dag 1</h1>
                                 <h1 className='font-[700]'>Lower Body</h1>
@@ -64,7 +64,7 @@ const WorkoutPage = (props: Props) => {
                  
             </div>
             <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[30%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
-                <AddWorkout setAddWorkout = {setAddWorkout}/>
+                {/*<AddWorkout setAddWorkout = {setAddWorkout}/>*/}
             </div>
     </div>
   )

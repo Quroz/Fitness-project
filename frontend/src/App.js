@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 // Imported log in and sign up pages
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
-
 /*Import all the view pages */
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -13,9 +12,9 @@ import Workout from "./pages/Workout";
 import Explore from "./pages/Explore";
 import Settings from "./pages/Settings";
 import StartPage from "./pages/StartPage";
-import PageItem from "./pages/PageItem";
+import PageItem from "./pages/Workouts";
 import WorkoutPage from "./pages/WorkoutPage";
-
+import Workouts from "./pages/Workouts";
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
@@ -48,12 +47,12 @@ function App() {
 
                           
                         <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to ="/login"/>}/>
-                        <Route path="/workoutplan" element={<Workout />} />
                         <Route path="/progress" element={<Progress />} />
                         <Route path="/explore" element={<Explore />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/pageitem" element={<PageItem />} />
-                        <Route path="/workoutPage" element={<WorkoutPage />} />
+                        <Route path="/workoutplan" element={<WorkoutPage />} />
+                        <Route path="/test" element={<Workouts />} />
                     </Routes>
                   </div>
                 </div>
