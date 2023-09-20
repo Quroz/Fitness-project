@@ -4,6 +4,8 @@ const cors = require("cors")
 require('dotenv').config()
 
 const userAuthentication = require("./routes/userRoutes")
+const workoutRoutes = require("./routes/workoutRoutes")
+//const testRoutes = require("./routes/testPlanRoutes")
 
 
 const app = express()
@@ -12,6 +14,8 @@ app.use(express.json())
 
 
 app.use("/api/user", userAuthentication)
+//app.use("/api/plan", testRoutes)
+app.use("/api/workout", workoutRoutes)
 
 
 mongoose.connect(process.env.DATABASE, {

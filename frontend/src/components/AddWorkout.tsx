@@ -23,6 +23,44 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
   const [numberOfSets, setNumberOfSets] = useState(1);
   const [numberOfReps, setNumberOfReps] = useState(1);
 
+  console.log("selectedWorkoutName", selectedWorkoutName)
+  console.log("selectedBodyPart", selectedBodyPart)
+  console.log("selectedTarget", selectedTarget)
+  console.log("selectedEquipment", selectedEquipment)
+  console.log("numberOfSets", numberOfSets)
+  console.log("numberOfReps", numberOfReps)
+
+
+  const userJSON = localStorage.getItem("userFittness");
+  const user = userJSON ? JSON.parse(userJSON) : null;
+
+  async function addWorkoutHandler(){
+    const response = await fetch("http://localhost:4000/api/workout/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
+      },
+      body: JSON.stringify({
+        name: selectedWorkoutName,
+        bodyPart: selectedBodyPart,
+        muscleTarget: selectedTarget,
+        equipment: selectedEquipment,
+        sets: numberOfSets,
+        reps: numberOfReps,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (response.status === 200) {
+      alert('Added!');
+      window.location.reload()
+    } else {
+      console.log(data.Error);
+      alert('Fail');
+    }
+  }
+
   return (
     <div className='flex flex-col'>
       <div className='h-12 bg-lime-300 flex items-center justify-center rounded-t-md relative'>
@@ -100,7 +138,9 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
             onChange={(e) => setNumberOfReps(Number(e.target.value))}
           />
         </div>
-        <button className='px-2 py-2 bg-lime-300 text-white font-bold rounded-md mt-8 text-sm hover:bg-lime-200'>Add</button>
+        <button className='px-2 py-2 bg-lime-300 text-white font-bold rounded-md mt-8 text-sm hover:bg-lime-200'
+        onClick = {() => addWorkoutHandler()}
+        >Add</button>
       </div>
     </div>
   )
