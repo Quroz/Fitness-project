@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineClose } from "react-icons/ai";
+import { Audio } from 'react-loader-spinner' 
 
 type Props = {
   setAddWorkout: (addWorkout: boolean) => void;
   data: any;
   id: any;
+  loading: any;
 };
 
-const AddWorkout = ({ setAddWorkout, data, id }: Props) => {
+const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
   console.log("data", data)
 
@@ -73,7 +75,16 @@ const AddWorkout = ({ setAddWorkout, data, id }: Props) => {
         />
         <h1 className='text-2xl text-white'>Add Workout</h1>
       </div>
-      <div className='flex-1 bg-gray-100 rounded-b-md p-4 flex flex-col gap-4'>
+      <div className='flex-1 bg-gray-100 rounded-b-md p-4 flex flex-col gap-4 relative'>
+      {loading ? 
+          <Audio
+          height="80"
+          width="80"
+          wrapperClass='flex justify-center items-center'
+          color="green"
+          ariaLabel="loading"
+        />
+      : 
         <div className='flex flex-col gap-4'>
           <div className='flex flex-col gap-4'>
             <label className='text-lg'>Name of the workout</label>
@@ -142,10 +153,13 @@ const AddWorkout = ({ setAddWorkout, data, id }: Props) => {
             onChange={(e) => setNumberOfReps(Number(e.target.value))}
           />
         </div>
+      }
         <button className='px-2 py-2 bg-lime-300 text-white font-bold rounded-md mt-8 text-sm hover:bg-lime-200'
         onClick = {() => addWorkoutHandler()}
         >Add</button>
+      
       </div>
+            
     </div>
   )
 }

@@ -14,6 +14,7 @@ function ItemPage({}: Props) {
 
     const [data, setData] = useState([])
     const [workouts, setWorkouts] = useState([[]])
+    const [loading, setLoading] = useState(false)
 
     const userJSON = localStorage.getItem("userFittness");
     const user = userJSON ? JSON.parse(userJSON) : null;
@@ -44,6 +45,7 @@ function ItemPage({}: Props) {
 
     async function addWorkoutHandler(){
         setAddWorkout(true)
+        setLoading(true)
         const url = 'https://exercisedb.p.rapidapi.com/exercises';
               const options = {
                 method: 'GET',
@@ -58,6 +60,7 @@ function ItemPage({}: Props) {
                 const result = await response.json();
                 console.log(result);
                 setData(result)
+                setLoading(false)
               } catch (error) {
                 console.error(error);
               }
@@ -122,7 +125,7 @@ function ItemPage({}: Props) {
             </div>
              {addWorkout && 
                       <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[5%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
-                          <AddWorkout setAddWorkout={setAddWorkout} data={data} id = {dataJSON.id}/>
+                          <AddWorkout setAddWorkout={setAddWorkout} data={data} id = {dataJSON.id} loading = {loading}/>
                       </div>
              }
     </div>
