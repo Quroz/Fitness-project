@@ -12,6 +12,7 @@ type Props = {
 function ItemPage({}: Props) {
 
     const [data, setData] = useState([])
+    const [workouts, setWorkouts] = useState([[]])
 
     const userJSON = localStorage.getItem("userFittness");
     const user = userJSON ? JSON.parse(userJSON) : null;
@@ -34,6 +35,7 @@ function ItemPage({}: Props) {
         }),
       });
       const data = await response.json();
+      setWorkouts(data)
       console.log("test brä", data);
     }
    fetchWorkouts()
@@ -70,11 +72,31 @@ function ItemPage({}: Props) {
 
   return (
     <div className='w-full h-screen relative'>
-             <div className='absolute w-full h-full flex justify-center items-center'>
-                <button onClick = {() => addWorkoutHandler()}>Add</button>
-             </div>
+             <img src = "https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg" className='sticky object-cover w-full h-full'/>
+            <div className='top-0 left-0 absolute z-10 w-full h-full bg-black/40 p-8 flex-col gap-4 flex items-center pt-48'>
+                 <h1 className='text-white text-7xl font-bold'>My workout plan</h1>
+                 <h1 className='text-white text-xl'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>
+                 <div className='flex items-center mt-8 gap-48 w-full justify-center'>
+                     <button className='px-4 py-4 w-[250px] bg-orange-500 text-white font-bold rounded-md'
+                     onClick={() => addWorkoutHandler()}
+                     >Add workout</button>
+                 </div>
+                        <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
+                          {workouts.map((workout: any) => (
+                                <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100'>
+                                  <h1 className='font-[700]'>{workout.name}</h1>
+                                  <h1 className='font-[700]'>{workout.bodyPart}</h1>
+                                  <h1 className='font-[700]'>{workout.muscleTarget}</h1>
+                                  <h1 className='font-[700]'>{workout.equipment}</h1>
+                                  <h1 className='font-[700]'>{workout.sets}</h1>
+                                  <h1 className='font-[700]'>{workout.reps}</h1>
+                                </div>
+                          ))}
+                            
+                    </div> 
+            </div>
              {addWorkout && 
-                      <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[30%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
+                      <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[5%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
                           <AddWorkout setAddWorkout={setAddWorkout} data={data} id = {dataJSON.id}/>
                       </div>
              }
