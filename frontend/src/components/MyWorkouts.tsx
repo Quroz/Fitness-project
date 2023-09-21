@@ -46,7 +46,7 @@ const MyWorkouts = (props: Props) => {
                    <h1>2 Workouts</h1>
                    <h1>Sort by Workout Name: A-Z</h1>
                    <div className='flex items-center gap-2'>
-                    <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-gray-500' placeholder='Search'/>
+                    <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-gray-500' placeholder='Search workout by name'/>
                     <button className='bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200' onClick={() => setAddPlan(true)} >Add</button>
                    </div>
                 </div>

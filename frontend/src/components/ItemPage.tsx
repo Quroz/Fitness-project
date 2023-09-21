@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation } from "react-router-dom";
 import AddWorkout from "./AddWorkout"
+import { AiFillWindows, AiOutlineClose } from "react-icons/ai";
 
 type Props = {
     item: any;
@@ -63,6 +64,27 @@ function ItemPage({}: Props) {
     
       } 
 
+      async function deleteWorkoutHandler(name: any){
+        const response = await fetch("http://localhost:4000/api/workout/delete", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${user.token}`
+          },
+          body: JSON.stringify({
+            name: name,
+            plan_id: dataJSON.id
+          }),
+        });
+        
+        if(response.status !== 200){
+          alert("Could not delete workout")
+        }
+        else{
+          window.location.reload()
+        }
+      } 
+
     const [addWorkout, setAddWorkout] = useState(false)
     
 
@@ -77,13 +99,16 @@ function ItemPage({}: Props) {
                  <h1 className='text-white text-7xl font-bold'>My workout plan</h1>
                  <h1 className='text-white text-xl'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>
                  <div className='flex items-center mt-8 gap-48 w-full justify-center'>
-                     <button className='px-4 py-4 w-[250px] bg-orange-500 text-white font-bold rounded-md'
+                     <button className='px-4 py-4 w-[250px] bg-lime-300 text-white font-bold rounded-md hover:bg-lime-200'
                      onClick={() => addWorkoutHandler()}
                      >Add workout</button>
                  </div>
                         <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
                           {workouts.map((workout: any) => (
-                                <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100'>
+                                <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 relative'>
+                                  <AiOutlineClose className='top-2 right-2 absolute' onClick = {
+                                    () => deleteWorkoutHandler(workout.name)
+                                  }/>
                                   <h1 className='font-[700]'>{workout.name}</h1>
                                   <h1 className='font-[700]'>{workout.bodyPart}</h1>
                                   <h1 className='font-[700]'>{workout.muscleTarget}</h1>

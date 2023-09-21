@@ -63,11 +63,12 @@ async function addWorkout(req,res){
 
 
 async function deleteWorkout(req, res) {
-    const { id } = req.params;
-    const user_id = req.user._id;
+    const user_id = req.user._id
+    const {plan_id,name } = req.body
+
 
     try {
-        const removedWorkout = await WorkoutModel.findOneAndDelete({ _id: id, plan_id: user_id });
+        const removedWorkout = await WorkoutModel.findOneAndDelete({ user_id, plan_id,name });
         if (!removedWorkout) {
             return res.status(404).json({ Error: "Workout not found" });
         }
