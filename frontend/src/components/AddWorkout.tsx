@@ -4,9 +4,10 @@ import { AiOutlineClose } from "react-icons/ai";
 type Props = {
   setAddWorkout: (addWorkout: boolean) => void;
   data: any;
+  id: any;
 };
 
-const AddWorkout = ({ setAddWorkout, data }: Props) => {
+const AddWorkout = ({ setAddWorkout, data, id }: Props) => {
 
   console.log("data", data)
 
@@ -34,6 +35,8 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
   const userJSON = localStorage.getItem("userFittness");
   const user = userJSON ? JSON.parse(userJSON) : null;
 
+
+
   async function addWorkoutHandler(){
     const response = await fetch("http://localhost:4000/api/workout/add", {
       method: "POST",
@@ -48,6 +51,7 @@ const AddWorkout = ({ setAddWorkout, data }: Props) => {
         equipment: selectedEquipment,
         sets: numberOfSets,
         reps: numberOfReps,
+        plan_id: id
       }),
     });
     const data = await response.json();

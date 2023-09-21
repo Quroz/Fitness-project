@@ -10,38 +10,22 @@ const MyWorkouts = (props: Props) => {
 
   const [addWorkout, setAddWorkout] = useState(false)
   const [addPlan, setAddPlan] = useState(false)
-  const [data, setData] = useState([])
+ 
 
   const [myPlan, setMyPlan] = useState([])
   const navigate = useNavigate();
 
   console.log("myPlan", myPlan)
 
- { /*async function addWorkoutHandler(){
-    setAddWorkout(true)
-    const url = 'https://exercisedb.p.rapidapi.com/exercises';
-          const options = {
-            method: 'GET',
-            headers: {
-              'X-RapidAPI-Key': '083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2',
-              'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-            }
-          };
 
-          try {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            console.log(result);
-            setData(result)
-          } catch (error) {
-            console.error(error);
-          }
 
-  } */}
-
-  function test(item: any){
+  function itemPage(item: any){
     console.log("click")
-    navigate(`/ere?data=${encodeURIComponent(JSON.stringify(item))}`);
+    const idOnly = { id: item.id };
+    
+    const queryParam = encodeURIComponent(JSON.stringify(idOnly));
+
+    navigate(`/itemPage?data=${queryParam}`);
   }
 
   useEffect(() => {
@@ -69,7 +53,7 @@ const MyWorkouts = (props: Props) => {
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
                              {myPlan.map((item: any) => (
                                   <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:scale-105 duration-300 ease-in'
-                                  onClick = {() => test(item)}
+                                  onClick = {() => itemPage(item)}
                                   >
                                     <h1 className='font-[700]'>Day: {item.day}</h1>
                                     <h1 className='font-[700]'>Name: {item.name}</h1>

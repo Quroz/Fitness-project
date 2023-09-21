@@ -5,10 +5,14 @@ const WorkoutModel = require("../models/workoutTestModel")
 
 async function getWorkouts(req,res){
 
-    const user_id = req.params
+    const user_id = req.user._id
+    const {plan_id} = req.body
+
+
+    
    
     try {
-        const workouts = await WorkoutModel.find({plan_id: user_id}).sort({createdAt: -1})
+        const workouts = await WorkoutModel.find({user_id, plan_id}).sort({createdAt: -1})
         res.status(200).json(workouts)
     } catch (error) {
         res.status(400).json({Error: error.message})
@@ -17,7 +21,7 @@ async function getWorkouts(req,res){
 
 
 async function addWorkout(req,res){
-    const {name, bodyPart, muscleTarget, equipment, sets,reps} = req.body
+    const {name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body
 
     const errorMessages = []
 
@@ -44,19 +48,23 @@ async function addWorkout(req,res){
         return res.status(400).json({Error: errorMessages})
     }
 
-    try {
-        const user_id =  req.params
-        const addedWorkout = await WorkoutModel.create({name,bodyPart, muscleTarget, equipment, sets,reps, plan_id: user_id })
-        res.status(200).json(addedWorkout)
-    } catch (error) {
-        res.status(400).json({Error: error.message})
-    }
+
+      try {
+        const user_id = req.user._id;
+ 
+        const addedWorkout = await WorkoutModel.create({name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
+        console.log("Added workout")
+        res.status(200).json(addedWorkout);
+      } catch (error) {
+        res.status(400).json({ Error: error.message });
+      }
+      
 }
 
 
 async function deleteWorkout(req, res) {
     const { id } = req.params;
-    const user_id = req.plan;
+    const user_id = req.user._id;
 
     try {
         const removedWorkout = await WorkoutModel.findOneAndDelete({ _id: id, plan_id: user_id });
@@ -71,7 +79,7 @@ async function deleteWorkout(req, res) {
 
 async function updateWorkout(req, res) {
     const { id } = req.params;
-    const user_id = req.plan;
+    const user_id = req.user._id;
 
     try {
         const updatedWorkout = await WorkoutModel.findOneAndUpdate({ _id: id, user_id }, req.body, { new: true });

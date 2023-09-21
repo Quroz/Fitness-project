@@ -11,7 +11,7 @@ async function getPlans(req, res) {
   }
 }
 
-async function addPlan(req, res, next) {
+async function addPlan(req, res) {
   const { planName } = req.body;
 
   try {

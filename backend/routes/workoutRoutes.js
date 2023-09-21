@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
-const {getWorkouts, addWorkout, deleteWorkout, updateWorkout} = require("../controllers/workoutController")
-//const {getWorkouts, addWorkout, deleteWorkout, updateWorkout} = require("../controllers/workoutTestController")
+//const {getWorkouts, addWorkout, deleteWorkout, updateWorkout} = require("../controllers/workoutController")
+const {getWorkouts, addWorkout, deleteWorkout, updateWorkout} = require("../controllers/workoutTestController")
 const requireAuth = require("../middleware/requireAuth")
 
 router.use(requireAuth)
 
-router.get("/",  getWorkouts)
+router.post("/",  getWorkouts)
 router.post("/add", addWorkout)
 router.delete("/:id", deleteWorkout )
 router.put("/:id", updateWorkout)

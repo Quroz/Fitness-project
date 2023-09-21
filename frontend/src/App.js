@@ -16,8 +16,7 @@ import PageItem from "./pages/Workouts";
 import WorkoutPage from "./pages/WorkoutPage";
 import Workouts from "./pages/Workouts";
 
-
-import Test from "./components/test"
+import ItemPage from "./components/ItemPage";
 
 const loggedIn = localStorage.getItem("userFittness");
 
@@ -58,7 +57,7 @@ function App() {
                         <Route path="/workoutplan" element={<WorkoutPage />} />
                         <Route path="/test" element={<Workouts />} />
 
-                        <Route path="/ere" element={<Test />} />
+                        <Route path="/itemPage" element={<ItemPage />} />
 
                     </Routes>
                   </div>

@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const WorkoutSchema = new Schema({
+
     name: {
         type: String,
         required: true,
@@ -26,10 +27,15 @@ const WorkoutSchema = new Schema({
         type: Number,
         required: true
     },
-    plan_id: {
+   
+   plan_id: {
         type: String,
         required: true
-   }
+    },
+    user_id: {
+        type: String,
+        required: true
+    },
     
 }, {timestamps: true})
 
