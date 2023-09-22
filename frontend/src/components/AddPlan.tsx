@@ -16,6 +16,7 @@ const AddPlan = ({  myPlan, setAddPlan, setMyPlan }: Props) => {
     function addHandler(){
         setMyPlan([...myPlan, {id: Date.now(), day: day, name: name, type: type}])
         localStorage.setItem('myPlan', JSON.stringify([...myPlan, {id: Date.now(), day: day, name: name, type: type}]))
+        setAddPlan(false)
     }
 
 

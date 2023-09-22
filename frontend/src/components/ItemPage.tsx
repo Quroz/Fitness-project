@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import AddWorkout from "./AddWorkout"
-import { AiFillWindows, AiOutlineClose } from "react-icons/ai";
+import { AiFillWindows, AiOutlineClose, AiFillEdit } from "react-icons/ai";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 type Props = {
@@ -114,9 +114,12 @@ function ItemPage({}: Props) {
                         <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
                           {workouts.map((workout: any) => (
                                 <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 relative'>
-                                  <AiOutlineClose className='top-2 right-2 absolute' onClick = {
-                                    () => deleteWorkoutHandler(workout.name)
-                                  }/>
+                                  <div className='top-2 right-2 absolute flex items-center gap-2'>
+                                    <AiOutlineClose color = "red" size = {20} onClick = {
+                                      () => deleteWorkoutHandler(workout.name)
+                                    }/>
+                                    <AiFillEdit color = "green" size = {20}/>
+                                  </div>
                                   <h1 className='font-[700]'>{workout.name}</h1>
                                   <h1 className='font-[700]'>{workout.bodyPart}</h1>
                                   <h1 className='font-[700]'>{workout.muscleTarget}</h1>
