@@ -11,7 +11,7 @@ type Props = {
 
 const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
-  console.log("data de så", data)
+
 
   const bodyParts = Array.from(new Set(data.map((item: any) => item.bodyPart)));
   const workoutName = Array.from(new Set(data.map((item: any) => item.name)));
@@ -25,13 +25,6 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
   const [selectedEquipment, setSelectedEquipment] = useState(data[0]?.equipment);
   const [numberOfSets, setNumberOfSets] = useState(1);
   const [numberOfReps, setNumberOfReps] = useState(1);
-
-  console.log("selectedWorkoutName", selectedWorkoutName)
-  console.log("selectedBodyPart", selectedBodyPart)
-  console.log("selectedTarget", selectedTarget)
-  console.log("selectedEquipment", selectedEquipment)
-  console.log("numberOfSets", numberOfSets)
-  console.log("numberOfReps", numberOfReps)
 
 
   const userJSON = localStorage.getItem("userFittness");

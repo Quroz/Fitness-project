@@ -2,17 +2,24 @@ import React, {useEffect, useState} from 'react'
 import AddWorkout from "./AddWorkout"
 import AddPlan from "./AddPlan"
 import { useNavigate } from "react-router-dom";
+import { AiOutlineArrowRight, AiOutlineClose } from "react-icons/ai";
 
 
-type Props = {}
+type Props = {
+  id: number;
+  day: string;
+  name: string;
+  type: string;
+}
 
-const MyWorkouts = (props: Props) => {
+const MyWorkouts = () => {
 
   const [addWorkout, setAddWorkout] = useState(false)
   const [addPlan, setAddPlan] = useState(false)
  
 
-  const [myPlan, setMyPlan] = useState([])
+  const [myPlan, setMyPlan] = useState<Props[]>([]); 
+
   const navigate = useNavigate();
 
   const userJSON = localStorage.getItem("userFittness");
@@ -27,15 +34,16 @@ const MyWorkouts = (props: Props) => {
     navigate(`/itemPage?data=${queryParam}`);
   }
 
- function deleteHandler(id: any){
-    console.log("id", id)
+ function deleteHandler(id: any) {
+  console.log("id delete", id);
 
-    const updatedData = myPlan.filter((_, i) => i !== id); 
-   
-    setMyPlan(updatedData)
-    console.log("hej", updatedData)
-    localStorage.setItem('myPlan', JSON.stringify(myPlan))
-  }
+  const updatedData = myPlan.filter((item) => item.id !== id);
+
+  setMyPlan(updatedData);
+  console.log("updatedData", updatedData);
+  localStorage.setItem('myPlan', JSON.stringify(updatedData)); 
+}
+
 
   useEffect(() => {
     const localStorageData = localStorage.getItem('myPlan');
@@ -66,10 +74,11 @@ const MyWorkouts = (props: Props) => {
     }
     else{
       alert("Deleted!")
-      const updatedData = myPlan.filter((_, i) => i !== id); 
-   
-      setMyPlan(updatedData)
-      localStorage.setItem('myPlan', JSON.stringify(myPlan))
+     
+      const updatedData = myPlan.filter((item) => item.id !== id);
+
+      setMyPlan(updatedData);
+      localStorage.setItem('myPlan', JSON.stringify(updatedData)); 
       window.location.reload()
     }
   
@@ -78,7 +87,7 @@ const MyWorkouts = (props: Props) => {
   return (
     <div className='mt-24 w-[80%] mx-auto'>
                 <div className='flex items-center justify-between'>
-                   <h1>2 Workouts</h1>
+                   <h1>{myPlan.length} Workouts</h1>
                    <h1>Sort by Workout Name: A-Z</h1>
                    <div className='flex items-center gap-2'>
                     <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-gray-500' placeholder='Search workout by name'/>
@@ -87,13 +96,14 @@ const MyWorkouts = (props: Props) => {
                 </div>
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
                              {myPlan.map((item: any) => (
-                                  <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100'
-                                  onClick = {() => itemPage(item)}
-                                  >
+                                  <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative'>
                                     <h1 className='font-[700]'>Day: {item.day}</h1>
                                     <h1 className='font-[700]'>Name: {item.name}</h1>
                                     <h1 className='font-[700]'>Type: {item.type}</h1>
-                                    <button onClick={() => deleteHandler(item.id)} className = "hover:text-gray-200">X</button>
+                                     <AiOutlineArrowRight size = {24} color = "green"
+                                     onClick = {() => itemPage(item)}
+                                     />
+                                     <AiOutlineClose className='cursor-pointer absolute top-1 right-2' color = "red" size = {12} onClick={() => deleteWorkoutPlan(item.id)}/>
                                   </div>
                              ))}
                           
