@@ -101,7 +101,7 @@ function ItemPage({}: Props) {
     <div className='w-full h-screen relative'>
              <img src = "https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg" className='sticky object-cover w-full h-full'/>
              <BsFillArrowLeftCircleFill className='z-20 absolute left-2 top-2 cursor-pointer' size = {24} color = "white"
-             onClick = {() => navigate(`/test`)}
+             onClick = {() => navigate(`/workoutPlan`)}
              />
             <div className='top-0 left-0 absolute z-10 w-full h-full bg-black/40 p-8 flex-col gap-4 flex items-center pt-48'>
                  <h1 className='text-white text-7xl font-bold'>My workout plan</h1>

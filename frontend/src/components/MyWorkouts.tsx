@@ -19,10 +19,10 @@ const MyWorkouts = (props: Props) => {
 
 
   function itemPage(item: any){
-    console.log("click")
-    const idOnly = { id: item.id };
+
+    const id = { id: item.id };
     
-    const queryParam = encodeURIComponent(JSON.stringify(idOnly));
+    const queryParam = encodeURIComponent(JSON.stringify(id));
 
     navigate(`/itemPage?data=${queryParam}`);
   }

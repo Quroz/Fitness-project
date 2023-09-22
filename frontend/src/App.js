@@ -54,8 +54,8 @@ function App() {
                         <Route path="/explore" element={<Explore />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/pageitem" element={<PageItem />} />
-                        <Route path="/workoutplan" element={<WorkoutPage />} />
-                        <Route path="/test" element={<Workouts />} />
+                        {/*<Route path="/test" element={<WorkoutPage />} /> */}
+                        <Route path="/workoutPlan" element={<Workouts />} />
 
                         <Route path="/itemPage" element={<ItemPage />} />
 

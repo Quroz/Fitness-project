@@ -76,6 +76,23 @@ async function deleteWorkout(req, res) {
     }
 }
 
+//delete function for deleting a workoutplan
+async function deleteAllWorkouts(req, res) {
+    const user_id = req.user._id
+    const {plan_id} = req.body
+
+
+    try {
+        const removedWorkout = await WorkoutModel.deleteMany({ user_id, plan_id });
+        if (!removedWorkout) {
+            return res.status(404).json({ Error: "Workout not found" });
+        }
+        res.status(200).json(removedWorkout);
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
+    }
+}
+
 async function updateWorkout(req, res) {
     const {name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body;
     const user_id = req.user._id;
@@ -94,4 +111,4 @@ async function updateWorkout(req, res) {
 
 
 
-module.exports = {addWorkout, getWorkouts,  deleteWorkout, updateWorkout}
+module.exports = {addWorkout, getWorkouts,  deleteWorkout, updateWorkout, deleteAllWorkouts}
