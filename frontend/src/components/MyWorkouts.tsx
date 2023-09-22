@@ -15,7 +15,6 @@ const MyWorkouts = (props: Props) => {
   const [myPlan, setMyPlan] = useState([])
   const navigate = useNavigate();
 
-  console.log("myPlan", myPlan)
 
 
 
@@ -28,6 +27,16 @@ const MyWorkouts = (props: Props) => {
     navigate(`/itemPage?data=${queryParam}`);
   }
 
+ function deleteHandler(id: any){
+    console.log("id", id)
+
+    const updatedData = myPlan.filter((_, i) => i !== id); 
+   
+    setMyPlan(updatedData)
+    console.log("hej", updatedData)
+    localStorage.setItem('myPlan', JSON.stringify(myPlan))
+  }
+
   useEffect(() => {
     const localStorageData = localStorage.getItem('myPlan');
 
@@ -38,7 +47,7 @@ const MyWorkouts = (props: Props) => {
 
       setMyPlan(parsedData);
     } 
-  }, [myPlan])
+  }, [])
 
   return (
     <div className='mt-24 w-[80%] mx-auto'>
@@ -58,6 +67,7 @@ const MyWorkouts = (props: Props) => {
                                     <h1 className='font-[700]'>Day: {item.day}</h1>
                                     <h1 className='font-[700]'>Name: {item.name}</h1>
                                     <h1 className='font-[700]'>Type: {item.type}</h1>
+                                    <button onClick={() => deleteHandler(item.id)} className = "hover:text-gray-200">X</button>
                                   </div>
                              ))}
                           

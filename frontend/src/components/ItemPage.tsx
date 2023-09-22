@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AddWorkout from "./AddWorkout"
 import { AiFillWindows, AiOutlineClose } from "react-icons/ai";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 type Props = {
     item: any;
@@ -18,6 +19,7 @@ function ItemPage({}: Props) {
 
     const userJSON = localStorage.getItem("userFittness");
     const user = userJSON ? JSON.parse(userJSON) : null;
+    const navigate = useNavigate();
 
     const location = useLocation();
     const searchData = new URLSearchParams(location.search).get('data');
@@ -98,6 +100,9 @@ function ItemPage({}: Props) {
   return (
     <div className='w-full h-screen relative'>
              <img src = "https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg" className='sticky object-cover w-full h-full'/>
+             <BsFillArrowLeftCircleFill className='z-20 absolute left-2 top-2 cursor-pointer' size = {24} color = "white"
+             onClick = {() => navigate(`/test`)}
+             />
             <div className='top-0 left-0 absolute z-10 w-full h-full bg-black/40 p-8 flex-col gap-4 flex items-center pt-48'>
                  <h1 className='text-white text-7xl font-bold'>My workout plan</h1>
                  <h1 className='text-white text-xl'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>

@@ -11,7 +11,7 @@ type Props = {
 
 const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
-  console.log("data", data)
+  console.log("data de så", data)
 
   const bodyParts = Array.from(new Set(data.map((item: any) => item.bodyPart)));
   const workoutName = Array.from(new Set(data.map((item: any) => item.name)));
@@ -19,10 +19,10 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
   const equipment = Array.from(new Set(data.map((item: any) => item.equipment)));
 
  
-  const [selectedWorkoutName, setSelectedWorkoutName] = useState("");
-  const [selectedBodyPart, setSelectedBodyPart] = useState("");
-  const [selectedTarget, setSelectedTarget] = useState("");
-  const [selectedEquipment, setSelectedEquipment] = useState("");
+  const [selectedWorkoutName, setSelectedWorkoutName] = useState(data[0]?.name);
+  const [selectedBodyPart, setSelectedBodyPart] = useState(data[0]?.bodyPart);
+  const [selectedTarget, setSelectedTarget] = useState(data[0]?.target);
+  const [selectedEquipment, setSelectedEquipment] = useState(data[0]?.equipment);
   const [numberOfSets, setNumberOfSets] = useState(1);
   const [numberOfReps, setNumberOfReps] = useState(1);
 

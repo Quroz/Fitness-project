@@ -8,8 +8,6 @@ async function getWorkouts(req,res){
     const user_id = req.user._id
     const {plan_id} = req.body
 
-
-    
    
     try {
         const workouts = await WorkoutModel.find({user_id, plan_id}).sort({createdAt: -1})
@@ -79,11 +77,12 @@ async function deleteWorkout(req, res) {
 }
 
 async function updateWorkout(req, res) {
-    const { id } = req.params;
+    const {name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body;
     const user_id = req.user._id;
+    const update = {name, bodyPart, muscleTarget, equipment, sets,reps}
 
     try {
-        const updatedWorkout = await WorkoutModel.findOneAndUpdate({ _id: id, user_id }, req.body, { new: true });
+        const updatedWorkout = await WorkoutModel.findOneAndUpdate({ plan_id, user_id }, update, { new: true });
         if (!updatedWorkout) {
             return res.status(404).json({ Error: "Workout not found" });
         }

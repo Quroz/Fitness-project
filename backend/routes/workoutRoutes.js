@@ -9,7 +9,7 @@ router.use(requireAuth)
 router.post("/",  getWorkouts)
 router.post("/add", addWorkout)
 router.post("/delete", deleteWorkout )
-router.put("/:id", updateWorkout)
+router.post("/update", updateWorkout)
 
 module.exports = router
 
