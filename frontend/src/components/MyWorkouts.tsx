@@ -15,8 +15,8 @@ const MyWorkouts = (props: Props) => {
   const [myPlan, setMyPlan] = useState([])
   const navigate = useNavigate();
 
-
-
+  const userJSON = localStorage.getItem("userFittness");
+  const user = userJSON ? JSON.parse(userJSON) : null;
 
   function itemPage(item: any){
 
@@ -49,6 +49,32 @@ const MyWorkouts = (props: Props) => {
     } 
   }, [])
 
+  async function deleteWorkoutPlan(id: number){
+    const response = await fetch("http://localhost:4000/api/workout/deleteAllWorkouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
+      },
+      body: JSON.stringify({
+        plan_id: id
+      }),
+    });
+    const data = await response.json();
+    if(response.status !== 200){
+      alert("Could not delete workoutplan")
+    }
+    else{
+      alert("Deleted!")
+      const updatedData = myPlan.filter((_, i) => i !== id); 
+   
+      setMyPlan(updatedData)
+      localStorage.setItem('myPlan', JSON.stringify(myPlan))
+      window.location.reload()
+    }
+  
+  }
+
   return (
     <div className='mt-24 w-[80%] mx-auto'>
                 <div className='flex items-center justify-between'>
@@ -61,7 +87,7 @@ const MyWorkouts = (props: Props) => {
                 </div>
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
                              {myPlan.map((item: any) => (
-                                  <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:scale-105 duration-300 ease-in'
+                                  <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100'
                                   onClick = {() => itemPage(item)}
                                   >
                                     <h1 className='font-[700]'>Day: {item.day}</h1>

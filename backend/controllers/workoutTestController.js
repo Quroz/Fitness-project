@@ -51,7 +51,7 @@ async function addWorkout(req,res){
         const user_id = req.user._id;
  
         const addedWorkout = await WorkoutModel.create({name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
-        console.log("Added workout")
+       
         res.status(200).json(addedWorkout);
       } catch (error) {
         res.status(400).json({ Error: error.message });
