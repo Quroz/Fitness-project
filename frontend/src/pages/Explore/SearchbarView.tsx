@@ -28,7 +28,9 @@ export default function SearchbarView({
 									className="flex flex-1"
 									onClick={() => {
 										setSelectedPart(bodyArea.part);
-										console.log(Exercise_api.exercise_part(bodyArea.apiCall, 10));
+										Exercise_api.exercise_part(bodyArea.apiCall, 10).then(
+											(data) => console.log(data)
+										);
 									}}
 									/** Call the function exercise_name and console.log it  */
 								>
