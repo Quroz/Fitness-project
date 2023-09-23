@@ -1,0 +1,36 @@
+	useEffect(() => {
+		async function fetchExerciseData() {
+			try {
+				const limit = 10; // Set your desired limit here
+				const response = await exerciseApi.exercises_call(limit);
+				console.log("Exercises Call Response:", response);
+
+				const exerciseName = "exampleExercise"; // Replace with an actual exercise name
+				const responseName = await exerciseApi.exercise_name(
+					exerciseName,
+					limit
+				);
+				console.log("Exercise Name Response:", responseName);
+
+				const exerciseId = 123; // Replace with an actual exercise ID
+				const responseId = await exerciseApi.exercise_id(exerciseId);
+				console.log("Exercise ID Response:", responseId);
+			} catch (error) {
+				console.error("API Error:", error);
+			}
+		}
+
+		// Call the function to fetch exercise data
+		fetchExerciseData();
+	}, [exerciseApi]);
+
+	// Function to call exercises_call when the button is clicked
+	const handleExercisesCallClick = async () => {
+		try {
+			const limit = 10; // Set your desired limit here
+			const response = await exerciseApi.exercises_call(limit);
+			console.log("Exercises Call Response (Button Click):", response);
+		} catch (error) {
+			console.error("API Error (Button Click):", error);
+		}
+	};
