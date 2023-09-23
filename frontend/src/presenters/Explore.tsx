@@ -6,20 +6,21 @@ const bodyPart = [
 	{ part: "Back", apiCall: "back" },
 	{ part: "Cardio", apiCall: "cardio" },
 	{ part: "Chest", apiCall: "chest" },
-	{ part: "Lower Arms" , apiCall: "lower arms"},
+	{ part: "Lower Arms", apiCall: "lower arms" },
 	{ part: "Lower Legs", apiCall: "lower legs" },
 	{ part: "Neck", apiCall: "neck" },
 	{ part: "Shoulders", apiCall: "shoulders" },
-	{ part: "Upper Arms" , apiCall: "upper arms"},
+	{ part: "Upper Arms", apiCall: "upper arms" },
 ];
 
 function ExplorePresenter() {
-	
 	const [searchResults, setSearchResults] = useState([]);
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
 
-	
-
+	/* Check if the selectedPart has changed with a useEffect. If it has changed then
+	 * call the Exercise_api.exercise_part function and set the searchResults to the
+	 * result of the function call.
+	 */
 
 	return (
 		<div className="flex my-4">
