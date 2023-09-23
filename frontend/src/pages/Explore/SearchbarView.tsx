@@ -15,7 +15,6 @@ interface SearchResult {
 interface SearchbarViewProps {
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
-	results: SearchResult[]; // Define the type for the results prop
 }
 
 const bodyPart = [
@@ -33,14 +32,8 @@ export default function SearchbarView({
 	
 	selectedPart,
 	setSelectedPart,
-	results,
 }: SearchbarViewProps) {
-	const handlePartSelection = (part: string) => {
-		setSelectedPart(part);
-		console.log(results)
-		
-	};
-
+	
 	return (
 		<div>
 			<div className="border border-solid">
@@ -53,7 +46,7 @@ export default function SearchbarView({
 							<Menu.Item key={partItem.part}>
 								<button
 									className="flex flex-1"
-									onClick={() => handlePartSelection(partItem.part)}
+									onClick={() => setSelectedPart(partItem.part)}
 								>
 									{partItem.part}
 								</button>
