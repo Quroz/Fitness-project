@@ -21,17 +21,23 @@ const bodyPart = [
  */
 export default function SearchbarView() {
 	const [part, setPart] = useState(bodyPart[0]);
+	const [notSelected, setSelected] = useState("Select Body Part");
 
 	return (
 		<div className="border border-solid">
 			<Menu>
-				<Menu.Button className="flex bg-slate-700">
-					Select Body Part
-				</Menu.Button>
+				<div className="flex w-30 bg-slate-700">
+					<Menu.Button className="w-fit ">{notSelected}</Menu.Button>
+				</div>
 				<Menu.Items>
 					{bodyPart.map((part) => (
 						<Menu.Item>
-							<button  className="flex flex-1" onClick={() => setPart(part)}>
+							<button
+								className="flex flex-1"
+								onClick={() => {
+									setSelected(part.part);
+								}}
+							>
 								{part.part}
 							</button>
 						</Menu.Item>
