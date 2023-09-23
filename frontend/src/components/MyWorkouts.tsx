@@ -42,7 +42,7 @@ const MyWorkouts = (props: Props) => {
                     >Add</button>
                    </div>
                 </div>
-                <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
+                <div className='flex flex-col w-full gap-4 my-8 overflow-y-auto'>
                             <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:scale-105 duration-300 ease-in'>
                                 <h1 className='font-[700]'>Dag 1</h1>
                                 <h1 className='font-[700]'>Lower Body</h1>

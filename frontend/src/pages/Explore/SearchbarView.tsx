@@ -1,39 +1,19 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 
-interface SearchResult {
-	bodyPart: string;
-	equipment: string;
-	gifUrl: string;
-	id: string;
-	name: string;
-	target: string;
-	secondaryMuscles: string[];
-	instructions: string[];
-}
+import Exercise_api from "../../models/apimodel";
 
 interface SearchbarViewProps {
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
+	bodyPart: { part: string; apiCall: string }[]; // Add bodyPart prop
 }
 
-const bodyPart = [
-	{ part: "Back" },
-	{ part: "Cardio" },
-	{ part: "Chest" },
-	{ part: "Lower Arms" },
-	{ part: "Lower Legs" },
-	{ part: "Neck" },
-	{ part: "Shoulders" },
-	{ part: "Upper Arms" },
-];
-
 export default function SearchbarView({
-	
 	selectedPart,
 	setSelectedPart,
+	bodyPart,
 }: SearchbarViewProps) {
-	
 	return (
 		<div>
 			<div className="border border-solid">
@@ -42,13 +22,17 @@ export default function SearchbarView({
 						<Menu.Button className="w-fit ">{selectedPart}</Menu.Button>
 					</div>
 					<Menu.Items>
-						{bodyPart.map((partItem) => (
-							<Menu.Item key={partItem.part}>
+						{bodyPart.map((bodyArea) => (
+							<Menu.Item key={bodyArea.part}>
 								<button
 									className="flex flex-1"
-									onClick={() => setSelectedPart(partItem.part)}
+									onClick={() => {
+										setSelectedPart(bodyArea.part);
+										console.log(Exercise_api.exercise_part(bodyArea.apiCall, 10));
+									}}
+									/** Call the function exercise_name and console.log it  */
 								>
-									{partItem.part}
+									{bodyArea.part}
 								</button>
 							</Menu.Item>
 						))}

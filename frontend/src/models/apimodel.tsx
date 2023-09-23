@@ -35,27 +35,29 @@ const Exercise_api = {
 			});
 	},
 
-	async exercise_part(bodyPart: string, limit: number) {
-		const url = `${Base_URL}/bodyPart/${bodyPart}?limit=${limit}`;
+	async exercise_part(bodyPart: string, limit: number): Promise<void> {
+		const apiKey = "3ad53db2c9mshfe8e68e512d7859p1086cejsne1b391663a8b";
+		const host = "exercisedb.p.rapidapi.com";
+
+		// Construct the URL with the provided bodyPart and limit
+		const url = `https://${host}/exercises/bodyPart/${encodeURIComponent(
+			bodyPart
+		)}?limit=${limit}`;
+
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": "083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2",
-				"X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+				"X-RapidAPI-Key": apiKey,
+				"X-RapidAPI-Host": host,
 			},
 		};
-		try {
+
+		try{
 			const response = await fetch(url, options);
-
-			if (!response.ok) {
-				throw new Error("Network response was not ok");
-			}
-
-			const data = await response.json();
-			return data;
+			const result = await response.json();
+			return result;
 		} catch (error) {
-			console.error("Error fetching exercise data:", error);
-			return []; // Return an empty array in case of an error
+			console.log(error);
 		}
 	},
 };
