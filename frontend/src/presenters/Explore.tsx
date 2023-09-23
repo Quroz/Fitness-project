@@ -3,7 +3,6 @@ import SearchbarView from "../pages/Explore/SearchbarView";
 import PlanDnD from "../pages/Explore/PlanDnD";
 import Exercise_api from "../models/apimodel";
 
-/*Required parameters from the API  */
 const bodyPart = [
 	{ part: "Back" },
 	{ part: "Cardio" },
@@ -17,7 +16,7 @@ const bodyPart = [
 
 function ExplorePresenter() {
 	const api_exercise = Exercise_api;
-	const { exercise_name, exercise_part } = api_exercise;
+	const { exercise_part } = api_exercise;
 
 	const [searchResults, setSearchResults] = useState([]);
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
@@ -40,7 +39,7 @@ function ExplorePresenter() {
 					<SearchbarView
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
-					/>{" "}
+					/>
 				</div>
 				<div className="flex">
 					<PlanDnD />
