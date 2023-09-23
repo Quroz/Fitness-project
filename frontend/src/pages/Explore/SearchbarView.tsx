@@ -1,9 +1,21 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 
+interface SearchResult {
+	bodyPart: string;
+	equipment: string;
+	gifUrl: string;
+	id: string;
+	name: string;
+	target: string;
+	secondaryMuscles: string[];
+	instructions: string[];
+}
+
 interface SearchbarViewProps {
-	selectedPart: string; // Specify the type for selectedPart
-	setSelectedPart: (part: string) => void; // Specify the type for setSelectedPart
+	selectedPart: string;
+	setSelectedPart: (part: string) => void;
+	results: SearchResult[]; // Define the type for the results prop
 }
 
 const bodyPart = [
@@ -20,9 +32,12 @@ const bodyPart = [
 export default function SearchbarView({
 	selectedPart,
 	setSelectedPart,
+	results,
 }: SearchbarViewProps) {
 	const handlePartSelection = (part: string) => {
 		setSelectedPart(part);
+		console.log(results)
+		
 	};
 
 	return (

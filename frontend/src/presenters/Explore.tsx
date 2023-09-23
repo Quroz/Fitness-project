@@ -20,16 +20,18 @@ function ExplorePresenter() {
 
 	const [searchResults, setSearchResults] = useState([]);
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
-
+	
 	useEffect(() => {
-		// Fetch exercise data when the selected part changes
-		exercise_part(selectedPart, 10)
-			.then((data) => {
-				setSearchResults(data);
-			})
-			.catch((error) => {
-				console.error("Error fetching exercise data:", error);
-			});
+		if (selectedPart !== "Select a body part") {
+			// Fetch exercise data when the selected part changes and is not the initial value
+			exercise_part(selectedPart, 10)
+				.then((data) => {
+					setSearchResults(data);
+				})
+				.catch((error) => {
+					console.error("Error fetching exercise data:", error);
+				});
+		}
 	}, [selectedPart]);
 
 	return (
@@ -39,6 +41,7 @@ function ExplorePresenter() {
 					<SearchbarView
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
+						results={searchResults}
 					/>
 				</div>
 				<div className="flex">
