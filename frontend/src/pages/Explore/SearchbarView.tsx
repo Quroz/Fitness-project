@@ -30,6 +30,7 @@ const bodyPart = [
 ];
 
 export default function SearchbarView({
+	
 	selectedPart,
 	setSelectedPart,
 	results,

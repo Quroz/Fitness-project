@@ -3,17 +3,6 @@ import SearchbarView from "../pages/Explore/SearchbarView";
 import PlanDnD from "../pages/Explore/PlanDnD";
 import Exercise_api from "../models/apimodel";
 
-const bodyPart = [
-	{ part: "Back" },
-	{ part: "Cardio" },
-	{ part: "Chest" },
-	{ part: "Lower Arms" },
-	{ part: "Lower Legs" },
-	{ part: "Neck" },
-	{ part: "Shoulders" },
-	{ part: "Upper Arms" },
-];
-
 function ExplorePresenter() {
 	const api_exercise = Exercise_api;
 	const { exercise_part } = api_exercise;
