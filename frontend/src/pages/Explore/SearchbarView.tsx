@@ -1,8 +1,11 @@
 import React from "react";
-import { useState } from "react";
 import { Menu } from "@headlessui/react";
 
-/*Required parameters from the API  */
+interface SearchbarViewProps {
+	selectedPart: string; // Specify the type for selectedPart
+	setSelectedPart: (part: string) => void; // Specify the type for setSelectedPart
+}
+
 const bodyPart = [
 	{ part: "Back" },
 	{ part: "Cardio" },
@@ -14,41 +17,29 @@ const bodyPart = [
 	{ part: "Upper Arms" },
 ];
 
-interface SearchbarViewProps {
-	exerciseApi: {
-		exercises_call(limit: number): Promise<any>;
-		exercise_name(name: string, limit: number): Promise<any>;
-		exercise_id(id_number: number): Promise<any>;
+export default function SearchbarView({
+	selectedPart,
+	setSelectedPart,
+}: SearchbarViewProps) {
+	const handlePartSelection = (part: string) => {
+		setSelectedPart(part);
 	};
-}
-
-/*
-  Search bar component where the user can search to train a specific body part
-  This will be used for the APi to search for the specific body part and return the exercises
-
- */
-export default function SearchbarView({ exerciseApi }: SearchbarViewProps) {
-	const [part, setPart] = useState(bodyPart[0]);
-	const [notSelected, setSelected] = useState("Select Body Part");
 
 	return (
 		<div>
-
 			<div className="border border-solid">
 				<Menu>
 					<div className="flex w-30 bg-slate-700">
-						<Menu.Button className="w-fit ">{notSelected}</Menu.Button>
+						<Menu.Button className="w-fit ">{selectedPart}</Menu.Button>
 					</div>
 					<Menu.Items>
-						{bodyPart.map((part) => (
-							<Menu.Item>
+						{bodyPart.map((partItem) => (
+							<Menu.Item key={partItem.part}>
 								<button
 									className="flex flex-1"
-									onClick={() => {
-										setSelected(part.part);
-									}}
+									onClick={() => handlePartSelection(partItem.part)}
 								>
-									{part.part}
+									{partItem.part}
 								</button>
 							</Menu.Item>
 						))}
@@ -56,7 +47,8 @@ export default function SearchbarView({ exerciseApi }: SearchbarViewProps) {
 				</Menu>
 			</div>
 			<div>
-				{"Use the exercise APi and make API calls. Console log it "}
+				<h1>Exercises</h1>
+				{" Create"}
 			</div>
 		</div>
 	);

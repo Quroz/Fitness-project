@@ -7,32 +7,53 @@ const options = {
 	},
 };
 
-const Exercise_api={
-  
-  async exercises_call(limit:number,){
-    return fetch(Base_URL+"?limit="+limit, options)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
-  },
+const Exercise_api = {
+	/*Working */
+	async exercises_call(limit: number) {
+		return fetch(Base_URL + "?limit=" + limit, options)
+			.then((response) => response.json())
+			.then((data) => {
+				return data;
+			});
+	},
 
-  async exercise_name(name:string, limit:number){
-    return fetch(Base_URL+"/name/"+name+"?/limit="+limit, options)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
-  },
+	/*Working */
+	async exercise_name(name: string, limit: number) {
+		return fetch(Base_URL + "/name/" + name + "?/limit=" + limit, options)
+			.then((response) => response.json())
+			.then((data) => {
+				return data;
+			});
+	},
 
-  async exercise_id(id_number:number){
-    return fetch(Base_URL+"/exercise/"+ id_number, options)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
-  }
-}
+	/*Working */
+	async exercise_id(id_number: number) {
+		return fetch(Base_URL + "/exercise/" + id_number, options)
+			.then((response) => response.json())
+			.then((data) => {
+				return data;
+			});
+	},
+
+	async exercise_part(bodyPart: string, limit: number) {
+		return fetch(
+			Base_URL + "/bodyPart/" + bodyPart + "?limit=" + limit,
+			options
+		)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				return response.json();
+			})
+			.then((data) => {
+				return data;
+			})
+			.catch((error) => {
+				console.error("Error fetching exercise data:", error);
+				return []; // Return an empty array in case of an error
+			});
+	},
+};
 
 export default Exercise_api;
-
