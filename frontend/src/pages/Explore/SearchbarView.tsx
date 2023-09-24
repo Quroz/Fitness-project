@@ -2,17 +2,29 @@ import React from "react";
 import { Menu } from "@headlessui/react";
 
 import Exercise_api from "../../models/apimodel";
+interface Exercise {
+	bodyPart: string;
+	equipment: string;
+	gifUrl: string;
+	id: string;
+	name: string;
+	target: string;
+	secondaryMuscles: string[];
+	instructions: string[];
+}
 
 interface SearchbarViewProps {
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
 	bodyPart: { part: string; apiCall: string }[]; // Add bodyPart prop
+	exercise_results: Exercise[];
 }
 
 export default function SearchbarView({
 	selectedPart,
 	setSelectedPart,
 	bodyPart,
+	exercise_results,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -27,7 +39,7 @@ export default function SearchbarView({
 								<button
 									className="flex flex-1"
 									onClick={() => {
-										setSelectedPart(bodyArea.part);
+										setSelectedPart(bodyArea.apiCall);
 										Exercise_api.exercise_part(bodyArea.apiCall, 10).then(
 											(data) => console.log(data)
 										);
@@ -43,7 +55,7 @@ export default function SearchbarView({
 			</div>
 			<div>
 				<h1>Exercises</h1>
-				{" Create"}
+				{/*Checks if selectedPart has been updated then renders else do nothing */}
 			</div>
 		</div>
 	);

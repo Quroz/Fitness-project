@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchbarView from "../pages/Explore/SearchbarView";
 import PlanDnD from "../pages/Explore/PlanDnD";
+import Exercise_api from "../models/apimodel";
 
 const bodyPart = [
 	{ part: "Back", apiCall: "back" },
@@ -13,14 +14,35 @@ const bodyPart = [
 	{ part: "Upper Arms", apiCall: "upper arms" },
 ];
 
+interface Exercise {
+	bodyPart: string;
+	equipment: string;
+	gifUrl: string;
+	id: string;
+	name: string;
+	target: string;
+	secondaryMuscles: string[];
+	instructions: string[];
+}
+
 function ExplorePresenter() {
-	const [searchResults, setSearchResults] = useState([]);
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
+	const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
+	const [showExercise, setShowExercise] = useState(false); // Add showExercise state variable
 
 	/* Check if the selectedPart has changed with a useEffect. If it has changed then
 	 * call the Exercise_api.exercise_part function and set the searchResults to the
 	 * result of the function call.
 	 */
+	useEffect(() => {
+		/*
+		  set the showExercise state variable to true
+		 */
+		Exercise_api.exercise_part(selectedPart, 10).then((data) =>
+			setExerciseData(data)
+		);
+		setShowExercise(true);
+	}, [selectedPart]);
 
 	return (
 		<div className="flex my-4">
@@ -30,6 +52,7 @@ function ExplorePresenter() {
 						bodyPart={bodyPart}
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
+						exercise_results={exerciseData}
 					/>
 				</div>
 				<div className="flex">
