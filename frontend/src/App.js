@@ -21,9 +21,7 @@ import Workouts from "./pages/Workouts";
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
-
-
-  const pathname = window.location.pathname;
+	const pathname = window.location.pathname;
 
 	return (
 		<div>
@@ -43,7 +41,9 @@ function App() {
 
 				{loggedIn && (
 					<div className="flex">
-						<NavbarView />
+						<div className="flex w-11">
+							<NavbarView />
+						</div>
 						<div className="flex-1">
 							<Routes>
 								{/*The same order of the navbar icons drawn in my sketch-Rakin */}

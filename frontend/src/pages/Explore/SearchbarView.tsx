@@ -30,35 +30,50 @@ export default function SearchbarView({
 	return (
 		<div>
 			<div className="flex flex-1">
-				<div className="w-28 bg-slate-700">
-					<Menu>
+				<div className="flex flex-row">
+					<div className="w-28">
 						<div>
-							<Menu.Button className="w-20 ">{selectedPart}</Menu.Button>
+							<input type="text" placeholder="Search" />
+							
+							
+							
+							
 						</div>
-						<Menu.Items>
-							{bodyPart.map((bodyArea) => (
-								<Menu.Item key={bodyArea.part}>
-									<button
-										className="flex flex-1"
-										onClick={() => {
-											setSelectedPart(bodyArea.apiCall);
-										}}
-									>
-										{bodyArea.part}
-									</button>
-								</Menu.Item>
-							))}
-						</Menu.Items>
-					</Menu>
+						<Menu>
+							<div>
+								<Menu.Button className="w-20 bg-red-600 border-solid border-zinc-800">
+									{selectedPart}
+								</Menu.Button>
+							</div>
+							<Menu.Items>
+								{bodyPart.map((bodyArea) => (
+									<Menu.Item key={bodyArea.part}>
+										<button
+											className="flex flex-1"
+											onClick={() => {
+												setSelectedPart(bodyArea.apiCall);
+											}}
+										>
+											{bodyArea.part}
+										</button>
+									</Menu.Item>
+								))}
+							</Menu.Items>
+						</Menu>
+					</div>
 				</div>
 			</div>
 			<div>
 				<h1>Exercises</h1>
 				{exercise_results.length > 0 ? (
 					exercise_results.map((exercise) => (
-						<div key={exercise.id}>
-							{exercise.name}
-							<img src={exercise.gifUrl} alt={exercise.name} />
+						<div key={exercise.id} className="flex w-32">
+							<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
+								<div>{exercise.name}</div>
+								<div>
+									<img src={exercise.gifUrl} alt={exercise.name} />
+								</div>
+							</div>
 						</div>
 					))
 				) : (
