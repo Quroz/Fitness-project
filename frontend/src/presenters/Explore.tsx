@@ -1,3 +1,4 @@
+// ExplorePresenter.tsx
 import React, { useState, useEffect } from "react";
 import SearchbarView from "../pages/Explore/SearchbarView";
 import PlanDnD from "../pages/Explore/PlanDnD";
@@ -28,31 +29,25 @@ interface Exercise {
 function ExplorePresenter() {
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
 	const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
-	const [showExercise, setShowExercise] = useState(false); // Add showExercise state variable
+	const [showExercise, setShowExercise] = useState(false);
 
-	/* Check if the selectedPart has changed with a useEffect. If it has changed then
-	 * call the Exercise_api.exercise_part function and set the searchResults to the
-	 * result of the function call.
-	 */
 	useEffect(() => {
-		/*
-		  set the showExercise state variable to true
-		 */
-		Exercise_api.exercise_part(selectedPart, 10).then((data) =>
-			setExerciseData(data)
-		);
-		setShowExercise(true);
+		Exercise_api.exercise_part(selectedPart, 10).then((data) => {
+			setExerciseData(data);
+			setShowExercise(true);
+		});
 	}, [selectedPart]);
 
 	return (
 		<div className="flex my-4">
 			<div className="flex flex-1">
-				<div className="flex mx-2 mr-10 ">
+				<div className="flex mx-2 mr-10">
 					<SearchbarView
 						bodyPart={bodyPart}
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
 						exercise_results={exerciseData}
+						showExercise={showExercise}
 					/>
 				</div>
 				<div className="flex">
