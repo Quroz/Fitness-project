@@ -19,7 +19,6 @@ interface SearchbarViewProps {
 	setSelectedPart: (part: string) => void;
 	bodyPart: { part: string; apiCall: string }[];
 	exercise_results: Exercise[];
-	showExercise: boolean;
 }
 
 export default function SearchbarView({
@@ -27,7 +26,6 @@ export default function SearchbarView({
 	setSelectedPart,
 	bodyPart,
 	exercise_results,
-	showExercise,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -57,15 +55,16 @@ export default function SearchbarView({
 			</div>
 			<div>
 				<h1>Exercises</h1>
-				{showExercise ? (
-					exercise_results.length > 0 ? (
-						exercise_results.map((exercise) => (
-							<div key={exercise.id}>{exercise.name}</div>
-						))
-					) : (
-						<p>No exercises to display.</p>
-					)
-				) : null}
+				{exercise_results.length > 0 ? (
+					exercise_results.map((exercise) => (
+						<div key={exercise.id}>
+							{exercise.name}
+							<img src={exercise.gifUrl} alt={exercise.name} />
+						</div>
+					))
+				) : (
+					<p>No exercises to display.</p>
+				)}
 			</div>
 		</div>
 	);
