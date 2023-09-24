@@ -1,36 +1,53 @@
+// ExplorePresenter.tsx
 import React, { useState, useEffect } from "react";
 import SearchbarView from "../pages/Explore/SearchbarView";
 import PlanDnD from "../pages/Explore/PlanDnD";
 import Exercise_api from "../models/apimodel";
 
-function ExplorePresenter() {
-	const api_exercise = Exercise_api;
-	const { exercise_part } = api_exercise;
+const bodyPart = [
+	{ part: "Back", apiCall: "back" },
+	{ part: "Cardio", apiCall: "cardio" },
+	{ part: "Chest", apiCall: "chest" },
+	{ part: "Lower Arms", apiCall: "lower arms" },
+	{ part: "Lower Legs", apiCall: "lower legs" },
+	{ part: "Neck", apiCall: "neck" },
+	{ part: "Shoulders", apiCall: "shoulders" },
+	{ part: "Upper Arms", apiCall: "upper arms" },
+];
 
-	const [searchResults, setSearchResults] = useState([]);
+interface Exercise {
+	bodyPart: string;
+	equipment: string;
+	gifUrl: string;
+	id: string;
+	name: string;
+	target: string;
+	secondaryMuscles: string[];
+	instructions: string[];
+}
+
+function ExplorePresenter() {
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
-	
+	const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
+	const [showExercise, setShowExercise] = useState(false);
+
 	useEffect(() => {
-		if (selectedPart !== "Select a body part") {
-			// Fetch exercise data when the selected part changes and is not the initial value
-			exercise_part(selectedPart, 10)
-				.then((data) => {
-					setSearchResults(data);
-				})
-				.catch((error) => {
-					console.error("Error fetching exercise data:", error);
-				});
-		}
+		Exercise_api.exercise_part(selectedPart, 10).then((data) => {
+			setExerciseData(data);
+			setShowExercise(true);
+		});
 	}, [selectedPart]);
 
 	return (
 		<div className="flex my-4">
 			<div className="flex flex-1">
-				<div className="flex mx-2 mr-10 ">
+				<div className="flex mx-2 mr-10">
 					<SearchbarView
+						bodyPart={bodyPart}
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
-						results={searchResults}
+						exercise_results={exerciseData}
+						showExercise={showExercise}
 					/>
 				</div>
 				<div className="flex">

@@ -1,7 +1,9 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 
-interface SearchResult {
+import Exercise_api from "../../models/apimodel";
+
+interface Exercise {
 	bodyPart: string;
 	equipment: string;
 	gifUrl: string;
@@ -15,32 +17,18 @@ interface SearchResult {
 interface SearchbarViewProps {
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
-	results: SearchResult[]; // Define the type for the results prop
+	bodyPart: { part: string; apiCall: string }[];
+	exercise_results: Exercise[];
+	showExercise: boolean;
 }
 
-const bodyPart = [
-	{ part: "Back" },
-	{ part: "Cardio" },
-	{ part: "Chest" },
-	{ part: "Lower Arms" },
-	{ part: "Lower Legs" },
-	{ part: "Neck" },
-	{ part: "Shoulders" },
-	{ part: "Upper Arms" },
-];
-
 export default function SearchbarView({
-	
 	selectedPart,
 	setSelectedPart,
-	results,
+	bodyPart,
+	exercise_results,
+	showExercise,
 }: SearchbarViewProps) {
-	const handlePartSelection = (part: string) => {
-		setSelectedPart(part);
-		console.log(results)
-		
-	};
-
 	return (
 		<div>
 			<div className="border border-solid">
@@ -49,13 +37,18 @@ export default function SearchbarView({
 						<Menu.Button className="w-fit ">{selectedPart}</Menu.Button>
 					</div>
 					<Menu.Items>
-						{bodyPart.map((partItem) => (
-							<Menu.Item key={partItem.part}>
+						{bodyPart.map((bodyArea) => (
+							<Menu.Item key={bodyArea.part}>
 								<button
 									className="flex flex-1"
-									onClick={() => handlePartSelection(partItem.part)}
+									onClick={() => {
+										setSelectedPart(bodyArea.apiCall);
+										Exercise_api.exercise_part(bodyArea.apiCall, 10).then(
+											(data) => console.log(data)
+										);
+									}}
 								>
-									{partItem.part}
+									{bodyArea.part}
 								</button>
 							</Menu.Item>
 						))}
@@ -64,7 +57,15 @@ export default function SearchbarView({
 			</div>
 			<div>
 				<h1>Exercises</h1>
-				{" Create"}
+				{showExercise ? (
+					exercise_results.length > 0 ? (
+						exercise_results.map((exercise) => (
+							<div key={exercise.id}>{exercise.name}</div>
+						))
+					) : (
+						<p>No exercises to display.</p>
+					)
+				) : null}
 			</div>
 		</div>
 	);
