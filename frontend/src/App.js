@@ -50,14 +50,14 @@ function App() {
 
                           
                         <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to ="/login"/>}/>
-                        <Route path="/progress" element={<Progress />} />
-                        <Route path="/explore" element={<Explore />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="/pageitem" element={<PageItem />} />
+                        <Route path="/progress" element={loggedIn ? <Progress /> : <Navigate to ="/login"/>} />
+                        <Route path="/explore" element={loggedIn ? <Explore /> : <Navigate to ="/login"/>} />
+                        <Route path="/settings" element={loggedIn ? <Settings /> : <Navigate to ="/login"/>} />
+                        <Route path="/pageitem" element={loggedIn ? <PageItem /> : <Navigate to ="/login"/>} />
                         {/*<Route path="/test" element={<WorkoutPage />} /> */}
-                        <Route path="/workoutPlan" element={<Workouts />} />
+                        <Route path="/workoutPlan" element={loggedIn ? <Workouts /> : <Navigate to ="/login"/>} />
 
-                        <Route path="/itemPage" element={<ItemPage />} />
+                        <Route path="/itemPage" element={loggedIn ? <ItemPage /> : <Navigate to ="/login"/>} />
 
                     </Routes>
                   </div>

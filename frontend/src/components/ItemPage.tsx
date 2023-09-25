@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import AddWorkout from "./AddWorkout"
-import { AiFillWindows, AiOutlineClose, AiFillEdit } from "react-icons/ai";
+import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 type Props = {
@@ -10,11 +10,10 @@ type Props = {
 }
 
 
-
 function ItemPage({}: Props) {
 
     const [data, setData] = useState([])
-    const [workouts, setWorkouts] = useState([[]])
+    const [workouts, setWorkouts] = useState([])
     const [loading, setLoading] = useState(false)
 
     const userJSON = localStorage.getItem("userFittness");
@@ -40,7 +39,6 @@ function ItemPage({}: Props) {
       });
       const data = await response.json();
       setWorkouts(data)
-      console.log("test brä", data);
     }
    fetchWorkouts()
   }, [])
@@ -52,7 +50,7 @@ function ItemPage({}: Props) {
               const options = {
                 method: 'GET',
                 headers: {
-                  'X-RapidAPI-Key': '083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2',
+                  'X-RapidAPI-Key': '15157ef7b5msh145eaabd9036395p16c555jsn7dde4f641913',
                   'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
                 }
               };
@@ -60,7 +58,7 @@ function ItemPage({}: Props) {
               try {
                 const response = await fetch(url, options);
                 const result = await response.json();
-                console.log(result);
+                console.log("api",result);
                 setData(result)
                 setLoading(false)
               } catch (error) {
@@ -92,11 +90,6 @@ function ItemPage({}: Props) {
 
     const [addWorkout, setAddWorkout] = useState(false)
     
-
-
-    
-    console.log("DATA i test", dataJSON)
-
   return (
     <div className='w-full h-screen relative'>
              <img src = "https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg" className='sticky object-cover w-full h-full'/>
@@ -112,7 +105,7 @@ function ItemPage({}: Props) {
                      >Add workout</button>
                  </div>
                         <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
-                          {workouts.map((workout: any) => (
+                          {workouts?.map((workout: any) => (
                                 <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 relative'>
                                   <div className='top-2 right-2 absolute flex items-center gap-2'>
                                     <AiOutlineClose color = "red" size = {20} onClick = {
