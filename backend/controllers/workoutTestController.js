@@ -19,7 +19,7 @@ async function getWorkouts(req,res){
 
 
 async function addWorkout(req,res){
-    const {name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body
+    const {day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body
 
     const errorMessages = []
 
@@ -50,7 +50,7 @@ async function addWorkout(req,res){
       try {
         const user_id = req.user._id;
  
-        const addedWorkout = await WorkoutModel.create({name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
+        const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
        
         res.status(200).json(addedWorkout);
       } catch (error) {

@@ -13,9 +13,12 @@ const AddPlan = ({  myPlan, setAddPlan, setMyPlan }: Props) => {
     const [name, setName] = useState('')
     const [type, setType] = useState('')
 
+    const userJSON = localStorage.getItem("userFittness");
+    const user = userJSON ? JSON.parse(userJSON) : null;
+
     function addHandler(){
         setMyPlan([...myPlan, {id: Date.now(), day: day, name: name, type: type}])
-        localStorage.setItem('myPlan', JSON.stringify([...myPlan, {id: Date.now(), day: day, name: name, type: type}]))
+        localStorage.setItem(user.email, JSON.stringify([...myPlan, {id: Date.now(), day: day, name: name, type: type}]))
         setAddPlan(false)
     }
 

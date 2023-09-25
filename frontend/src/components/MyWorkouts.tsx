@@ -25,6 +25,8 @@ const MyWorkouts = () => {
   const userJSON = localStorage.getItem("userFittness");
   const user = userJSON ? JSON.parse(userJSON) : null;
 
+ console.log("fas", user)
+
   function itemPage(item: any){
 
     const id = { id: item.id };
@@ -46,7 +48,7 @@ const MyWorkouts = () => {
 
 
   useEffect(() => {
-    const localStorageData = localStorage.getItem('myPlan');
+    const localStorageData = localStorage.getItem(user.email);
 
    
     if (localStorageData) {

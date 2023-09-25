@@ -46,7 +46,7 @@ function ItemPage({}: Props) {
     async function addWorkoutHandler(){
         setAddWorkout(true)
         setLoading(true)
-        const url = 'https://exercisedb.p.rapidapi.com/exercises';
+        const url = 'https://exercisedb.p.rapidapi.com/exercises?limit=1000';
               const options = {
                 method: 'GET',
                 headers: {
