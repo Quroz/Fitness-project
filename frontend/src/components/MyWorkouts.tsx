@@ -3,6 +3,7 @@ import AddWorkout from "./AddWorkout"
 import AddPlan from "./AddPlan"
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineClose } from "react-icons/ai";
+import EditWorkout from "./EditWorkout"
 
 
 type Props = {
@@ -16,6 +17,7 @@ const MyWorkouts = () => {
 
   const [addWorkout, setAddWorkout] = useState(false)
   const [addPlan, setAddPlan] = useState(false)
+  const [edit, setEdit] = useState(false)
  
 
   const [myPlan, setMyPlan] = useState<Props[]>([]); 
