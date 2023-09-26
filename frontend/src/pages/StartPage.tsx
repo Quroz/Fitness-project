@@ -14,7 +14,7 @@ function StartPage({}: Props) {
                    <button className='text-black bg-orange-400 py-2 px-5 rounded-full text-sm hover:bg-orange-200 font-bold'>Membership</button>
                 </div>
             </div>
-            <img src = "https://images.contentstack.io/v3/assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
+            <img src = "https://images.contentstack.io/v3/Assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
             className='object-container w-full h-full'
             />
             <div className='absolute top-0 left-0 w-full h-full bg-black/50'/>
