@@ -1,0 +1,70 @@
+{
+    "workouts":[
+        {
+            "workout":"Back workout 1",
+            "date":"2023-09-01",
+            "time":"14:00"
+        },
+        {
+            "workout":"Chest workout 1",
+            "date":"2023-09-02",
+            "time":"13:00"
+        },
+        {
+            "workout":"Legs workout 1",
+            "date":"2023-09-03",
+            "time":"11:00"
+        },
+        {
+            "workout":"Arms and Shoulders workout 1",
+            "date":"2023-09-04",
+            "time":"12:00"
+        },
+        {
+            "workout":"Cardio workout 1",
+            "date":"2023-09-05",
+            "time":"13:00"
+        },
+        {
+            "workout":"Back workout 2",
+            "date":"2023-09-06",
+            "time":"14:00"
+        },
+        {
+            "workout":"Chest workout 1",
+            "date":"2023-09-07",
+            "time":"14:00"
+        }
+
+    ],
+    "weigh-ins":[
+        {
+            "date":"2023-09-01",
+            "weight":"90kg"
+        },
+        {
+            "date":"2023-09-02",
+            "weight":"91kg"
+        },
+        {
+            "date":"2023-09-03",
+            "weight":"90.7kg"
+        },
+        {
+            "date":"2023-09-04",
+            "weight":"90.3kg"
+        },
+        {
+            "date":"2023-09-05",
+            "weight":"89kg"
+        },
+        {
+            "date":"2023-09-06",
+            "weight":"88kg"
+        },
+        {
+            "date":"2023-09-07",
+            "weight":"87kg"
+        }
+    ]
+}
