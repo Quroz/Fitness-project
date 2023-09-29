@@ -39,6 +39,7 @@ function ItemPage({}: Props) {
       });
       const data = await response.json();
       setWorkouts(data)
+      console.log("workouts", workouts)
     }
    fetchWorkouts()
   }, [])
@@ -89,6 +90,28 @@ function ItemPage({}: Props) {
       } 
 
     const [addWorkout, setAddWorkout] = useState(false)
+
+    async function checkHandler(id: number){
+        const response = await fetch("http://localhost:4000/api/workout/check", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${user.token}`
+          },
+          body: JSON.stringify({
+            check: new Date().toISOString().slice(0, 10),
+            plan_id: id
+          }),
+        });
+        
+        if(response.status !== 200){
+          alert("Could not check workout")
+        }
+        else{
+          alert("checked!")
+          window.location.reload()
+        }
+    }
     
   return (
     <div className='w-full h-screen relative'>
@@ -113,6 +136,7 @@ function ItemPage({}: Props) {
                                     }/>
                                     <AiFillEdit color = "green" size = {20}/>
                                   </div>
+                                  <input type="checkbox" className='cursor-pointer absolute left-2 top-2' onClick={() => checkHandler(workout.plan_id)}/>
                                   <h1 className='font-[700]'>{workout.name}</h1>
                                   <h1 className='font-[700]'>{workout.bodyPart}</h1>
                                   <h1 className='font-[700]'>{workout.muscleTarget}</h1>

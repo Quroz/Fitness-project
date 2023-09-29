@@ -40,6 +40,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
         "Authorization": `Bearer ${user.token}`
       },
       body: JSON.stringify({
+        check: "0",
         name: selectedWorkoutName,
         bodyPart: selectedBodyPart,
         muscleTarget: selectedTarget,

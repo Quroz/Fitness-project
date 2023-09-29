@@ -19,7 +19,7 @@ async function getWorkouts(req,res){
 
 
 async function addWorkout(req,res){
-    const {day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body
+    const {day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, check} = req.body
 
     const errorMessages = []
 
@@ -50,7 +50,7 @@ async function addWorkout(req,res){
       try {
         const user_id = req.user._id;
  
-        const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
+        const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id, check});
        
         res.status(200).json(addedWorkout);
       } catch (error) {
@@ -109,6 +109,31 @@ async function updateWorkout(req, res) {
     }
 }
 
+async function checkWorkout(req, res) {
+    const { check, plan_id } = req.body;
+    const user_id = req.user._id;
+
+    try {
+        const update = { check };
+
+        const updatedWorkout = await WorkoutModel.findOneAndUpdate(
+            { plan_id, user_id },
+            update,
+            { new: true }
+        );
+
+        if (!updatedWorkout) {
+            return res.status(404).json({ Error: "Workout not found" });
+        }
+
+        res.status(200).json(updatedWorkout);
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
+    }
+}
 
 
-module.exports = {addWorkout, getWorkouts,  deleteWorkout, updateWorkout, deleteAllWorkouts}
+
+
+
+module.exports = {addWorkout, getWorkouts,  deleteWorkout, updateWorkout, deleteAllWorkouts, checkWorkout}

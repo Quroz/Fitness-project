@@ -3,6 +3,10 @@ const Schema = mongoose.Schema
 
 const WorkoutSchema = new Schema({
 
+    check: {
+        type: String,
+        required: true,
+    },
     name: {
         type: String,
         required: true,
