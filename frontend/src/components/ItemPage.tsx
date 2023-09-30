@@ -91,7 +91,13 @@ function ItemPage({}: Props) {
 
     const [addWorkout, setAddWorkout] = useState(false)
 
-    async function checkHandler(id: number){
+    async function checkHandler(id: number, name: string, option: any){
+
+        if(option != 0 ){
+          option = new Date().toISOString().slice(0, 10)
+        }
+
+
         const response = await fetch("http://localhost:4000/api/workout/check", {
           method: "POST",
           headers: {
@@ -99,8 +105,9 @@ function ItemPage({}: Props) {
             "Authorization": `Bearer ${user.token}`
           },
           body: JSON.stringify({
-            check: new Date().toISOString().slice(0, 10),
-            plan_id: id
+            check: option,
+            plan_id: id,
+            name: name
           }),
         });
         
@@ -108,7 +115,6 @@ function ItemPage({}: Props) {
           alert("Could not check workout")
         }
         else{
-          alert("checked!")
           window.location.reload()
         }
     }
@@ -136,7 +142,7 @@ function ItemPage({}: Props) {
                                     }/>
                                     <AiFillEdit color = "green" size = {20}/>
                                   </div>
-                                  <input type="checkbox" className='cursor-pointer absolute left-2 top-2' onClick={() => checkHandler(workout.plan_id)}/>
+                                  <div className= {workout.check != 0 ? 'absolute left-2 top-2 border-[1px] border-black w-4 h-4 bg-green-500' : 'absolute left-2 top-2 border-[1px] border-black w-4 h-4'} onClick={workout.check == 0 ? () => checkHandler(workout.plan_id, workout.name, 1) : () => checkHandler(workout.plan_id, workout.name, 0)}/>
                                   <h1 className='font-[700]'>{workout.name}</h1>
                                   <h1 className='font-[700]'>{workout.bodyPart}</h1>
                                   <h1 className='font-[700]'>{workout.muscleTarget}</h1>
