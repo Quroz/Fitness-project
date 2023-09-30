@@ -18,6 +18,9 @@ const MyWorkouts = () => {
   const [addWorkout, setAddWorkout] = useState(false)
   const [addPlan, setAddPlan] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [search, setSearch] = useState("")
+
+  const [filteredArray, setFilteredArray] = useState<Props[]>([])
  
 
   const [myPlan, setMyPlan] = useState<Props[]>([]); 
@@ -88,26 +91,42 @@ const MyWorkouts = () => {
   
   }
 
+  useEffect(() => {
+
+    console.log("search", search)
+    if(search != ""){
+      const filteredResult = myPlan.filter((item) => item.name === search);
+
+      setFilteredArray(filteredResult);
+    }
+    else{
+      setFilteredArray(myPlan)
+    }
+
+  }, [search, myPlan])
+
   return (
     <div className='mt-24 w-[80%] mx-auto'>
                 <div className='flex items-center justify-between'>
                    <h1>{myPlan.length} Workouts</h1>
                    <h1>Sort by Workout Name: A-Z</h1>
                    <div className='flex items-center gap-2'>
-                    <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-gray-500' placeholder='Search workout by name'/>
+                    <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-black' placeholder='Search workout by name' value = {search} onChange = {(e) => setSearch(e.target.value)}/>
                     <button className='bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200' onClick={() => setAddPlan(true)} >Add</button>
                    </div>
                 </div>
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
-                             {myPlan.map((item: any) => (
+                             {filteredArray.map((item: any) => (
                                   <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative'>
-                                    <h1 className='font-[700]'>Day: {item.day}</h1>
-                                    <h1 className='font-[700]'>Name: {item.name}</h1>
-                                    <h1 className='font-[700]'>Type: {item.type}</h1>
-                                     <AiOutlineArrowRight size = {24} color = "green"
-                                     onClick = {() => itemPage(item)}
-                                     />
-                                     <AiOutlineClose className='cursor-pointer absolute top-1 right-2' color = "red" size = {12} onClick={() => deleteWorkoutPlan(item.id)}/>
+                                    <h1><strong>Day:</strong> {item.day}</h1>
+                                    <h1><strong>Name:</strong> {item.name}</h1>
+                                    <h1><strong>Type:</strong> {item.type}</h1>
+                                    <div className = "flex items-center gap-4">
+                                        <AiOutlineArrowRight size = {24} color = "green"
+                                        onClick = {() => itemPage(item)}
+                                        />
+                                        <AiOutlineClose className='cursor-pointer' color = "red" size = {24} onClick={() => deleteWorkoutPlan(item.id)}/>
+                                    </div>
                                   </div>
                              ))}
                           

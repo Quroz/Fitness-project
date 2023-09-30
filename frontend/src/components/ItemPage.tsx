@@ -134,24 +134,30 @@ function ItemPage({}: Props) {
                      >Add workout</button>
                  </div>
                         <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-full bg-black/10 rounded-md'>
-                          {workouts?.map((workout: any) => (
+                          {workouts.length > 0 ?
+                           <>
+                              {workouts?.map((workout: any) => (
                                 <div className='flex items-center justify-around max-w-full py-4 mx-2 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 relative'>
-                                  <div className='top-2 right-2 absolute flex items-center gap-2'>
+                                  <div className='top-1 right-2 absolute flex items-center gap-2'>
                                     <AiOutlineClose color = "red" size = {20} onClick = {
                                       () => deleteWorkoutHandler(workout.name)
                                     }/>
                                     <AiFillEdit color = "green" size = {20}/>
                                   </div>
-                                  <div className= {workout.check != 0 ? 'absolute left-2 top-2 border-[1px] border-black w-4 h-4 bg-green-500' : 'absolute left-2 top-2 border-[1px] border-black w-4 h-4'} onClick={workout.check == 0 ? () => checkHandler(workout.plan_id, workout.name, 1) : () => checkHandler(workout.plan_id, workout.name, 0)}/>
-                                  <h1 className='font-[700]'>{workout.name}</h1>
-                                  <h1 className='font-[700]'>{workout.bodyPart}</h1>
-                                  <h1 className='font-[700]'>{workout.muscleTarget}</h1>
-                                  <h1 className='font-[700]'>{workout.equipment}</h1>
-                                  <h1 className='font-[700]'>{workout.sets}</h1>
-                                  <h1 className='font-[700]'>{workout.reps}</h1>
+                                  <div className= {workout.check != 0 ? 'absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500' : 'absolute left-2 top-2 border-[1px] border-black w-4 h-4'} onClick={workout.check == 0 ? () => checkHandler(workout.plan_id, workout.name, 1) : () => checkHandler(workout.plan_id, workout.name, 0)}/>
+                                    <h1 className = "text-sm"><strong>Workout name:</strong> {workout.name}</h1>
+                                    <h1 className = "text-sm"><strong>Bodypart:</strong> {workout.bodyPart}</h1>
+                                    <h1 className = "text-sm"><strong>Muscle target:</strong> {workout.muscleTarget}</h1>
+                                    <h1 className = "text-sm"><strong>Equipment:</strong> {workout.equipment}</h1>
+                                    <h1 className = "text-sm"><strong>Amount of sets:</strong> {workout.sets}</h1>
+                                    <h1 className = "text-sm"><strong>Amount of reps:</strong> {workout.reps}</h1>
                                 </div>
-                          ))}
-                            
+                              ))}
+                            </>
+                          : 
+                          <h1>hej</h1>
+                          }
+                                 
                     </div> 
             </div>
              {addWorkout && 
