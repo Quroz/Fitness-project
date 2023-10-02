@@ -1,14 +1,18 @@
-// Imported libraries and components
+
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-// Imported log in and sign up pages
+
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
+
+
+
 
 /* Import all presenters --> Gör detta MVP */
 import ExplorePresenter from "./presenters/Explore";
 
 /*Import all the view pages */
+
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Progress from "./pages/Progress";
@@ -18,9 +22,12 @@ import StartPage from "./pages/StartPage";
 import PageItem from "./pages/Workouts";
 import WorkoutPage from "./pages/WorkoutPage";
 import Workouts from "./pages/Workouts";
+import ItemPage from "./components/ItemPage";
+
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
+
 	const pathname = window.location.pathname;
 
 	return (
@@ -66,6 +73,7 @@ function App() {
 			</BrowserRouter>
 		</div>
 	);
+
 }
 
 export default App;

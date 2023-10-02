@@ -9,7 +9,7 @@ type Props = {
   loading: any;
 };
 
-const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
+const EditWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
 
 
@@ -32,16 +32,14 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
 
 
-
   async function addWorkoutHandler(){
-    const response = await fetch("http://localhost:4000/api/workout/add", {
+    const response = await fetch("http://localhost:4000/api/workout/update", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${user.token}`
       },
       body: JSON.stringify({
-        check: [],
         name: selectedWorkoutName,
         bodyPart: selectedBodyPart,
         muscleTarget: selectedTarget,
@@ -147,7 +145,6 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
             value={numberOfReps}
             onChange={(e) => setNumberOfReps(Number(e.target.value))}
           />
-
         </div>
       }
         <button className='px-2 py-2 bg-lime-300 text-white font-bold rounded-md mt-8 text-sm hover:bg-lime-200'
@@ -160,4 +157,4 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
   )
 }
 
-export default AddWorkout;
+export default EditWorkout;

@@ -63,7 +63,7 @@ const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = await userModel.create({ email, password: hashedPassword });
+        const newUser = await userModel.create({ email, password: hashedPassword, check: [] });
 
         const token = createToken(newUser._id);
 
@@ -74,7 +74,29 @@ const signup = async (req, res) => {
 };
 
 
+async function updateCheck(req, res) {
+    const { email,check } = req.body;
+   
+
+    try {
+        const updatedWorkout = await userModel.findOneAndUpdate(
+            { email},
+            { $push: { check: { $each: check } } }, 
+            { new: true }
+        );
+
+        if (!updatedWorkout) {
+            return res.status(404).json({ Error: "Workout not found" });
+        }
+
+        res.status(200).json(updatedWorkout);
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
+    }
+}
 
 
-module.exports = {login, signup}
+
+
+module.exports = {login, signup, updateCheck}
 
