@@ -42,7 +42,7 @@ function App() {
         {loggedIn && (
           <div className="flex">
             <NavbarView />
-            <div className="flex-1">
+            <div className="flex-1 ml-11">
               <Routes>
                 {/* The same order of the navbar icons drawn in my sketch-Rakin */}
                 <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />

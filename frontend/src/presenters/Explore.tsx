@@ -22,7 +22,7 @@ function ExplorePresenter() {
 	return (
 		<div className="flex my-4">
 			<div className="flex flex-1">
-				<div className="flex mx-10 mr-10">
+				<div className="flex mx-5">
 					<SearchbarView
 						bodyPart={bodyPart}
 						selectedPart={selectedPart}
