@@ -1,24 +1,15 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 
-import Exercise_api from "../../models/apimodel";
-
-interface Exercise {
-	bodyPart: string;
-	equipment: string;
-	gifUrl: string;
-	id: string;
-	name: string;
-	target: string;
-	secondaryMuscles: string[];
-	instructions: string[];
-}
+import Exercise from "../../interfaces/Exercise";
 
 interface SearchbarViewProps {
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
 	bodyPart: { part: string; apiCall: string }[];
 	exercise_results: Exercise[];
+	setExercisesShown: (num: number) => void;
+	exercisesShown: number;
 }
 
 export default function SearchbarView({
@@ -26,6 +17,8 @@ export default function SearchbarView({
 	setSelectedPart,
 	bodyPart,
 	exercise_results,
+	setExercisesShown,
+	exercisesShown,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -48,6 +41,8 @@ export default function SearchbarView({
 											className="flex flex-1"
 											onClick={() => {
 												setSelectedPart(bodyArea.apiCall);
+												// Inrement the number of exercises shown by 10
+												setExercisesShown(10);
 											}}
 										>
 											{bodyArea.part}
@@ -74,7 +69,14 @@ export default function SearchbarView({
 							</div>
 						))}
 						{/* Add your button here, inside the condition */}
-						<button>Click Me</button>
+						<button
+							onClick={() => (
+								setExercisesShown(exercisesShown + 10),
+								console.log(exercisesShown)
+							)}
+						>
+							Click Me
+						</button>
 					</>
 				) : (
 					<p>No exercises to display.</p>

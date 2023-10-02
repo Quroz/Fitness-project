@@ -13,7 +13,7 @@ const Base_URL = "https://exercisedb.p.rapidapi.com/exercises";
 const options = {
 	method: "GET",
 	headers: {
-		"X-RapidAPI-Key": "083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2",
+		"X-RapidAPI-Key": "92861afaf7mshcb88a59aa5a8a33p17a34djsnf27ce4eb51d4",
 		"X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
 	},
 };
@@ -59,7 +59,7 @@ const Exercise_api = {
 	},
 
 	async exercise_part(bodyPart: string, limit: number): Promise<Exercise[]> {
-		const apiKey = "b8802008cdmshb023a9cb3bfacf0p158be1jsn126cff83cac9";
+		const apiKey = "92861afaf7mshcb88a59aa5a8a33p17a34djsnf27ce4eb51d4";
 		const host = "exercisedb.p.rapidapi.com";
 
 		// Construct the URL with the provided bodyPart and limit
