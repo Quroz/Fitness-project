@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Exercise from "../../interfaces/Exercise";
 
@@ -10,6 +11,8 @@ interface SearchbarViewProps {
 	exercise_results: Exercise[];
 	setExercisesShown: (num: number) => void;
 	exercisesShown: number;
+	equipments: string;
+	equipmentList : { equipment: string; apiCall: string }[];
 }
 
 export default function SearchbarView({
@@ -19,26 +22,41 @@ export default function SearchbarView({
 	exercise_results,
 	setExercisesShown,
 	exercisesShown,
+	equipments,
+	equipmentList,
 }: SearchbarViewProps) {
 	return (
 		<div>
 			<div className="flex flex-1">
 				<div className="flex flex-row">
 					<div className="w-28">
-						<div>
-							<input type="text" placeholder="Search" />
+						<div className="mb-5">
+							<input type="text" placeholder="Type Workout here" />
 						</div>
 						<Menu>
-							<div>
-								<Menu.Button className="w-20 bg-red-600 border-solid border-zinc-800">
+							<div className="flex flex-row">
+								<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
+									<ChevronDownIcon
+										className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
+										aria-hidden="true"
+									/>
 									{selectedPart}
 								</Menu.Button>
+								<Menu>
+									<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
+										<ChevronDownIcon
+											className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
+											aria-hidden="true"
+										/>
+										{equipments}
+									</Menu.Button>
+								</Menu>
 							</div>
 							<Menu.Items>
 								{bodyPart.map((bodyArea) => (
 									<Menu.Item key={bodyArea.part}>
 										<button
-											className="flex flex-1"
+											className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
 											onClick={() => {
 												setSelectedPart(bodyArea.apiCall);
 												// Inrement the number of exercises shown by 10
@@ -46,6 +64,10 @@ export default function SearchbarView({
 											}}
 										>
 											{bodyArea.part}
+											<ChevronDownIcon
+												className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+												aria-hidden="true"
+											/>
 										</button>
 									</Menu.Item>
 								))}
@@ -55,7 +77,6 @@ export default function SearchbarView({
 				</div>
 			</div>
 			<div>
-				<h1>Exercises</h1>
 				{exercise_results.length > 0 ? (
 					<>
 						{exercise_results.map((exercise) => (
@@ -70,11 +91,14 @@ export default function SearchbarView({
 						))}
 						{/* Add your button here, inside the condition */}
 						<button
+							className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
 							onClick={() => (
 								setExercisesShown(exercisesShown + 10),
 								console.log(exercisesShown)
 							)}
-						>Load more exercises</button>
+						>
+							Load more exercises
+						</button>
 					</>
 				) : (
 					<p>No exercises to display.</p>
