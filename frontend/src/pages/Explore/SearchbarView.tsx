@@ -29,59 +29,33 @@ export default function SearchbarView({
 		<div>
 			<div className="flex flex-1">
 				<div className="flex flex-row">
-					<div className="w-28">
+					<div className="w-fit">
 						<div className="mb-5">
 							<input type="text" placeholder="Type Workout here" />
 						</div>
-						<div className="RAKIN STYLA HÄRA!!!!!!">
+						<div className="flex">
 							<Menu>
 								<div className="flex flex-row">
-									<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
-										<ChevronDownIcon
-											className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
-											aria-hidden="true"
-										/>
-										{selectedPart}
-									</Menu.Button>
-									<Menu.Items>
-										{bodyPart.map((bodyArea) => (
-											<Menu.Item key={bodyArea.part}>
-												<button
-													className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
-													onClick={() => {
-														setSelectedPart(bodyArea.apiCall);
-														// Increment the number of exercises shown by 10
-														setExercisesShown(10);
-													}}
-												>
-													{bodyArea.part}
-													<ChevronDownIcon
-														className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
-														aria-hidden="true"
-													/>
-												</button>
-											</Menu.Item>
-										))}
-									</Menu.Items>
-									{/* Add the equipment menu here */}
-									<Menu>
+									<div className="flex flex-col">
 										<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
 											<ChevronDownIcon
 												className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
 												aria-hidden="true"
 											/>
-											{equipments}
+											{selectedPart}
 										</Menu.Button>
 										<Menu.Items>
-											{equipmentList.map((equipment) => (
-												<Menu.Item key={equipment.apiCall}>
+											{bodyPart.map((bodyArea) => (
+												<Menu.Item key={bodyArea.part}>
 													<button
 														className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
 														onClick={() => {
-															// Handle equipment selection here
+															setSelectedPart(bodyArea.apiCall);
+															// Increment the number of exercises shown by 10
+															setExercisesShown(10);
 														}}
 													>
-														{equipment.equipment}
+														{bodyArea.part}
 														<ChevronDownIcon
 															className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
 															aria-hidden="true"
@@ -90,6 +64,37 @@ export default function SearchbarView({
 												</Menu.Item>
 											))}
 										</Menu.Items>
+									</div>
+
+									{/* Add the equipment menu here */}
+									<Menu>
+										<div className="flex flex-col">
+											<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
+												<ChevronDownIcon
+													className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
+													aria-hidden="true"
+												/>
+												{equipments}
+											</Menu.Button>
+											<Menu.Items>
+												{equipmentList.map((equipment) => (
+													<Menu.Item key={equipment.apiCall}>
+														<button
+															className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
+															onClick={() => {
+																// Handle equipment selection here
+															}}
+														>
+															{equipment.equipment}
+															<ChevronDownIcon
+																className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+																aria-hidden="true"
+															/>
+														</button>
+													</Menu.Item>
+												))}
+											</Menu.Items>
+										</div>
 									</Menu>
 								</div>
 							</Menu>
