@@ -74,9 +74,7 @@ export default function SearchbarView({
 								setExercisesShown(exercisesShown + 10),
 								console.log(exercisesShown)
 							)}
-						>
-							Click Me
-						</button>
+						>Load more exercises</button>
 					</>
 				) : (
 					<p>No exercises to display.</p>

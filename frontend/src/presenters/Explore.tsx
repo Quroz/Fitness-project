@@ -9,7 +9,7 @@ import bodyPart from "../interfaces/Bodypart";
 function ExplorePresenter() {
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
 	const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
-	const [exercisesShown, setExercisesShown] = useState(10);
+	const [exercisesShown, setExercisesShown] = useState(0);
 
 	useEffect(() => {
 		if (selectedPart === "Select a body part") return;
@@ -17,7 +17,7 @@ function ExplorePresenter() {
 		Exercise_api.exercise_part(selectedPart, exercisesShown).then((data) => {
 			setExerciseData(data);
 		});
-	}, [exercisesShown]);
+	}, [exercisesShown, selectedPart]);
 
 	return (
 		<div className="flex my-4">
