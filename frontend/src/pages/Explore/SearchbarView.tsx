@@ -1,24 +1,32 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
-import { setFips } from "crypto";
 
 interface SearchbarViewProps {
+	// Searching for body part
 	selectedPart: string;
 	setSelectedPart: (part: string) => void;
 	bodyPart: { part: string; apiCall: string }[];
+
+	// Searching for exercise by name
 	exercise_results: Exercise[];
 	setExercisesShown: (num: number) => void;
 	exercisesShown: number;
+	// Searching and filtering by equipment
 	equipmentList: { equipment: string; apiCall: string }[];
 	equipments: string;
 	setEquipments: (equipment: string) => void;
 	filterbyEquipment: boolean;
 	setFilterbyEquipment: (equipment: boolean) => void;
-}
 
+	// Searching for exercise by name
+	searchExercise: string;
+	setSearchExercise: (exercise: string) => void;
+	searchByName: boolean;
+	setSearchByName: (exercise: boolean) => void;
+}
 
 export default function SearchbarView({
 	selectedPart,
@@ -32,6 +40,10 @@ export default function SearchbarView({
 	setEquipments,
 	filterbyEquipment,
 	setFilterbyEquipment,
+	searchExercise,
+	setSearchExercise,
+	searchByName,
+	setSearchByName,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -40,15 +52,26 @@ export default function SearchbarView({
 					<div className="w-fit">
 						<div className="mb-5">
 							<div className="flex flex-row">
-								<input type="text" placeholder="Type Workout here" />
-								<button>Enter</button>
+								<input type="text" placeholder={searchExercise} />
+								<button
+									className="flex flex-col"
+									onClick={() => {
+										setSearchByName(true);
+									}}
+								>
+									<MagnifyingGlassIcon
+										className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
+										aria-hidden="true"
+									/>
+									Enter
+								</button>
 							</div>
 						</div>
 						<div className="flex">
 							<Menu>
 								<div className="flex flex-row">
 									<div className="flex flex-col mr-5">
-										<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
+										<Menu.Button className="flex flex-row py-2 text-sm rounded-sm w-15 bg-lime-300 hover:bg-lime-200">
 											<ChevronDownIcon
 												className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
 												aria-hidden="true"
@@ -59,7 +82,7 @@ export default function SearchbarView({
 											{bodyPart.map((bodyArea) => (
 												<Menu.Item key={bodyArea.part}>
 													<button
-														className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
+														className="flex flex-1 py-2 text-sm bg-yellow-300 border border-black rounded-sm w-15 hover:bg-lime-200 -border-solid"
 														onClick={() => {
 															setSelectedPart(bodyArea.apiCall);
 															// Increment the number of exercises shown by 10
@@ -80,7 +103,7 @@ export default function SearchbarView({
 									{/* Add the equipment menu here */}
 									<Menu>
 										<div className="flex flex-col">
-											<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
+											<Menu.Button className="flex flex-row py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200">
 												<ChevronDownIcon
 													className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
 													aria-hidden="true"
@@ -91,7 +114,7 @@ export default function SearchbarView({
 												{equipmentList.map((equipment) => (
 													<Menu.Item key={equipment.equipment}>
 														<button
-															className={`flex flex-1 bg-yellow-300 rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black ${
+															className={`flex flex-1 bg-yellow-300 rounded-sm py-2 w-20 text-sm hover:bg-lime-200 border -border-solid border-black ${
 																equipments === equipment.apiCall
 																	? "bg-green-300"
 																	: ""
@@ -154,7 +177,7 @@ export default function SearchbarView({
 								</div>
 							))}
 						<button
-							className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
+							className="py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200"
 							onClick={() => (
 								setExercisesShown(exercisesShown + 1000),
 								console.log(exercisesShown)
