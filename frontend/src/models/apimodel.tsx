@@ -59,7 +59,7 @@ const Exercise_api = {
 	},
 
 	async exercise_part(bodyPart: string, limit: number): Promise<Exercise[]> {
-		const apiKey = "3ad53db2c9mshfe8e68e512d7859p1086cejsne1b391663a8b";
+		const apiKey = "b8802008cdmshb023a9cb3bfacf0p158be1jsn126cff83cac9";
 		const host = "exercisedb.p.rapidapi.com";
 
 		// Construct the URL with the provided bodyPart and limit

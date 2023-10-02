@@ -34,10 +34,6 @@ export default function SearchbarView({
 					<div className="w-28">
 						<div>
 							<input type="text" placeholder="Search" />
-							
-							
-							
-							
 						</div>
 						<Menu>
 							<div>
