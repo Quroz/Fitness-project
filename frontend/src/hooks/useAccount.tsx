@@ -57,6 +57,7 @@ export function useAccount(props: IAppProps) {
 
   function logout(){
     localStorage.removeItem("userFittness")
+    window.location.reload()
   }
 
 
