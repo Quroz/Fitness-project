@@ -19,7 +19,7 @@ async function getWorkouts(req,res){
 
 
 async function addWorkout(req,res){
-    const {day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, check} = req.body
+    const {day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id} = req.body
 
     const errorMessages = []
 
@@ -50,7 +50,7 @@ async function addWorkout(req,res){
       try {
         const user_id = req.user._id;
  
-        const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id, check});
+        const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
        
         res.status(200).json(addedWorkout);
       } catch (error) {
@@ -110,15 +110,13 @@ async function updateWorkout(req, res) {
 }
 
 async function checkWorkout(req, res) {
-    const { check, plan_id, name } = req.body;
+    const { check, plan_id } = req.body;
     const user_id = req.user._id;
 
     try {
-        const update = { check };
-
         const updatedWorkout = await WorkoutModel.findOneAndUpdate(
-            { plan_id, user_id, name },
-            update,
+            { plan_id, user_id },
+            { $push: { check: { $each: check } } }, 
             { new: true }
         );
 
@@ -131,6 +129,7 @@ async function checkWorkout(req, res) {
         res.status(400).json({ Error: error.message });
     }
 }
+
 
 
 

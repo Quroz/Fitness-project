@@ -52,19 +52,9 @@ const MyWorkouts = () => {
 }
 
 
-  useEffect(() => {
-    const localStorageData = localStorage.getItem(user.email);
 
-   
-    if (localStorageData) {
-      
-      const parsedData = JSON.parse(localStorageData);
 
-      setMyPlan(parsedData);
-    } 
-  }, [])
-
-  async function deleteWorkoutPlan(id: number){
+  async function deleteWorkoutPlan(id: number) {
     const response = await fetch("http://localhost:4000/api/workout/deleteAllWorkouts", {
       method: "POST",
       headers: {
@@ -76,39 +66,71 @@ const MyWorkouts = () => {
       }),
     });
     const data = await response.json();
-    if(response.status !== 200){
-      alert("Could not delete workoutplan")
-    }
-    else{
+    if (response.status !== 200) {
+      alert("Could not delete workout plan")
+    } else {
       alert("Deleted!")
-     
-      const updatedData = myPlan.filter((item) => item.id !== id);
-
-      setMyPlan(updatedData);
-      localStorage.setItem('myPlan', JSON.stringify(updatedData)); 
-      window.location.reload()
-    }
   
+      const updatedData = myPlan.filter((item) => item.id !== id);
+      console.log("updatedData", updatedData)
+      setMyPlan(updatedData);
+      setFilteredArray(updatedData);
+  
+      localStorage.setItem(user.email, JSON.stringify(updatedData));
+    }
   }
+  
+
+  console.log(filteredArray)
 
   useEffect(() => {
-
-    console.log("search", search)
-    if(search != ""){
+  
+    if (search !== "") {
       const filteredResult = myPlan.filter((item) => item.name === search);
-
       setFilteredArray(filteredResult);
+    } else {
+      const localStorageData = localStorage.getItem(user.email);
+      if (localStorageData) {
+        const parsedData = JSON.parse(localStorageData);
+        setMyPlan(parsedData);
+        setFilteredArray(parsedData);
+      }
     }
-    else{
-      setFilteredArray(myPlan)
-    }
+  }, [search, myPlan]);
+  
 
-  }, [search, myPlan])
+  async function checkHandler(id: number){
+
+    const response = await fetch("http://localhost:4000/api/user/updateCheck", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
+      },
+      body: JSON.stringify({
+        check: [new Date().toISOString().slice(0, 10)],
+        email: user.email,
+      }),
+    });
+    
+    try{
+      if(response.status !== 200){
+        alert("Could not check workout")
+      }
+      else{
+        window.location.reload()
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+}
 
   return (
     <div className='mt-24 w-[80%] mx-auto'>
                 <div className='flex items-center justify-between'>
-                   <h1>{myPlan.length} Workouts</h1>
+                   <h1>{filteredArray.length} Workouts</h1>
                    <h1>Sort by Workout Name: A-Z</h1>
                    <div className='flex items-center gap-2'>
                     <input className='bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-black' placeholder='Search workout by name' value = {search} onChange = {(e) => setSearch(e.target.value)}/>
@@ -118,6 +140,7 @@ const MyWorkouts = () => {
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
                              {filteredArray.map((item: any) => (
                                   <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative'>
+                                    <div className= 'absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500' onClick={() => checkHandler(item.plan_id)}/>
                                     <h1><strong>Day:</strong> {item.day}</h1>
                                     <h1><strong>Name:</strong> {item.name}</h1>
                                     <h1><strong>Type:</strong> {item.type}</h1>
