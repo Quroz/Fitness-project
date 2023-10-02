@@ -6,16 +6,16 @@ type Props = {}
 
 function StartPage({}: Props) {
   return (
-    <div className='w-full h-screen relative'>
+    <div className='relative w-full h-screen'>
             <div className='h-[70px] bg-black w-full absolute top-0 left-0 z-10 flex items-center justify-between'> 
-                <img src = {logo} className = "object-cover w-14 h-14 rounded-full ml-8"/>
+                <img src = {logo} className = "object-cover ml-8 rounded-full w-14 h-14"/>
                 <div className='flex items-center gap-8 mr-8'>
-                   <button className='text-black bg-green-400 py-2 px-5 rounded-full text-sm hover:bg-green-200 font-bold'>About</button>
-                   <button className='text-black bg-orange-400 py-2 px-5 rounded-full text-sm hover:bg-orange-200 font-bold'>Membership</button>
+                   <button className='px-5 py-2 text-sm font-bold text-black bg-green-400 rounded-full hover:bg-green-200'>About</button>
+                   <button className='px-5 py-2 text-sm font-bold text-black bg-orange-400 rounded-full hover:bg-orange-200'>Membership</button>
                 </div>
             </div>
-            <img src = "https://images.contentstack.io/v3/assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
-            className='object-container w-full h-full'
+            <img src = "https://images.contentstack.io/v3/Assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
+            className='w-full h-full object-container'
             />
             <div className='absolute top-0 left-0 w-full h-full bg-black/50'/>
             <div className='absolute top-[200px] flex flex-col items-center gap-4 bg-black/20 p-16'>

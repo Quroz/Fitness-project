@@ -137,6 +137,7 @@ const MyWorkouts = () => {
                     <button className='bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200' onClick={() => setAddPlan(true)} >Add</button>
                    </div>
                 </div>
+
                 <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
                              {filteredArray.map((item: any) => (
                                   <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative'>
@@ -153,6 +154,7 @@ const MyWorkouts = () => {
                                   </div>
                              ))}
                           
+
                     </div>
                     
                     {addPlan && 
