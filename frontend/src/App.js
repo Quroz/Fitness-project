@@ -6,17 +6,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
 
 
-
-
-/* Import all presenters --> Gör detta MVP */
-import ExplorePresenter from "./presenters/Explore";
-
-/*Import all the view pages */
-
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Progress from "./pages/Progress";
 import Workout from "./pages/Workout";
+import Explore from "./presenters/Explore";
 import Settings from "./pages/Settings";
 import StartPage from "./pages/StartPage";
 import PageItem from "./pages/Workouts";
@@ -27,53 +21,45 @@ import ItemPage from "./components/ItemPage";
 const loggedIn = localStorage.getItem("userFittness");
 
 function App() {
+  const pathname = window.location.pathname;
 
-	const pathname = window.location.pathname;
+  return (
+    <div>
+      <BrowserRouter>
+        {loggedIn && (pathname === "/login" || pathname === "/" || pathname === "/signup") && (
+          <Navigate to="/dashboard" />
+        )}
 
-	return (
-		<div>
-			<BrowserRouter>
-				{loggedIn &&
-					(pathname == "/login" ||
-						pathname == "/" ||
-						pathname == "/signup") && <Navigate to="/dashboard" />}
+        {!loggedIn && (
+          <Routes>
+            <Route path="/" element={<StartPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/*" element={<Navigate to="/login" />} />
+          </Routes>
+        )}
 
-				{!loggedIn && (
-					<Routes>
-						<Route path="/" element={<StartPage />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/signup" element={<Signup />} />
-					</Routes>
-				)}
-
-				{loggedIn && (
-					<div className="flex">
-						<div className="flex w-11">
-							<NavbarView />
-						</div>
-						<div className="flex-1">
-							<Routes>
-								{/*The same order of the navbar icons drawn in my sketch-Rakin */}
-
-								<Route
-									path="/dashboard"
-									element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
-								/>
-								<Route path="/progress" element={<Progress />} />
-								<Route path="/explore" element={<ExplorePresenter />} />
-								<Route path="/settings" element={<Settings />} />
-								<Route path="/pageitem" element={<PageItem />} />
-								<Route path="/workoutplan" element={<WorkoutPage />} />
-								<Route path="/test" element={<Workouts />} />
-								<Route path="/settings" element={<Settings />} />
-							</Routes>
-						</div>
-					</div>
-				)}
-			</BrowserRouter>
-		</div>
-	);
-
+        {loggedIn && (
+          <div className="flex">
+            <NavbarView />
+            <div className="flex-1">
+              <Routes>
+                {/* The same order of the navbar icons drawn in my sketch-Rakin */}
+                <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />
+                <Route path="/progress" element={loggedIn ? <Progress /> : <Navigate to="/login" />} />
+                <Route path="/explore" element={loggedIn ? <Explore /> : <Navigate to="/login" />} />
+                <Route path="/settings" element={loggedIn ? <Settings /> : <Navigate to="/login" />} />
+                <Route path="/pageitem" element={loggedIn ? <PageItem /> : <Navigate to="/login" />} />
+            
+                <Route path="/workoutplan" element={loggedIn ? <Workouts /> : <Navigate to="/login" />} />
+                <Route path="/itemPage" element={loggedIn ? <ItemPage /> : <Navigate to="/login" />} />
+              </Routes>
+            </div>
+          </div>
+        )}
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
