@@ -19,6 +19,7 @@ interface SearchbarViewProps {
 	setFilterbyEquipment: (equipment: boolean) => void;
 }
 
+
 export default function SearchbarView({
 	selectedPart,
 	setSelectedPart,
@@ -38,7 +39,10 @@ export default function SearchbarView({
 				<div className="flex flex-row">
 					<div className="w-fit">
 						<div className="mb-5">
-							<input type="text" placeholder="Type Workout here" />
+							<div className="flex flex-row">
+								<input type="text" placeholder="Type Workout here" />
+								<button>Enter</button>
+							</div>
 						</div>
 						<div className="flex">
 							<Menu>
@@ -87,11 +91,23 @@ export default function SearchbarView({
 												{equipmentList.map((equipment) => (
 													<Menu.Item key={equipment.equipment}>
 														<button
-															className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
+															className={`flex flex-1 bg-yellow-300 rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black ${
+																equipments === equipment.apiCall
+																	? "bg-green-300"
+																	: ""
+															}`}
 															onClick={() => {
-																setEquipments(equipment.apiCall);
+																const selectedEquipment =
+																	equipment.apiCall === "No Filter"
+																		? ""
+																		: equipment.apiCall;
+																setEquipments(selectedEquipment);
+																setFilterbyEquipment(selectedEquipment !== "");
 																console.log("Equipment: ", equipment.apiCall);
-																setFilterbyEquipment(true);
+																console.log(
+																	"Filter by equipment: ",
+																	filterbyEquipment
+																);
 															}}
 														>
 															{equipment.equipment}
