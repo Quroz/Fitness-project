@@ -62,16 +62,20 @@ export default function SearchbarView({
 			<div>
 				<h1>Exercises</h1>
 				{exercise_results.length > 0 ? (
-					exercise_results.map((exercise) => (
-						<div key={exercise.id} className="flex w-32">
-							<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
-								<div>{exercise.name}</div>
-								<div>
-									<img src={exercise.gifUrl} alt={exercise.name} />
+					<>
+						{exercise_results.map((exercise) => (
+							<div key={exercise.id} className="flex w-32">
+								<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
+									<div>{exercise.name}</div>
+									<div>
+										<img src={exercise.gifUrl} alt={exercise.name} />
+									</div>
 								</div>
 							</div>
-						</div>
-					))
+						))}
+						{/* Add your button here, inside the condition */}
+						<button>Click Me</button>
+					</>
 				) : (
 					<p>No exercises to display.</p>
 				)}
