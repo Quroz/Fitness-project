@@ -3,6 +3,7 @@ import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import Exercise from "../../interfaces/Exercise";
+import { setFips } from "crypto";
 
 interface SearchbarViewProps {
 	selectedPart: string;
@@ -13,6 +14,9 @@ interface SearchbarViewProps {
 	exercisesShown: number;
 	equipmentList: { equipment: string; apiCall: string }[];
 	equipments: string;
+	setEquipments: (equipment: string) => void;
+	filterbyEquipment: boolean;
+	setFilterbyEquipment: (equipment: boolean) => void;
 }
 
 export default function SearchbarView({
@@ -24,6 +28,9 @@ export default function SearchbarView({
 	exercisesShown,
 	equipments,
 	equipmentList,
+	setEquipments,
+	filterbyEquipment,
+	setFilterbyEquipment,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -36,7 +43,7 @@ export default function SearchbarView({
 						<div className="flex">
 							<Menu>
 								<div className="flex flex-row">
-									<div className="flex flex-col">
+									<div className="flex flex-col mr-5">
 										<Menu.Button className="flex flex-row bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200">
 											<ChevronDownIcon
 												className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
@@ -52,7 +59,7 @@ export default function SearchbarView({
 														onClick={() => {
 															setSelectedPart(bodyArea.apiCall);
 															// Increment the number of exercises shown by 10
-															setExercisesShown(10);
+															setExercisesShown(1000);
 														}}
 													>
 														{bodyArea.part}
@@ -78,11 +85,13 @@ export default function SearchbarView({
 											</Menu.Button>
 											<Menu.Items>
 												{equipmentList.map((equipment) => (
-													<Menu.Item key={equipment.apiCall}>
+													<Menu.Item key={equipment.equipment}>
 														<button
 															className="flex flex-1 bg-yellow-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200 border -border-solid border-black"
 															onClick={() => {
-																// Handle equipment selection here
+																setEquipments(equipment.apiCall);
+																console.log("Equipment: ", equipment.apiCall);
+																setFilterbyEquipment(true);
 															}}
 														>
 															{equipment.equipment}
@@ -105,21 +114,33 @@ export default function SearchbarView({
 			<div>
 				{exercise_results.length > 0 ? (
 					<>
-						{exercise_results.map((exercise) => (
-							<div key={exercise.id} className="flex w-32">
-								<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
-									<div>{exercise.name}</div>
-									<div>
-										<img src={exercise.gifUrl} alt={exercise.name} />
+						{exercise_results
+							.filter((exercise) => {
+								if (filterbyEquipment) {
+									// If filterbyEquipment is true, filter by both equipment and body part
+									return (
+										exercise.bodyPart === selectedPart &&
+										exercise.equipment === equipments
+									);
+								} else {
+									// If filterbyEquipment is false, filter only by body part
+									return exercise.bodyPart === selectedPart;
+								}
+							})
+							.map((exercise) => (
+								<div key={exercise.id} className="flex w-32">
+									<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
+										<div>{exercise.name}</div>
+										<div>
+											<img src={exercise.gifUrl} alt={exercise.name} />
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
-						{/* Add your button here, inside the condition */}
+							))}
 						<button
 							className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
 							onClick={() => (
-								setExercisesShown(exercisesShown + 10),
+								setExercisesShown(exercisesShown + 1000),
 								console.log(exercisesShown)
 							)}
 						>
