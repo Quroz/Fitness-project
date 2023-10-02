@@ -34,7 +34,7 @@ function NavbarView({}: Props) {
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
 	return (
-		<div className="flex flex-col h-screen w-11">
+		<div className="fixed flex flex-col h-screen w-11">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
 			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20 mr-2 ">
 				{/*This is the 4 icons */}

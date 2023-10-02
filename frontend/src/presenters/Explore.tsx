@@ -29,12 +29,10 @@ interface Exercise {
 function ExplorePresenter() {
 	const [selectedPart, setSelectedPart] = useState("Select a body part");
 	const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
-	const [showExercise, setShowExercise] = useState(false);
 
 	useEffect(() => {
 		Exercise_api.exercise_part(selectedPart, 10).then((data) => {
 			setExerciseData(data);
-			setShowExercise(true);
 		});
 	}, [selectedPart]);
 
@@ -47,7 +45,6 @@ function ExplorePresenter() {
 						selectedPart={selectedPart}
 						setSelectedPart={setSelectedPart}
 						exercise_results={exerciseData}
-						showExercise={showExercise}
 					/>
 				</div>
 				<div className="flex">
