@@ -3,6 +3,7 @@ import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
+import { useNavigate } from "react-router-dom";
 
 interface SearchbarViewProps {
 	// Searching for body part
@@ -26,6 +27,9 @@ interface SearchbarViewProps {
 	setSearchExercise: (exercise: string) => void;
 	searchByName: number;
 	setSearchByName: (search: number) => void;
+
+	// Navigating to instructions page
+	goToInstructionsPage: (exercise: Exercise) => void;
 }
 
 export default function SearchbarView({
@@ -44,10 +48,11 @@ export default function SearchbarView({
 	setSearchExercise,
 	searchByName,
 	setSearchByName,
+	goToInstructionsPage,
 }: SearchbarViewProps) {
 	return (
 		<div>
-			<div className="flex flex-1 max-w-fit">
+			<div className="flex flex-1 ">
 				<div className="flex flex-row">
 					<div className="w-fit">
 						<div className="mb-5">
@@ -190,7 +195,11 @@ export default function SearchbarView({
 								<div key={exercise.id} className="flex w-32">
 									<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
 										<div>{exercise.name}</div>
-										<div>
+										<div
+											onClick={() => {
+												goToInstructionsPage(exercise);
+											}}
+										>
 											<img src={exercise.gifUrl} alt={exercise.name} />
 										</div>
 									</div>
@@ -204,7 +213,9 @@ export default function SearchbarView({
 						</button>
 					</>
 				) : (
-					<p>No exercises to display.</p>
+					<div className="my-5">
+						<p>No exercises to display.</p>
+					</div>
 				)}
 			</div>
 		</div>

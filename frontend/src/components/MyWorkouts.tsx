@@ -51,9 +51,6 @@ const MyWorkouts = () => {
   localStorage.setItem('myPlan', JSON.stringify(updatedData)); 
 }
 
-
-
-
   async function deleteWorkoutPlan(id: number) {
     const response = await fetch("http://localhost:4000/api/workout/deleteAllWorkouts", {
       method: "POST",
@@ -138,7 +135,7 @@ const MyWorkouts = () => {
                    </div>
                 </div>
 
-                <div className='my-8 overflow-y-auto flex flex-col gap-4 w-full'>
+                <div className='flex flex-col w-full gap-4 my-8 overflow-y-auto'>
                              {filteredArray.map((item: any) => (
                                   <div className='flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative'>
                                     <div className= 'absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500' onClick={() => checkHandler(item.plan_id)}/>
