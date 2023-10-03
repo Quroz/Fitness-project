@@ -47,9 +47,9 @@ export default function SearchbarView({
 }: SearchbarViewProps) {
 	return (
 		<div>
-			<div className="flex flex-1">
+			<div className="flex flex-1 max-w-fit">
 				<div className="flex flex-row">
-					<div className="w-3/5">
+					<div className="w-fit">
 						<div className="mb-5">
 							<div className="flex flex-row">
 								<input

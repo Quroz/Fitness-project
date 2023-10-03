@@ -39,28 +39,28 @@ function ExplorePresenter() {
 	return (
 		<div className="flex my-4">
 			<div className="flex flex-1">
-				<div className="flex mx-5 mr-20">
-					<SearchbarView
-						// Related to filtering and searching by body part
-						bodyPart={bodyPart}
-						selectedPart={selectedPart}
-						setSelectedPart={setSelectedPart}
-						exercise_results={exerciseData}
-						// Related to how many exercises are shown
-						setExercisesShown={setExercisesShown}
-						exercisesShown={exercisesShown}
-						// Related to filtering by equipment
-						equipments={equipments}
-						equipmentList={EquipmentList}
-						setEquipments={setEquipments}
-						filterbyEquipment={filterbyEquipment}
-						setFilterbyEquipment={setFilterbyEquipment}
-						// Related to searching exercise by name
-						searchExercise={searchExercise}
-						setSearchExercise={setSearchExercise}
-						searchByName={searchByName}
-						setSearchByName={setSearchByName}
-					/>
+				<div className="flex mx-5 mr-2">
+						<SearchbarView
+							// Related to filtering and searching by body part
+							bodyPart={bodyPart}
+							selectedPart={selectedPart}
+							setSelectedPart={setSelectedPart}
+							exercise_results={exerciseData}
+							// Related to how many exercises are shown
+							setExercisesShown={setExercisesShown}
+							exercisesShown={exercisesShown}
+							// Related to filtering by equipment
+							equipments={equipments}
+							equipmentList={EquipmentList}
+							setEquipments={setEquipments}
+							filterbyEquipment={filterbyEquipment}
+							setFilterbyEquipment={setFilterbyEquipment}
+							// Related to searching exercise by name
+							searchExercise={searchExercise}
+							setSearchExercise={setSearchExercise}
+							searchByName={searchByName}
+							setSearchByName={setSearchByName}
+						/>
 				</div>
 				<div className="flex">
 					<PlanDnD />
