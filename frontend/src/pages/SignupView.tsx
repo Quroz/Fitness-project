@@ -19,8 +19,6 @@ export default function Signup(props: IAppProps) {
       setError("Passwords do not match");
     } else {
       await signup(email, password);
-      navigate("/dashboard");
-      window.location.reload();
     }
   }
 

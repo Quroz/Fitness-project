@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useNavigate} from "react-router-dom"
 
 export interface IAppProps {
 }
@@ -7,6 +8,7 @@ export function useAccount(props: IAppProps) {
 
   const [loginError, setLoginError] = useState(null)
   const [signupError, setSignupError] = useState(null)
+  const navigate = useNavigate();
 
   async function login(email: String,password: String){
 
@@ -29,7 +31,8 @@ export function useAccount(props: IAppProps) {
     }
     else{
         localStorage.setItem("userFittness", JSON.stringify(data))
-        alert("Succed")
+        navigate("/dashboard");
+        window.location.reload()
     }
   }
 
@@ -51,6 +54,7 @@ export function useAccount(props: IAppProps) {
         }
       else{
           localStorage.setItem("userFittness", JSON.stringify(data))
+          navigate("/dashboard");
           window.location.reload()
       }
   }
