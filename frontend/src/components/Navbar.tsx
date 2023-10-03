@@ -8,6 +8,7 @@ The navbar will be a vertical navbar on the left side of the screen.
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {useAccount} from "../hooks/useAccount"
 
 // Import icons and images
 import DashboardIcon from "../assets/Navbar/dashboard.png";
@@ -28,11 +29,24 @@ The navbar will have a height of 100% of the screen.
 First div --> flexbox with column direction
 */
 
-type Props = {};
+type Props = {
+	login: Function,
+    loginError: String,
+    signup: Function,
+    signupError: String,
+    logout: Function,
+};
+
 
 function NavbarView({}: Props) {
+
+	function logoutHandler(){
+		 logout();
+	}
+
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
+	const {login, loginError ,signup ,signupError ,logout} = useAccount({})
 	return (
 
 		<div className="fixed flex flex-col h-screen w-11">
@@ -100,7 +114,7 @@ function NavbarView({}: Props) {
 				</div>
 				{/*This is the logout button and settings*/}
 				<div className="flex flex-col space-y-4 bg-zinc-100">
-					<div onClick={() => console.log("Log out!!")}>
+					<div onClick={() => logoutHandler()} className = "cursor-pointer hover:scale-105">
 						<div>
 							<img src={LogoutIcon} alt="Logout Icon" />
 						</div>
