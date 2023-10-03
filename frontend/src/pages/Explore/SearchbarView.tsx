@@ -62,6 +62,7 @@ export default function SearchbarView({
 									className="flex flex-col"
 									onClick={() => {
 										setSearchByName(searchByName + 1);
+										setExercisesShown(1000);
 									}}
 									disabled={searchExercise === ""}
 								>
@@ -145,11 +146,6 @@ export default function SearchbarView({
 																		: equipment.apiCall;
 																setEquipments(selectedEquipment);
 																setFilterbyEquipment(selectedEquipment !== "");
-																console.log("Equipment: ", equipment.apiCall);
-																console.log(
-																	"Filter by equipment: ",
-																	filterbyEquipment
-																);
 															}}
 														>
 															{equipment.equipment}
@@ -202,10 +198,7 @@ export default function SearchbarView({
 							))}
 						<button
 							className="py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200"
-							onClick={() => (
-								setExercisesShown(exercisesShown + 1000),
-								console.log(exercisesShown)
-							)}
+							onClick={() => setExercisesShown(exercisesShown + 1000)}
 						>
 							Load more exercises
 						</button>
