@@ -28,6 +28,7 @@ const EquipmentList = [
 	{ equipment: "Upper Body Ergometer", apiCall: "upper body ergometer" },
 	{ equipment: "Weighted", apiCall: "weighted" },
 	{ equipment: "Wheel Roller", apiCall: "wheel roller" },
+	{ equipment: "Remove Filter", apiCall: "No Filter"}
 ];
 
 export default EquipmentList;

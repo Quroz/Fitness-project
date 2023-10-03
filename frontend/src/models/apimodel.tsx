@@ -1,13 +1,4 @@
-interface Exercise {
-	bodyPart: string;
-	equipment: string;
-	gifUrl: string;
-	id: string;
-	name: string;
-	target: string;
-	secondaryMuscles: string[];
-	instructions: string[];
-}
+import Exercise from "../interfaces/Exercise";
 
 const Base_URL = "https://exercisedb.p.rapidapi.com/exercises";
 const options = {
@@ -43,7 +34,6 @@ const Exercise_api = {
 			return [];
 		}
 	},
-
 	async exercise_id(id_number: number): Promise<Exercise[]> {
 		try {
 			const response = await fetch(
