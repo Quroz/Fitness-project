@@ -24,7 +24,7 @@ function ExplorePresenter() {
 	const [searchByName, setSearchByName] = useState(1);
 
 	useEffect(() => {
-		if(searchByName) {
+		if (searchExercise !== "") {
 			console.log("Searching by name: ", searchExercise);
 			return;
 		}

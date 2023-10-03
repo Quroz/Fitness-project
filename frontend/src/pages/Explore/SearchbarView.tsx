@@ -61,8 +61,9 @@ export default function SearchbarView({
 								<button
 									className="flex flex-col"
 									onClick={() => {
-										setSearchByName(searchByName+1);
+										setSearchByName(searchByName + 1);
 									}}
+									disabled={searchExercise === ""}
 								>
 									<MagnifyingGlassIcon
 										className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
@@ -76,13 +77,21 @@ export default function SearchbarView({
 							<Menu>
 								<div className="flex flex-row">
 									<div className="flex flex-col mr-5">
-										<Menu.Button className="flex flex-row py-2 text-sm rounded-sm w-15 bg-lime-300 hover:bg-lime-200">
+										<Menu.Button
+											className={`flex flex-row py-2 text-sm rounded-sm w-15 ${
+												searchExercise !== ""
+													? "bg-gray-300 cursor-not-allowed"
+													: "bg-lime-300 hover:bg-lime-200"
+											}`}
+											disabled={searchExercise !== ""}
+										>
 											<ChevronDownIcon
 												className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
 												aria-hidden="true"
 											/>
 											{selectedPart}
 										</Menu.Button>
+
 										<Menu.Items>
 											{bodyPart.map((bodyArea) => (
 												<Menu.Item key={bodyArea.part}>
@@ -106,7 +115,14 @@ export default function SearchbarView({
 									</div>
 									<Menu>
 										<div className="flex flex-col">
-											<Menu.Button className="flex flex-row py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200">
+											<Menu.Button
+												className={`flex flex-row py-2 text-sm rounded-sm ${
+													searchExercise !== ""
+														? "bg-gray-300 cursor-not-allowed"
+														: "bg-lime-300 hover:bg-lime-200"
+												}`}
+												disabled={searchExercise !== ""}
+											>
 												<ChevronDownIcon
 													className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
 													aria-hidden="true"
