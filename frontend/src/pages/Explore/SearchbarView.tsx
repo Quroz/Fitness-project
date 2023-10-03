@@ -24,8 +24,8 @@ interface SearchbarViewProps {
 	// Searching for exercise by name
 	searchExercise: string;
 	setSearchExercise: (exercise: string) => void;
-	searchByName: boolean;
-	setSearchByName: (exercise: boolean) => void;
+	searchByName: number;
+	setSearchByName: (search: number) => void;
 }
 
 export default function SearchbarView({
@@ -52,11 +52,16 @@ export default function SearchbarView({
 					<div className="w-3/5">
 						<div className="mb-5">
 							<div className="flex flex-row">
-								<input type="text" placeholder={searchExercise} />
+								<input
+									type="text"
+									placeholder={"Search for an exercise"}
+									value={searchExercise}
+									onChange={(e) => setSearchExercise(e.target.value)}
+								/>
 								<button
 									className="flex flex-col"
 									onClick={() => {
-										setSearchByName(true);
+										setSearchByName(searchByName+1);
 									}}
 								>
 									<MagnifyingGlassIcon

@@ -6,7 +6,6 @@ import Exercise_api from "../models/apimodel";
 import Exercise from "../interfaces/Exercise";
 import bodyPart from "../interfaces/Bodypart";
 import EquipmentList from "../interfaces/Equipment";
-import { Console } from "console";
 
 function ExplorePresenter() {
 	// Related to body part filter or search
@@ -21,18 +20,21 @@ function ExplorePresenter() {
 	const [filterbyEquipment, setFilterbyEquipment] = useState(false);
 
 	// Related to searching exercise by name
-	const [searchExercise, setSearchExercise] = useState(
-		"Search for an exercise"
-	);
-	const [searchByName, setSearchByName] = useState(false);
+	const [searchExercise, setSearchExercise] = useState("");
+	const [searchByName, setSearchByName] = useState(1);
 
 	useEffect(() => {
+		if(searchByName) {
+			console.log("Searching by name: ", searchExercise);
+			return;
+		}
+			
 		console.log("Rendering");
 		if (selectedPart === "Select a body part") return;
 		Exercise_api.exercise_part(selectedPart, exercisesShown).then((data) => {
 			setExerciseData(data);
 		});
-	}, [exercisesShown, selectedPart]);
+	}, [exercisesShown, selectedPart, searchByName,]);
 
 	return (
 		<div className="flex my-4">
