@@ -49,7 +49,7 @@ export default function SearchbarView({
 		<div>
 			<div className="flex flex-1">
 				<div className="flex flex-row">
-					<div className="w-fit">
+					<div className="w-3/5">
 						<div className="mb-5">
 							<div className="flex flex-row">
 								<input type="text" placeholder={searchExercise} />
@@ -99,8 +99,6 @@ export default function SearchbarView({
 											))}
 										</Menu.Items>
 									</div>
-
-									{/* Add the equipment menu here */}
 									<Menu>
 										<div className="flex flex-col">
 											<Menu.Button className="flex flex-row py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200">
