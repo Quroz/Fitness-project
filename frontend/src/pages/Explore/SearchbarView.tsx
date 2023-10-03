@@ -176,13 +176,18 @@ export default function SearchbarView({
 							.filter((exercise) => {
 								if (filterbyEquipment) {
 									// If filterbyEquipment is true, filter by both equipment and body part
+
 									return (
 										exercise.bodyPart === selectedPart &&
 										exercise.equipment === equipments
 									);
 								} else {
-									// If filterbyEquipment is false, filter only by body part
-									return exercise.bodyPart === selectedPart;
+									// If filterbyEquipment is false, then check if bodypart is selected. If not then search by name
+									if (selectedPart === "Select a body part") {
+										return exercise.name.includes(searchExercise);
+									} else {
+										return exercise.bodyPart === selectedPart;
+									}
 								}
 							})
 							.map((exercise) => (

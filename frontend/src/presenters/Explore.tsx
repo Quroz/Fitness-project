@@ -6,6 +6,7 @@ import Exercise_api from "../models/apimodel";
 import Exercise from "../interfaces/Exercise";
 import bodyPart from "../interfaces/Bodypart";
 import EquipmentList from "../interfaces/Equipment";
+import { Console } from "console";
 
 function ExplorePresenter() {
 	// Related to body part filter or search
@@ -26,14 +27,17 @@ function ExplorePresenter() {
 	useEffect(() => {
 		if (searchExercise !== "") {
 			console.log("Searching by name: ", searchExercise);
-			return;
+			Exercise_api.exercise_name(searchExercise, 10).then(
+				(data) => setExerciseData(data)
+			);
+			console.log("Exercise data: ", exerciseData);
 		}
 			
-		console.log("Rendering");
 		if (selectedPart === "Select a body part") return;
 		Exercise_api.exercise_part(selectedPart, exercisesShown).then((data) => {
 			setExerciseData(data);
-		});
+		})
+		console.log("Exercise data: ", exerciseData);
 	}, [exercisesShown, selectedPart, searchByName,]);
 
 	return (
