@@ -27,10 +27,6 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        {loggedIn && (pathname === "/login" || pathname === "/" || pathname === "/signup") && (
-          <Navigate to="/dashboard" />
-        )}
-
         {!loggedIn && (
           <Routes>
             <Route path="/" element={<StartPage />} />
@@ -46,6 +42,9 @@ function App() {
             <div className="flex-1 ml-11">
               <Routes>
                 {/* The same order of the navbar icons drawn in my sketch-Rakin */}
+                {loggedIn && (pathname === "/login" || pathname === "/" || pathname === "/signup") && (
+                    <Navigate to="/dashboard" />
+                )}
                 <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />
                 <Route path="/progress" element={loggedIn ? <Progress /> : <Navigate to="/login" />} />
                 <Route path="/explore" element={loggedIn ? <Explore /> : <Navigate to="/login" />} />
