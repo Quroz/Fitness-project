@@ -142,7 +142,7 @@ const MyWorkouts = () => {
                                     <h1><strong>Day:</strong> {item.day}</h1>
                                     <h1><strong>Name:</strong> {item.name}</h1>
                                     <h1><strong>Type:</strong> {item.type}</h1>
-                                    <div className = "flex items-center gap-4">
+                                    <div className = "absolute top-4 right-2 flex items-center gap-4">
                                         <AiOutlineArrowRight size = {24} color = "green"
                                         onClick = {() => itemPage(item)}
                                         />
