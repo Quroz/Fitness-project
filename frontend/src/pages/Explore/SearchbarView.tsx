@@ -3,6 +3,7 @@ import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
+import { useNavigate } from "react-router-dom";
 
 interface SearchbarViewProps {
 	// Searching for body part
@@ -26,6 +27,9 @@ interface SearchbarViewProps {
 	setSearchExercise: (exercise: string) => void;
 	searchByName: number;
 	setSearchByName: (search: number) => void;
+
+	// Navigating to instructions page
+	goToInstructionsPage: (exercise: Exercise) => void;
 }
 
 export default function SearchbarView({
@@ -44,12 +48,13 @@ export default function SearchbarView({
 	setSearchExercise,
 	searchByName,
 	setSearchByName,
+	goToInstructionsPage,
 }: SearchbarViewProps) {
 	return (
 		<div>
-			<div className="flex flex-1">
+			<div className="flex flex-1 ">
 				<div className="flex flex-row">
-					<div className="w-3/5">
+					<div className="w-fit">
 						<div className="mb-5">
 							<div className="flex flex-row">
 								<input
@@ -62,6 +67,7 @@ export default function SearchbarView({
 									className="flex flex-col"
 									onClick={() => {
 										setSearchByName(searchByName + 1);
+										setExercisesShown(1000);
 									}}
 									disabled={searchExercise === ""}
 								>
@@ -145,11 +151,6 @@ export default function SearchbarView({
 																		: equipment.apiCall;
 																setEquipments(selectedEquipment);
 																setFilterbyEquipment(selectedEquipment !== "");
-																console.log("Equipment: ", equipment.apiCall);
-																console.log(
-																	"Filter by equipment: ",
-																	filterbyEquipment
-																);
 															}}
 														>
 															{equipment.equipment}
@@ -194,7 +195,11 @@ export default function SearchbarView({
 								<div key={exercise.id} className="flex w-32">
 									<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
 										<div>{exercise.name}</div>
-										<div>
+										<div
+											onClick={() => {
+												goToInstructionsPage(exercise);
+											}}
+										>
 											<img src={exercise.gifUrl} alt={exercise.name} />
 										</div>
 									</div>
@@ -202,16 +207,15 @@ export default function SearchbarView({
 							))}
 						<button
 							className="py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200"
-							onClick={() => (
-								setExercisesShown(exercisesShown + 1000),
-								console.log(exercisesShown)
-							)}
+							onClick={() => setExercisesShown(exercisesShown + 1000)}
 						>
 							Load more exercises
 						</button>
 					</>
 				) : (
-					<p>No exercises to display.</p>
+					<div className="my-5">
+						<p>No exercises to display.</p>
+					</div>
 				)}
 			</div>
 		</div>

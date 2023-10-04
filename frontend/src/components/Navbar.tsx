@@ -37,7 +37,7 @@ function NavbarView({}: Props) {
 
 		<div className="fixed flex flex-col h-screen w-11">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
-			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20 mr-2 ">
+			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20">
 				{/*This is the 4 icons */}
 				<div className="flex flex-col space-y-4 bg-zinc-100">
 					<div

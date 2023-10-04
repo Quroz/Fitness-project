@@ -1,12 +1,12 @@
 // ExplorePresenter.tsx
 import React, { useState, useEffect } from "react";
 import SearchbarView from "../pages/Explore/SearchbarView";
-import PlanDnD from "../pages/Explore/PlanDnD";
+import InstructionsPage from "../pages/Explore/InstructionsView";
 import Exercise_api from "../models/apimodel";
 import Exercise from "../interfaces/Exercise";
 import bodyPart from "../interfaces/Bodypart";
 import EquipmentList from "../interfaces/Equipment";
-import { Console } from "console";
+import { useNavigate } from "react-router-dom";
 
 function ExplorePresenter() {
 	// Related to body part filter or search
@@ -24,26 +24,34 @@ function ExplorePresenter() {
 	const [searchExercise, setSearchExercise] = useState("");
 	const [searchByName, setSearchByName] = useState(1);
 
+	// Related to navigating to instructions page
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (searchExercise !== "") {
-			console.log("Searching by name: ", searchExercise);
-			Exercise_api.exercise_name(searchExercise, 10).then(
-				(data) => setExerciseData(data)
+			Exercise_api.exercise_name(searchExercise, exercisesShown).then((data) =>
+				setExerciseData(data)
 			);
-			console.log("Exercise data: ", exerciseData);
 		}
-			
+
 		if (selectedPart === "Select a body part") return;
 		Exercise_api.exercise_part(selectedPart, exercisesShown).then((data) => {
 			setExerciseData(data);
-		})
-		console.log("Exercise data: ", exerciseData);
-	}, [exercisesShown, selectedPart, searchByName,]);
+		});
+	}, [exercisesShown, selectedPart, searchByName]);
+
+	function gotoInstructionsPage(exercise: Exercise) {
+		const data = { exercise: exercise };
+		const queryParam = encodeURIComponent(JSON.stringify(data));
+		navigate(`/instructions?data=${queryParam}`);
+	}
+
+
 
 	return (
 		<div className="flex my-4">
 			<div className="flex flex-1">
-				<div className="flex mx-5 mr-20">
+				<div className="flex mx-5 mr-2 w-max">
 					<SearchbarView
 						// Related to filtering and searching by body part
 						bodyPart={bodyPart}
@@ -64,10 +72,9 @@ function ExplorePresenter() {
 						setSearchExercise={setSearchExercise}
 						searchByName={searchByName}
 						setSearchByName={setSearchByName}
+						// Related to navigating to instructions page
+						goToInstructionsPage = {gotoInstructionsPage}
 					/>
-				</div>
-				<div className="flex">
-					<PlanDnD />
 				</div>
 			</div>
 		</div>
