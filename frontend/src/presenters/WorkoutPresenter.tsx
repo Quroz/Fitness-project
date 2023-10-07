@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import WorkoutPlans from "../pages/Workout/WorkoutPlans";
 
+import ChooseView from "../components/Workout/ChooseView";
+
 type Props = {};
 
 function WorkoutPresenter({}: Props): JSX.Element {
@@ -13,39 +15,19 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		if (choice === "myWorkouts") {
 			setMyWorkouts(true);
 			setShowLog(false);
-		} else if (choice === "allWorkouts") {
+		} else if (choice === "Workout Logs") {
 			setMyWorkouts(false);
 			setShowLog(true);
 		}
 	}
 
 	return (
-		<div className="h-[200px] w-full">
-			<div className="h-full w-[80%] mx-auto relative">
-				<h1 className="pt-12 text-4xl">Workout Page</h1>
-				<div className="absolute flex items-center w-full gap-12 bottom-8">
-					<h1
-						className={
-							showLog
-								? "text-md text-black cursor-pointer border-transparent border-b-2 hover:border-lime-300"
-								: "text-md text-gray-500 cursor-pointer border-transparent border-b-2 hover:border-lime-300"
-						}
-						onClick={() => renderHandler("allWorkouts")}
-					>
-						All Workouts
-					</h1>
-					<h1
-						className={
-							myWorkouts
-								? "text-md text-black cursor-pointer border-transparent border-b-2 hover:border-lime-300"
-								: "text-md text-gray-500 cursor-pointer border-transparent border-b-2 hover:border-lime-300"
-						}
-						onClick={() => renderHandler("myWorkouts")}
-					>
-						My Workouts
-					</h1>
-				</div>
-			</div>
+		<div>
+			<ChooseView
+				showLog={showLog}
+				renderHandler={renderHandler}
+				myWorkouts={myWorkouts}
+			/>
 		</div>
 	);
 }
