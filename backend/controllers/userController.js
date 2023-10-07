@@ -87,19 +87,20 @@ async function updateSettings(req, res) {
 
     const update = {};
 
-    if (weight !== undefined) {
+    if (weight !== "") {
         update.weight = weight;
     }
-    if (height !== undefined) {
+    if (height !== "") {
         update.height = height;
     }
-    if (age !== undefined) {
+    if (age !== "") {
         update.age = age;
     }
-    if (goals && goals.length > 0) {
+    if (goals != "" && goals.length > 0) {
         update.$push = { goals: { $each: goals } };
     }
 
+  
     try {
         const updatedSettings = await userModel.findOneAndUpdate(
             { email },
@@ -107,6 +108,7 @@ async function updateSettings(req, res) {
             { new: true }
         );
 
+        console.log(updatedSettings)
         if (updatedSettings) {
             return res.status(200).json({ updatedSettings });
         } else {
