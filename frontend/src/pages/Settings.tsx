@@ -33,12 +33,12 @@ function Settings() {
       const data = await response.json()
 
       if(response.status !== 200){
-          setLoginError(data.Error)
+         
           console.log(data.Error)
       }
       else{
           localStorage.setItem("userFittness", JSON.stringify(data))
-          navigate("/dashboard");
+        
           window.location.reload()
       }
   }
