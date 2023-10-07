@@ -58,7 +58,7 @@ export default function SearchbarView({
 	setShowLoading,
 }: SearchbarViewProps) {
 	return (
-		<div>
+		<div className="mt-16">
 			<div className="flex flex-1 ">
 				<div className="flex flex-row">
 					<div className="w-fit">
