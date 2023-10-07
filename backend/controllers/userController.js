@@ -100,7 +100,6 @@ async function updateSettings(req, res) {
         update.$push = { goals: { $each: goals } };
     }
 
-  
     try {
         const updatedSettings = await userModel.findOneAndUpdate(
             { email },

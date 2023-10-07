@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AiFillCheckCircle } from 'react-icons/ai';
+import { AiFillCheckCircle, AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Settings() {
 
@@ -29,6 +29,8 @@ function Settings() {
 
   const [user, setUser] = useState<User | null>(null);
 
+  const [showGoals, setShowGoals] = useState<boolean>(false)
+
  
 
   useEffect(() => {
@@ -40,7 +42,11 @@ function Settings() {
   console.log("data", user)
 
 
-  async function updateSettings(){
+  async function updateSettings(type: string){
+
+    if(type == "goal" && goal == ""){
+      return alert("You can not add an empty goal, sir!")
+    }
 
     if (!user) {
       alert("User data not available");
@@ -54,13 +60,13 @@ function Settings() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({email, weight, height, age, goals: goal})
+        body: JSON.stringify({email, weight, height, age, goals: [goal]})
         })
 
       const data = await response.json()
 
       if(response.status !== 200){
-          alert("Could not update settings")
+          alert(data.Error)
           console.log(data.Error)
       }
       else{
@@ -143,32 +149,53 @@ function Settings() {
             </div>
           </div>
           <AiFillCheckCircle size = {40} className = "cursor-pointer self-center mb-4" color = "green"
-          onClick={updateSettings}
+          onClick={() => updateSettings("")}
           />
         </div>
+        {showGoals ? 
+         <div className='bg-white w-full rounded-md relative'>
+            <h1 className='text-2xl text-center font-semibold pt-4'>Your goals</h1>
+            <div className='w-full overflow-y-scroll flex flex-col gap-2 h-[250px] p-8'>
+              <AiOutlineArrowLeft className='absolute top-1 left-1 cursor-pointer' size = {24}
+              onClick = {() => setShowGoals(!showGoals)}
+              />
+              {user?.updatedSettings.goals.map((goal: string, index: number) => (
+                <div className='border-black border-[1px] bg-gray-100 p-8 relative rounded-md'>
+                        <h1 className='absolute top-1 left-1 font-bold'>{index+1}</h1>
+                        <p>{goal}</p>
+                </div>
+              ))}
+            </div>
+        </div>  
+      : 
         <div className='bg-white flex w-full p-8 justify-around rounded-md'>
-          <div className='flex flex-col items-center gap-4'>
-            <h1 className='text-2xl'>Do you have any new goals today?</h1>
-            <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'>
-              View current goals
-            </button>
-          </div>
-          <div className='flex flex-col gap-2'>
-            <textarea
-              id='w3review'
-              name='w3review'
-              rows={4}
-              cols={50}
-              className='border-black border-[1px] rounded-md p-1'
-              placeholder='Write any goal..'
-              value={goal}
-              onChange={(e) => setGoal(e.target.value)}
-            />
-            <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'>
-              Add goal
-            </button>
-          </div>
-        </div>
+            <div className='flex flex-col items-center gap-4'>
+              <h1 className='text-2xl'>Do you have any new goals today?</h1>
+              <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'
+              onClick = {() => setShowGoals(!showGoals)} 
+              >
+                View current goals
+              </button>
+            </div>
+            <div className='flex flex-col gap-2'>
+              <textarea
+                id='w3review'
+                name='w3review'
+                rows={4}
+                cols={50}
+                className='border-black border-[1px] rounded-md p-1'
+                placeholder='Write any goal..'
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+              />
+              <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'
+              onClick = {() => updateSettings("goal")}
+              >
+                Add goal
+              </button>
+            </div>
+        </div> 
+      } 
       </div>
     </div>
   );
