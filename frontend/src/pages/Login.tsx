@@ -22,8 +22,7 @@ export default function Login (props: IAppProps) {
 
   async function clickHandler(){
     await login(email,password)
-    navigate("/dashboard");
-    window.location.reload();
+    
   }
 
   return (

@@ -1,42 +1,44 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
+const WorkoutSchema = new Schema({
+
     name: {
         type: String,
-        required: true
-    },
-    weight: {
-        type: String,
         required: true,
     },
-    height: {
+    bodyPart: {
         type: String,
         required: true
     },
-    age: {
+    muscleTarget: {
         type: String,
         required: true
     },
-    goals: [
-        {
-            type: String,
-            required: true
-        }
-    ]
+    equipment: {
+        type: String,
+        required: true
+    },
+    sets: {
+        type: Number,
+        required: true
+    },
+    reps: {
+        type: Number,
+        required: true
+    },
+   
+   plan_id: {
+        type: String,
+        required: true
+    },
+    user_id: {
+        type: String,
+        required: true
+    },
     
-
 }, {timestamps: true})
 
-const UserModel = mongoose.model("FitnessUserSchema", UserSchema)
+const WorkoutModel = mongoose.model("FitnessModelTEST", WorkoutSchema)
 
-module.exports = UserModel
+module.exports = WorkoutModel

@@ -13,7 +13,7 @@ const AllWorkouts = () => {
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': '083914206emsh11d92ddfb433948p11023ajsnd520bb0564e2',
+          'X-RapidAPI-Key': '15157ef7b5msh145eaabd9036395p16c555jsn7dde4f641913',
           'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
         },
       };

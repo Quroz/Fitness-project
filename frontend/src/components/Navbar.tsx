@@ -8,14 +8,15 @@ The navbar will be a vertical navbar on the left side of the screen.
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {useAccount} from "../hooks/useAccount"
 
 // Import icons and images
-import DashboardIcon from "../Assets/Navbar/dashboard.png";
-import WorkoutPlanIcon from "../Assets/Navbar/workout.png";
-import ProgressionIcon from "../Assets/Navbar/progress.png";
-import ExploreIcon from "../Assets/Navbar/explore.png";
-import SettingsIcon from "../Assets/Navbar/settings.png";
-import LogoutIcon from "../Assets/Navbar/logout.png";
+import DashboardIcon from "../assets/Navbar/dashboard.png";
+import WorkoutPlanIcon from "../assets/Navbar/workout.png";
+import ProgressionIcon from "../assets/Navbar/progress.png";
+import ExploreIcon from "../assets/Navbar/explore.png";
+import SettingsIcon from "../assets/Navbar/settings.png";
+import LogoutIcon from "../assets/Navbar/logout.png";
 
 /* REGARDING THE STYLING OF THE NAVBAR:
 ______________________________________
@@ -28,15 +29,29 @@ The navbar will have a height of 100% of the screen.
 First div --> flexbox with column direction
 */
 
-type Props = {};
+type Props = {
+	login: Function,
+    loginError: String,
+    signup: Function,
+    signupError: String,
+    logout: Function,
+};
+
 
 function NavbarView({}: Props) {
+
+	function logoutHandler(){
+		 logout();
+	}
+
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
+	const {login, loginError ,signup ,signupError ,logout} = useAccount({})
 	return (
-		<div className="flex flex-col h-screen w-11">
+
+		<div className="fixed flex flex-col h-screen w-11">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
-			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20 mr-2 ">
+			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20">
 				{/*This is the 4 icons */}
 				<div className="flex flex-col space-y-4 bg-zinc-100">
 					<div
@@ -99,7 +114,7 @@ function NavbarView({}: Props) {
 				</div>
 				{/*This is the logout button and settings*/}
 				<div className="flex flex-col space-y-4 bg-zinc-100">
-					<div onClick={() => console.log("Log out!!")}>
+					<div onClick={() => logoutHandler()} className = "cursor-pointer hover:scale-105">
 						<div>
 							<img src={LogoutIcon} alt="Logout Icon" />
 						</div>
@@ -117,6 +132,7 @@ function NavbarView({}: Props) {
 						</Link>
 					</div>
 				</div>
+
 			</nav>
 		</div>
 	);
