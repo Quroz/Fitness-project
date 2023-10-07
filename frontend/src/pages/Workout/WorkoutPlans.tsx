@@ -11,6 +11,7 @@ type Props = {
 	checkHandler: (id: number) => void;
 	itemPage: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
+	addPlanPopup: JSX.Element;
 };
 
 function WorkoutPlans({
@@ -22,12 +23,12 @@ function WorkoutPlans({
 	checkHandler,
 	itemPage,
 	deleteWorkoutPlan,
+	addPlanPopup,
 }: Props): JSX.Element {
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
 			<div className="flex items-center justify-between">
 				<h1>{workoutDays.length} Workouts</h1>
-				<h1>Sort by Workout Name: A-Z</h1>
 				<div className="flex items-center gap-2">
 					<input
 						className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-black"
@@ -75,8 +76,6 @@ function WorkoutPlans({
 					</div>
 				))}
 			</div>
-			{/*
-				BEHÖVER FATTA DETTA SENARE!!!!
 			{addPlan && (
 				<div
 					className={
@@ -85,13 +84,9 @@ function WorkoutPlans({
 							: "left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]"
 					}
 				>
-					<AddPlan
-						setAddPlan={setAddPlan}
-						myPlan={myPlan}
-						setMyPlan={setMyPlan}
-					/>
+					{addPlanPopup}
 				</div>
-				)}*/}
+			)}
 		</div>
 	);
 }

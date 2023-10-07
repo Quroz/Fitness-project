@@ -5,6 +5,7 @@ import ChooseView from "../pages/Workout/ChooseView";
 import LogAllWorkouts from "../pages/Workout/LogAllWorkouts";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import { useNavigate } from "react-router-dom";
+import AddPlan from "../components/Workout/AddPlanPopup";
 
 type Props = {};
 
@@ -21,6 +22,10 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	const [search, setSearch] = useState("");
 	// Used to add a new plan
 	const [addPlan, setAddPlan] = useState(false);
+
+	// Related to AddPlanPopup
+	const [day, setDay] = useState("");
+	const [name, setName] = useState("");
 
 	// Used for navigation
 	const navigate = useNavigate();
@@ -91,6 +96,16 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 
+	function addHandler() {
+		setMyPlan([...myPlan, { id: Date.now(), day: day, name: name }]);
+		localStorage.setItem(
+			user.email,
+			JSON.stringify([...myPlan, { id: Date.now(), day: day, name: name }])
+		);
+		setAddPlan(false);
+		console.log(myPlan);
+	}
+
 	return (
 		<div className="flex flex-col w-full min-h-screen">
 			<ChooseView
@@ -108,10 +123,22 @@ function WorkoutPresenter({}: Props): JSX.Element {
 						setAddPlan={setAddPlan}
 						checkHandler={checkHandler}
 						itemPage={itemPage}
-						deleteWorkoutPlan = {deleteWorkoutPlan}
+						deleteWorkoutPlan={deleteWorkoutPlan}
+						addPlanPopup={
+							<AddPlan
+								addPlan={addPlan}
+								setAddPlan={setAddPlan}
+								myPlan={myPlan}
+								setMyPlan={setMyPlan}
+								addHandler={addHandler}
+								day={day}
+								setDay={setDay}
+								name={name}
+								setName={setName}
+							/>
+						}
 					/>
 				)}
-
 				{showLog && <LogAllWorkouts />}
 			</div>
 		</div>
