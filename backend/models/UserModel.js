@@ -2,10 +2,6 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-    check: [{
-        type: String,
-        required: true,
-    }],
     email: {
         type: String,
         required: true,
@@ -15,6 +11,29 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
+    weight: {
+        type: String,
+        required: true,
+    },
+    height: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: String,
+        required: true
+    },
+    goals: [
+        {
+            type: String,
+            required: true
+        }
+    ]
+    
 
 }, {timestamps: true})
 

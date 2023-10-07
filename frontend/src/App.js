@@ -43,7 +43,7 @@ function App() {
               <Routes>
                 {/* The same order of the navbar icons drawn in my sketch-Rakin */}
                 {loggedIn && (pathname === "/login" || pathname === "/" || pathname === "/signup") && (
-                    <Navigate to="/dashboard" />
+                    <Route path="/dashboard" />
                 )}
                 <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />
                 <Route path="/progress" element={loggedIn ? <Progress /> : <Navigate to="/login" />} />
