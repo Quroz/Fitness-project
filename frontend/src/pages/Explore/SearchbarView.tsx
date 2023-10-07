@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
 import { useNavigate } from "react-router-dom";
+import LoadingComp from "../../components/Loading";
 
 interface SearchbarViewProps {
 	// Searching for body part
@@ -30,6 +31,10 @@ interface SearchbarViewProps {
 
 	// Navigating to instructions page
 	goToInstructionsPage: (exercise: Exercise) => void;
+
+	// Loading spinner
+	showLoading: boolean;
+	setShowLoading: (loading: boolean) => void;
 }
 
 export default function SearchbarView({
@@ -49,6 +54,8 @@ export default function SearchbarView({
 	searchByName,
 	setSearchByName,
 	goToInstructionsPage,
+	showLoading,
+	setShowLoading,
 }: SearchbarViewProps) {
 	return (
 		<div>
@@ -61,13 +68,17 @@ export default function SearchbarView({
 									type="text"
 									placeholder={"Search for an exercise"}
 									value={searchExercise}
-									onChange={(e) => setSearchExercise(e.target.value)}
+									onChange={(e) => {
+										setSearchExercise(e.target.value);
+									}}
 								/>
+
 								<button
 									className="flex flex-col"
 									onClick={() => {
 										setSearchByName(searchByName + 1);
 										setExercisesShown(1000);
+										setShowLoading(true);
 									}}
 									disabled={searchExercise === ""}
 								>
@@ -107,6 +118,7 @@ export default function SearchbarView({
 															setSelectedPart(bodyArea.apiCall);
 															// Increment the number of exercises shown by 10
 															setExercisesShown(1000);
+															setShowLoading(true);
 														}}
 													>
 														{bodyArea.part}
@@ -149,7 +161,9 @@ export default function SearchbarView({
 																	equipment.apiCall === "No Filter"
 																		? ""
 																		: equipment.apiCall;
+																setShowLoading(true);
 																setEquipments(selectedEquipment);
+
 																setFilterbyEquipment(selectedEquipment !== "");
 															}}
 														>
@@ -171,7 +185,9 @@ export default function SearchbarView({
 				</div>
 			</div>
 			<div>
-				{exercise_results.length > 0 ? (
+				{showLoading ? (
+					(console.log("Loading"), (<LoadingComp loading={showLoading} />))
+				) : exercise_results.length > 0 ? (
 					<>
 						{exercise_results
 							.filter((exercise) => {

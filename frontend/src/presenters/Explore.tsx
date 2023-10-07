@@ -24,20 +24,30 @@ function ExplorePresenter() {
 	const [searchExercise, setSearchExercise] = useState("");
 	const [searchByName, setSearchByName] = useState(1);
 
+	const [showLoading, setShowLoading] = useState(false);
+
 	// Related to navigating to instructions page
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (searchExercise !== "") {
-			Exercise_api.exercise_name(searchExercise, exercisesShown).then((data) =>
-				setExerciseData(data)
-			);
+			setShowLoading(true);
+			Exercise_api.exercise_name(searchExercise, exercisesShown)
+				.then((data) => setExerciseData(data))
+				.finally(() => {
+					setShowLoading(false);
+				});
 		}
 
 		if (selectedPart === "Select a body part") return;
-		Exercise_api.exercise_part(selectedPart, exercisesShown).then((data) => {
-			setExerciseData(data);
-		});
+		Exercise_api.exercise_part(selectedPart, exercisesShown)
+			.then((data) => {
+				setShowLoading(true);
+				setExerciseData(data);
+			})
+			.finally(() => {
+				setShowLoading(false);
+			});
 	}, [exercisesShown, selectedPart, searchByName]);
 
 	function gotoInstructionsPage(exercise: Exercise) {
@@ -45,8 +55,6 @@ function ExplorePresenter() {
 		const queryParam = encodeURIComponent(JSON.stringify(data));
 		navigate(`/instructions?data=${queryParam}`);
 	}
-
-
 
 	return (
 		<div className="flex my-4">
@@ -73,7 +81,9 @@ function ExplorePresenter() {
 						searchByName={searchByName}
 						setSearchByName={setSearchByName}
 						// Related to navigating to instructions page
-						goToInstructionsPage = {gotoInstructionsPage}
+						goToInstructionsPage={gotoInstructionsPage}
+						showLoading={showLoading}
+						setShowLoading={setShowLoading}
 					/>
 				</div>
 			</div>
