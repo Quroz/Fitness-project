@@ -6,13 +6,11 @@ type Props = {
 	myWorkouts: boolean;
 };
 
-
 function ChooseView({
-  showLog,
-  renderHandler,
-  myWorkouts,
-  
-}:Props): JSX.Element  {
+	showLog,
+	renderHandler,
+	myWorkouts,
+}: Props): JSX.Element {
 	return (
 		<div className="h-[200px] w-full">
 			<div className="h-full w-[80%] mx-auto relative">
@@ -34,7 +32,7 @@ function ChooseView({
 								? "text-md text-black cursor-pointer border-transparent border-b-2 hover:border-lime-300"
 								: "text-md text-gray-500 cursor-pointer border-transparent border-b-2 hover:border-lime-300"
 						}
-						onClick={() => renderHandler("myWorkouts")}
+						onClick={() => renderHandler("My Workouts")}
 					>
 						Workout Plan
 					</h1>

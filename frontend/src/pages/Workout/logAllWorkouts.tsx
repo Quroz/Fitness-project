@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function logAllWorkouts() {
-  return (
-    <div>logAllWorkouts</div>
-  )
+function LogAllWorkouts() {
+	return (
+		<div>
+			<h1>Hej Nico, här får du ta över</h1>
+		</div>
+	);
 }
 
-export default logAllWorkouts
+export default LogAllWorkouts;

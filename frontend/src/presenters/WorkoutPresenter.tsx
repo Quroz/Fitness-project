@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 
 import WorkoutPlans from "../pages/Workout/WorkoutPlans";
-
-import ChooseView from "../components/Workout/ChooseView";
+import ChooseView from "../pages/Workout/ChooseView";
+import LogAllWorkouts from "../pages/Workout/LogAllWorkouts";
+import WorkoutDay from "../interfaces/WorkoutDay";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
+const userJSON = localStorage.getItem("userFittness");
+const user = userJSON ? JSON.parse(userJSON) : null;
+
 function WorkoutPresenter({}: Props): JSX.Element {
-	const [search, setSearch] = useState("");
+	// MyWorkouts and Showlog are used to render the correct component
 	const [myWorkouts, setMyWorkouts] = useState(true);
 	const [showLog, setShowLog] = useState(false);
+	// Used to store and search the workout days. --> filteredArray
+	const [workoutDays, setWorkoutDays] = useState<WorkoutDay[]>([]);
+	const [myPlan, setMyPlan] = useState<WorkoutDay[]>([]);
+	const [search, setSearch] = useState("");
+	// Used to add a new plan
+	const [addPlan, setAddPlan] = useState(false);
+
+	// Used for navigation
+	const navigate = useNavigate();
 
 	function renderHandler(choice: string) {
-		if (choice === "myWorkouts") {
+		if (choice === "My Workouts") {
 			setMyWorkouts(true);
 			setShowLog(false);
 		} else if (choice === "Workout Logs") {
@@ -20,14 +34,86 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			setShowLog(true);
 		}
 	}
+	async function checkHandler(id: number) {
+		const response = await fetch("http://localhost:4000/api/user/updateCheck", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user.token}`,
+			},
+			body: JSON.stringify({
+				check: [new Date().toISOString().slice(0, 10)],
+				email: user.email,
+			}),
+		});
+
+		try {
+			if (response.status !== 200) {
+				alert("Could not check workout");
+			} else {
+				window.location.reload();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	function itemPage(item: WorkoutDay) {
+		const id = { id: item.id };
+		const queryParam = encodeURIComponent(JSON.stringify(id));
+		navigate(`/itemPage?data=${queryParam}`);
+	}
+
+	async function deleteWorkoutPlan(id: number) {
+		const response = await fetch(
+			"http://localhost:4000/api/workout/deleteAllWorkouts",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user.token}`,
+				},
+				body: JSON.stringify({
+					plan_id: id,
+				}),
+			}
+		);
+		const data = await response.json();
+		if (response.status !== 200) {
+			alert("Could not delete workout plan");
+		} else {
+			alert("Deleted!");
+			const updatedData = myPlan.filter((item) => item.id !== id);
+			console.log("updatedData", updatedData);
+			setMyPlan(updatedData);
+			setWorkoutDays(updatedData);
+			localStorage.setItem(user.email, JSON.stringify(updatedData));
+		}
+	}
 
 	return (
-		<div>
+		<div className="flex flex-col w-full min-h-screen">
 			<ChooseView
 				showLog={showLog}
 				renderHandler={renderHandler}
 				myWorkouts={myWorkouts}
 			/>
+			<div className="bg-[#edeaea] flex-1 ">
+				{myWorkouts && (
+					<WorkoutPlans
+						workoutDays={workoutDays}
+						search={search}
+						setSearch={setSearch}
+						addPlan={addPlan}
+						setAddPlan={setAddPlan}
+						checkHandler={checkHandler}
+						itemPage={itemPage}
+						deleteWorkoutPlan = {deleteWorkoutPlan}
+					/>
+				)}
+
+				{showLog && <LogAllWorkouts />}
+			</div>
 		</div>
 	);
 }
