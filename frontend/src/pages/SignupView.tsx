@@ -14,6 +14,7 @@ export default function Signup(props: IAppProps) {
   const [name, setName] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
+  const [age, setAge] = useState(""); 
 
   const heightOptions = Array.from({ length: 121 }, (_, index) => 100 + index);
   const ageOptions = Array.from({ length: 100 }, (_, index) => index + 1);
@@ -24,7 +25,7 @@ export default function Signup(props: IAppProps) {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
     } else {
-      await signup(email, password);
+      await signup(email, password, name, weight, height, age);
     }
   }
 
@@ -42,7 +43,7 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col w-full mt-10 gap-1">
             <label className="text-xl text-white">Email Address</label>
             <input
-              className="border-[1px] border-black indent-1 rounded-md py-4"
+              className="border-[1px] border-black indent-1 rounded-md py-2"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -51,7 +52,7 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Password</label>
             <input
-              className="border-[1px] border-black indent-1 rounded-md py-4"
+              className="border-[1px] border-black indent-1 rounded-md py-2"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -60,7 +61,7 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Confirm Password</label>
             <input
-              className="border-[1px] border-black indent-1 rounded-md py-4"
+              className="border-[1px] border-black indent-1 rounded-md py-2"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -69,8 +70,8 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your name</label>
             <input
-              className="border-[1px] border-black indent-1 rounded-md py-4"
-              type="password"
+              className="border-[1px] border-black indent-1 rounded-md py-2"
+              type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -78,14 +79,15 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your height (in cm)</label>
             <select
-              id='weightDropdown'
-              value={weight}
-              className = "border-black border-[1px] rounded-md p-4"
+              id='weightDropdown' 
+              value={height}
+              className="border-black border-[1px] rounded-md p-2"
+              onChange={(e) => setHeight(e.target.value)}
             >
               <option value=''>--------</option>
               {heightOptions.map((height) => (
                 <option key={height} value={height}>
-                  {height} kg
+                  {height} cm
                 </option>
               ))}
             </select>
@@ -93,9 +95,10 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your weight (in kg)</label>
             <select
-              id='weightDropdown'
+              id='weightDropdown' 
               value={weight}
-              className = "border-black border-[1px] rounded-md p-4"
+              className="border-black border-[1px] rounded-md p-2"
+              onChange={(e) => setWeight(e.target.value)}
             >
               <option value=''>--------</option>
               {weightOptions.map((weight) => (
@@ -109,8 +112,9 @@ export default function Signup(props: IAppProps) {
             <label className="text-xl text-white">Enter your age</label>
             <select
               id='weightDropdown'
-              value={weight}
-              className = "border-black border-[1px] rounded-md p-4"
+              value={age}
+              className="border-black border-[1px] rounded-md p-2"
+              onChange={(e) => setAge(e.target.value)}
             >
               <option value=''>--------</option>
               {ageOptions.map((age) => (
