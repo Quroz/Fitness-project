@@ -102,7 +102,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			JSON.stringify([...myPlan, { id: Date.now(), day: day, name: name }])
 		);
 		setAddPlan(false);
-		console.log(myPlan);
+		console.log("Add Handler:", myPlan);
 	}
 
 	useEffect(() => {
