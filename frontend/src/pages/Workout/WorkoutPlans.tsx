@@ -45,20 +45,17 @@ function WorkoutPlans({
 				</div>
 			</div>
 			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto">
-				{workoutDays.map((item: any) => (
+				{workoutDays.map((item: WorkoutDay) => (
 					<div className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative">
 						<div
 							className="absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500"
-							onClick={() => checkHandler(item.plan_id)}
+							onClick={() => checkHandler(item.id)}
 						/>
 						<h1>
 							<strong>Day:</strong> {item.day}
 						</h1>
 						<h1>
 							<strong>Name:</strong> {item.name}
-						</h1>
-						<h1>
-							<strong>Type:</strong> {item.type}
 						</h1>
 						<div className="absolute flex items-center gap-4 top-4 right-2">
 							<AiOutlineArrowRight
