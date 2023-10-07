@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import WorkoutPlans from "../pages/Workout/WorkoutPlans";
 import ChooseView from "../pages/Workout/ChooseView";
 import LogAllWorkouts from "../pages/Workout/LogAllWorkouts";
@@ -105,6 +104,13 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		setAddPlan(false);
 		console.log(myPlan);
 	}
+
+	useEffect(() => {
+		if (search !== "") {
+			const filteredResult = myPlan.filter((item) => item.name === search);
+			setWorkoutDays(filteredResult);
+		}
+	}, [myPlan, search]);
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
