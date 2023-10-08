@@ -1,35 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import WorkoutDay from "../../interfaces/WorkoutDay";
 import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
-	setAddPlan: any;
-	myPlan: any;
-	setMyPlan: any;
+	addPlan: boolean;
+	setAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
+	myPlan: WorkoutDay[];
+	setMyPlan: React.Dispatch<React.SetStateAction<WorkoutDay[]>>;
+	addHandler: () => void;
+	day: string;
+	setDay: React.Dispatch<React.SetStateAction<string>>;
+	name: string;
+	setName: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const AddPlan = ({ myPlan, setAddPlan, setMyPlan }: Props) => {
-	const [day, setDay] = useState("");
-	const [name, setName] = useState("");
-	const [type, setType] = useState("");
-
-	const userJSON = localStorage.getItem("userFittness");
-	const user = userJSON ? JSON.parse(userJSON) : null;
-
-	function addHandler() {
-		setMyPlan([
-			...myPlan,
-			{ id: Date.now(), day: day, name: name, type: type },
-		]);
-		localStorage.setItem(
-			user.email,
-			JSON.stringify([
-				...myPlan,
-				{ id: Date.now(), day: day, name: name, type: type },
-			])
-		);
-		setAddPlan(false);
-	}
-
+function AddPlanPopup({
+	addPlan,
+	setAddPlan,
+	myPlan,
+	setMyPlan,
+	addHandler,
+	day,
+	setDay,
+	name,
+	setName,
+}: Props) {
 	return (
 		<div className="flex flex-col">
 			<div className="relative flex items-center justify-center h-12 bg-lime-300 rounded-t-md">
@@ -61,16 +56,6 @@ const AddPlan = ({ myPlan, setAddPlan, setMyPlan }: Props) => {
 							value={name}
 						/>
 					</div>
-					<div className="flex flex-col gap-2">
-						<label className="text-lg">Type of workout</label>
-						<input
-							type="text"
-							placeholder="Type.."
-							className="w-full py-1 bg-white rounded-md indent-1"
-							onChange={(e) => setType(e.target.value)}
-							value={type}
-						/>
-					</div>
 				</div>
 				<button
 					className="px-2 py-2 mt-8 text-sm font-bold text-white rounded-md bg-lime-300 hover:bg-lime-200"
@@ -81,6 +66,6 @@ const AddPlan = ({ myPlan, setAddPlan, setMyPlan }: Props) => {
 			</div>
 		</div>
 	);
-};
+}
 
-export default AddPlan;
+export default AddPlanPopup;
