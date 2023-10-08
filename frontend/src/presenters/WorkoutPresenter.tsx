@@ -116,6 +116,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		  ? JSON.parse(storedWorkoutDaysJSON)
 		  : [];
 	  
+		console.log("fsaf", workoutDays)
 		setWorkoutDays(parsedWorkoutDays);
 	}, [myPlan]);
 
@@ -139,6 +140,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 						deleteWorkoutPlan={deleteWorkoutPlan}
 						addPlanPopup={
 							<AddPlan
+								
 								addPlan={addPlan}
 								setAddPlan={setAddPlan}
 								myPlan={myPlan}

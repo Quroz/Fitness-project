@@ -107,9 +107,10 @@ async function updateSettings(req, res) {
             { new: true }
         );
 
+        const token = createToken(updatedSettings._id);
         console.log(updatedSettings)
         if (updatedSettings) {
-            return res.status(200).json({ updatedSettings });
+            return res.status(200).json({ updatedSettings, token });
         } else {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -124,6 +125,7 @@ async function getUser(req,res){
 
     try {
         const user = await userModel.findOne({ email }); 
+        const token = createToken(user._id);
         res.status(200).json({user})
     } catch (error) {
         res.status(400).json({ Error: error.message });
