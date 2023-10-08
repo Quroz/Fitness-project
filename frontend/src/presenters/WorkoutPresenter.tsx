@@ -101,17 +101,17 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			user.email,
 			JSON.stringify([...myPlan, { id: Date.now(), day: day, name: name }])
 		);
+	// NEDAN ÄR ÄNDRINGEN JAG GJORDE. BASICLLY UPPDATERA setWORKOUTDAYS också och inte bara myPlan
+		setWorkoutDays([...myPlan, { id: Date.now(), day: day, name: name }]);
 		setAddPlan(false);
 		console.log("Add Handler:", myPlan);
+		console.log("Changing myPlan");
 	}
 
 	useEffect(() => {
-		if (search !== "") {
-			const filteredResult = myPlan.filter((item) => item.name === search);
-			setWorkoutDays(filteredResult);
-		}
-		console.log("I am rendering");
-	}, [workoutDays, search]);
+		/* Check if myPlan has changed */
+		console.log("myPlan changed");
+	}, [myPlan]);
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
