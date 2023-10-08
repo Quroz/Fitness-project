@@ -161,9 +161,7 @@ export default function SearchbarView({
 																	equipment.apiCall === "No Filter"
 																		? ""
 																		: equipment.apiCall;
-																setShowLoading(true);
 																setEquipments(selectedEquipment);
-
 																setFilterbyEquipment(selectedEquipment !== "");
 															}}
 														>

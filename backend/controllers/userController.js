@@ -87,16 +87,16 @@ async function updateSettings(req, res) {
 
     const update = {};
 
-    if (weight !== undefined) {
+    if (weight !== "") {
         update.weight = weight;
     }
-    if (height !== undefined) {
+    if (height !== "") {
         update.height = height;
     }
-    if (age !== undefined) {
+    if (age !== "") {
         update.age = age;
     }
-    if (goals && goals.length > 0) {
+    if (goals != "" && goals.length > 0) {
         update.$push = { goals: { $each: goals } };
     }
 
@@ -107,6 +107,7 @@ async function updateSettings(req, res) {
             { new: true }
         );
 
+        console.log(updatedSettings)
         if (updatedSettings) {
             return res.status(200).json({ updatedSettings });
         } else {
@@ -115,6 +116,17 @@ async function updateSettings(req, res) {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+async function getUser(req,res){
+    const {email} = req.body;
+
+    try {
+        const user = await userModel.findOne({ email }); 
+        res.status(200).json({user})
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
     }
 }
 
@@ -140,5 +152,5 @@ async function updateCheck(req, res) {
     }
 }
 
-module.exports = {login, signup, updateCheck, updateSettings}
+module.exports = {login, signup, updateCheck, updateSettings, getUser}
 
