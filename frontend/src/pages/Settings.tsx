@@ -192,7 +192,7 @@ function Settings() {
               onClick = {() => setShowGoals(!showGoals)}
               />
               {filteredGoals.map((goal: string, index: number) => (
-                <div className='border-black border-[1px] bg-gray-100 p-8 relative rounded-md'>
+                <div className='border-black border-[1px] bg-gray-100 p-8 relative rounded-md' key = {index}>
                         <h1 className='absolute top-1 left-1 font-bold'>{index+1}</h1>
                         <p>{goal}</p>
                 </div>
