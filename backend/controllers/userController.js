@@ -119,6 +119,17 @@ async function updateSettings(req, res) {
     }
 }
 
+async function getUser(req,res){
+    const {email} = req.body;
+
+    try {
+        const user = await userModel.findOne({ email }); 
+        res.status(200).json({user})
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
+    }
+}
+
   
 async function updateCheck(req, res) {
     const { email,check } = req.body;
@@ -141,5 +152,5 @@ async function updateCheck(req, res) {
     }
 }
 
-module.exports = {login, signup, updateCheck, updateSettings}
+module.exports = {login, signup, updateCheck, updateSettings, getUser}
 

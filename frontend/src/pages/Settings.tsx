@@ -11,7 +11,7 @@ function Settings() {
     weightOptions: { value: string; label: string }[];
     heightOptions: { value: string; label: string }[];
     ageOptions: { value: string; label: string }[];
-    goal: string;
+    goals: string[];
     updatedSettings: any
   }
   
@@ -31,15 +31,45 @@ function Settings() {
 
   const [showGoals, setShowGoals] = useState<boolean>(false)
 
+  //när vi renderar users goals så vill vi inte ha ""
+  const [filteredGoals, setFilteredGoals] = useState<string[]>([])
+
+
+ 
+  useEffect(() => {
  
 
-  useEffect(() => {
-    const userJSON = localStorage.getItem("userFittness");
-    const userData = userJSON ? JSON.parse(userJSON) : null;
-    setUser(userData);
+    async function fetchUser(){
+      const userJSON = localStorage.getItem("userFittness");
+      const userData = userJSON ? JSON.parse(userJSON) : null;
+   
+      const email = userData.updatedSettings.email
+      
+      const response = await fetch('http://localhost:4000/api/user/getUser', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email})
+        })
+
+      const data = await response.json()
+
+
+      if(response.status !== 200){
+          alert(data.Error)
+          console.log(data.Error)
+      }
+      else{
+          setUser(data.user) 
+          setFilteredGoals((user?.goals || []).filter((goal) => goal.trim() !== ""));
+      } 
+    }
+
+    fetchUser()
+
   }, []);
 
-  console.log("data", user)
 
 
   async function updateSettings(type: string){
@@ -53,7 +83,10 @@ function Settings() {
       return;
     }
     
-    const email = user?.updatedSettings.email
+    const userJSON = localStorage.getItem("userFittness");
+    const userData = userJSON ? JSON.parse(userJSON) : null;
+ 
+    const email = userData.updatedSettings.email
     
       const response = await fetch('http://localhost:4000/api/user/updateSettings', {
         method: "POST",
@@ -64,6 +97,7 @@ function Settings() {
         })
 
       const data = await response.json()
+
 
       if(response.status !== 200){
           alert(data.Error)
@@ -79,7 +113,7 @@ function Settings() {
   return (
     <div className='w-full min-h-screen bg-lime-300 py-16'>
       <div className='h-full w-[70%] mx-auto flex flex-col gap-4'>
-        <h1 className='font-bold text-2xl'>Hi, {user?.updatedSettings.name}</h1>
+        <h1 className='font-bold text-2xl'>Hi, {user?.name}</h1>
         <div className='bg-white p-4 rounded-md'>
             <h2 className='text-xl font-semibold mb-2'>Welcome to Your Settings</h2>
             <p className='text-gray-600'>
@@ -90,7 +124,7 @@ function Settings() {
         <div className='bg-white flex flex-col rounded-md'>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current weight: <strong>{user?.updatedSettings.weight} kg</strong>
+              Current weight: <strong>{user?.weight} kg</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -110,7 +144,7 @@ function Settings() {
           </div>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current height: <strong>{user?.updatedSettings.height} cm</strong>
+              Current height: <strong>{user?.height} cm</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -130,7 +164,7 @@ function Settings() {
           </div>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current age: <strong>{user?.updatedSettings.age} years</strong>
+              Current age: <strong>{user?.age} years</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -159,7 +193,7 @@ function Settings() {
               <AiOutlineArrowLeft className='absolute top-1 left-1 cursor-pointer' size = {24}
               onClick = {() => setShowGoals(!showGoals)}
               />
-              {user?.updatedSettings.goals.map((goal: string, index: number) => (
+              {filteredGoals.map((goal: string, index: number) => (
                 <div className='border-black border-[1px] bg-gray-100 p-8 relative rounded-md'>
                         <h1 className='absolute top-1 left-1 font-bold'>{index+1}</h1>
                         <p>{goal}</p>
