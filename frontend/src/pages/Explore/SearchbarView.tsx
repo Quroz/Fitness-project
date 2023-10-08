@@ -58,12 +58,12 @@ export default function SearchbarView({
 	setShowLoading,
 }: SearchbarViewProps) {
 	return (
-		<div>
+		<div className="mt-16">
 			<div className="flex flex-1 ">
-				<div className="flex flex-row">
+				<div className="flex flex-row mb-5 w-fit ">
 					<div className="w-fit">
 						<div className="mb-5">
-							<div className="flex flex-row">
+							<div className="flex flex-row justify-between">
 								<input
 									type="text"
 									placeholder={"Search for an exercise"}

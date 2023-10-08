@@ -92,15 +92,15 @@ function ItemPage({}: Props) {
     const [addWorkout, setAddWorkout] = useState(false)
     
   return (
-    <div className='w-full h-screen relative'>
+    <div className='relative w-full h-screen'>
              <img src = "https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg" className='sticky object-cover w-full h-full'/>
-             <BsFillArrowLeftCircleFill className='z-20 absolute left-2 top-2 cursor-pointer' size = {24} color = "white"
+             <BsFillArrowLeftCircleFill className='absolute z-20 cursor-pointer left-2 top-2' size = {24} color = "white"
              onClick = {() => navigate(`/workoutPlan`)}
              />
-            <div className='top-0 left-0 absolute z-10 w-full h-full bg-black/40 p-8 flex-col gap-4 flex items-center pt-48'>
-                 <h1 className='text-white text-7xl font-bold'>My workout plan</h1>
-                 <h1 className='text-white text-xl'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>
-                 <div className='flex items-center mt-8 gap-48 w-full justify-center'>
+            <div className='absolute top-0 left-0 z-10 flex flex-col items-center w-full h-full gap-4 p-8 pt-48 bg-black/40'>
+                 <h1 className='font-bold text-white text-7xl'>My workout plan</h1>
+                 <h1 className='text-xl text-white'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>
+                 <div className='flex items-center justify-center w-full gap-48 mt-8'>
                      <button className='px-4 py-4 w-[250px] bg-lime-300 text-white font-bold rounded-md hover:bg-lime-200'
                      onClick={() => addWorkoutHandler()}
                      >Add workout</button>
@@ -109,8 +109,8 @@ function ItemPage({}: Props) {
                           {workouts.length > 0 ?
                            <>
                               {workouts?.map((workout: any) => (
-                                <div className='flex flex-col gap-2 items-center justify-around w-full py-4 bg-gray-200/70 rounded-lg cursor-pointer hover:bg-gray-50 relative'>
-                                  <div className='top-1 right-2 absolute flex items-center gap-2'>
+                                <div className='relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50'>
+                                  <div className='absolute flex items-center gap-2 top-1 right-2'>
                                     <AiOutlineClose color = "red" size = {20} onClick = {
                                       () => deleteWorkoutHandler(workout.name)
                                     }/>

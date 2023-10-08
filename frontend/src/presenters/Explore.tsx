@@ -57,9 +57,9 @@ function ExplorePresenter() {
 	}
 
 	return (
-		<div className="flex my-4">
+		<div className="flex w-full h-screen my-4 ">
 			<div className="flex flex-1">
-				<div className="flex mx-5 mr-2 w-max">
+				<div className="flex justify-center w-full h-screen mx-5 mr-2 ">
 					<SearchbarView
 						// Related to filtering and searching by body part
 						bodyPart={bodyPart}

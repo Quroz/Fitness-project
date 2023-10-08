@@ -211,8 +211,6 @@ function Settings() {
             </div>
             <div className='flex flex-col gap-2'>
               <textarea
-                id='w3review'
-                name='w3review'
                 rows={4}
                 cols={50}
                 className='border-black border-[1px] rounded-md p-1'
