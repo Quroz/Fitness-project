@@ -34,6 +34,8 @@ function Settings() {
   //när vi renderar users goals så vill vi inte ha ""
   const [filteredGoals, setFilteredGoals] = useState<string[]>([])
 
+  console.log("goaa", filteredGoals)
+
 
  
   useEffect(() => {
