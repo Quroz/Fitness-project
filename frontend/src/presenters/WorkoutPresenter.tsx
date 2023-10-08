@@ -70,55 +70,65 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
-			"http://localhost:4000/api/workout/deleteAllWorkouts",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user.token}`,
-				},
-				body: JSON.stringify({
-					plan_id: id,
-				}),
-			}
+		  "http://localhost:4000/api/workout/deleteAllWorkouts",
+		  {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/json",
+			  Authorization: `Bearer ${user.token}`,
+			},
+			body: JSON.stringify({
+			  plan_id: id,
+			}),
+		  }
 		);
 		const data = await response.json();
 		if (response.status !== 200) {
-			alert("Could not delete workout plan");
+		  alert("Could not delete workout plan");
 		} else {
-			alert("Deleted!");
-			const updatedData = myPlan.filter((item) => item.id !== id);
-			console.log("updatedData", updatedData);
-			setMyPlan(updatedData);
-			setWorkoutDays(updatedData);
-			localStorage.setItem(user.email, JSON.stringify(updatedData));
+		  alert("Deleted!");
+		  const updatedMyPlan = myPlan.filter((item) => item.id !== id);
+		  console.log("updatedMyPlan", updatedMyPlan);
+		  setMyPlan(updatedMyPlan);
+		  localStorage.setItem(user.email, JSON.stringify(updatedMyPlan));
 		}
-	}
-
+	  }
+	  
 	function addHandler() {
-		setMyPlan([...myPlan, { id: Date.now(), day: day, name: name }]);
+
+		const newItem = { id: Date.now(), day: day, name: name };
+	  
+		setWorkoutDays(prevWorkoutDays => [...prevWorkoutDays, newItem]);
+		setMyPlan(prevMyPlan => [...prevMyPlan, newItem]);
+	  
 		localStorage.setItem(
-			user.email,
-			JSON.stringify([...myPlan, { id: Date.now(), day: day, name: name }])
+		  user.email,
+		  JSON.stringify([...workoutDays, newItem])
 		);
-	// NEDAN ÄR ÄNDRINGEN JAG GJORDE. BASICLLY UPPDATERA setWORKOUTDAYS också och inte bara myPlan
-		setWorkoutDays([...myPlan, { id: Date.now(), day: day, name: name }]);
+	  
 		setAddPlan(false);
-		console.log("Add Handler:", myPlan);
-		console.log("Changing myPlan");
-	}
+	  }
 
 	useEffect(() => {
 		/* Check if myPlan has changed */
-		console.log("myPlan changed");
-		const storedWorkoutDaysJSON = localStorage.getItem(user.email);
-		const parsedWorkoutDays = storedWorkoutDaysJSON
-		  ? JSON.parse(storedWorkoutDaysJSON)
-		  : [];
-	  
-		console.log("fsaf", workoutDays)
-		setWorkoutDays(parsedWorkoutDays);
-	}, [myPlan]);
+		if(search == ""){
+			const storedWorkoutDaysJSON = localStorage.getItem(user.email);
+			const parsedWorkoutDays = storedWorkoutDaysJSON
+			  ? JSON.parse(storedWorkoutDaysJSON)
+			  : [];
+		  
+			console.log("daays", workoutDays)
+			setWorkoutDays(parsedWorkoutDays);
+		}
+	}, [myPlan, search]);
+
+
+	function searchHandler(name: string){
+
+		console.log("search", name)
+		const filteredWorkoutDays = workoutDays.filter((workout) => workout.name === name);
+		setWorkoutDays(filteredWorkoutDays)
+	}
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
@@ -134,6 +144,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 						search={search}
 						setSearch={setSearch}
 						addPlan={addPlan}
+						searchHandler = {searchHandler}
 						setAddPlan={setAddPlan}
 						checkHandler={checkHandler}
 						itemPage={itemPage}

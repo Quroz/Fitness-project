@@ -5,19 +5,20 @@ type Props = {
 	setAddPlan: any;
 	myPlan: any;
 	setMyPlan: any;
-	workoutDays: any;
+
 };
 
-const AddPlan = ({ myPlan, setAddPlan, setMyPlan, workoutDays }: Props) => {
+const AddPlan = ({ myPlan, setAddPlan, setMyPlan }: Props) => {
 	const [day, setDay] = useState("");
 	const [name, setName] = useState("");
 	const [type, setType] = useState("");
 
 	const userJSON = localStorage.getItem("userFittness");
 	const user = userJSON ? JSON.parse(userJSON) : null;
-	console.log(workoutDays)
+	
 
 	function addHandler() {
+		console.log("plan", myPlan)
 		setMyPlan([
 			...myPlan,
 			{ id: Date.now(), day: day, name: name, type: type },

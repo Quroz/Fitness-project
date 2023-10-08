@@ -12,6 +12,7 @@ type Props = {
 	itemPage: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
 	addPlanPopup: JSX.Element;
+	searchHandler: any,
 };
 
 function WorkoutPlans({
@@ -24,6 +25,7 @@ function WorkoutPlans({
 	itemPage,
 	deleteWorkoutPlan,
 	addPlanPopup,
+	searchHandler
 }: Props): JSX.Element {
 
 	console.log("workoutDats", workoutDays)
@@ -38,6 +40,11 @@ function WorkoutPlans({
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 					/>
+					<button
+						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
+						onClick={() => searchHandler(search)}>
+						Search
+					</button>
 					<button
 						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
 						onClick={() => setAddPlan(true)}
