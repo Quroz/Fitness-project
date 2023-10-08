@@ -111,6 +111,12 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	useEffect(() => {
 		/* Check if myPlan has changed */
 		console.log("myPlan changed");
+		const storedWorkoutDaysJSON = localStorage.getItem(user.email);
+		const parsedWorkoutDays = storedWorkoutDaysJSON
+		  ? JSON.parse(storedWorkoutDaysJSON)
+		  : [];
+	  
+		setWorkoutDays(parsedWorkoutDays);
 	}, [myPlan]);
 
 	return (

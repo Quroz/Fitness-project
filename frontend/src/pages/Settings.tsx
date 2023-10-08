@@ -41,8 +41,13 @@ function Settings() {
     async function fetchUser(){
       const userJSON = localStorage.getItem("userFittness");
       const userData = userJSON ? JSON.parse(userJSON) : null;
+
+      console.log("data", userData)
    
-      const email = userData.updatedSettings.email
+      const email = userData?.updatedSettings.email
+
+      console.log(email)
+      
       
       const response = await fetch('http://localhost:4000/api/user/getUser', {
         method: "POST",
@@ -84,7 +89,7 @@ function Settings() {
     const userJSON = localStorage.getItem("userFittness");
     const userData = userJSON ? JSON.parse(userJSON) : null;
  
-    const email = userData.updatedSettings.email
+    const email =  userData?.updatedSettings.email
     
       const response = await fetch('http://localhost:4000/api/user/updateSettings', {
         method: "POST",
@@ -103,6 +108,7 @@ function Settings() {
       }
       else{
           localStorage.setItem("userFittness", JSON.stringify(data))
+          setUser(data)
           window.location.reload()
       }
   }
