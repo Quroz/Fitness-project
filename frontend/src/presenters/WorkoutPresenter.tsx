@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import WorkoutPlans from "../pages/Workout/WorkoutPlans";
 import ChooseView from "../pages/Workout/ChooseView";
-import LogAllWorkouts from "../pages/Workout/logAllWorkouts";
+import LogAllWorkouts from "../pages/Workout/LogAllWorkouts";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import { useNavigate } from "react-router-dom";
 import AddPlan from "../components/Workout/AddPlanPopup";
 
 type Props = {};
 
-const userJSON = localStorage.getItem("userFittness");
-const user = userJSON ? JSON.parse(userJSON) : null;
-
 function WorkoutPresenter({}: Props): JSX.Element {
+	// Local Storage
+	const userJSON = localStorage.getItem("userFittness");
+	const user = userJSON ? JSON.parse(userJSON) : null;
 	// MyWorkouts and Showlog are used to render the correct component
 	const [myWorkouts, setMyWorkouts] = useState(true);
 	const [showLog, setShowLog] = useState(false);
@@ -88,7 +88,6 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		} else {
 			alert("Deleted!");
 			const updatedData = myPlan.filter((item) => item.id !== id);
-			console.log("updatedData", updatedData);
 			setMyPlan(updatedData);
 			setWorkoutDays(updatedData);
 			localStorage.setItem(user.email, JSON.stringify(updatedData));
@@ -101,16 +100,19 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			user.email,
 			JSON.stringify([...myPlan, { id: Date.now(), day: day, name: name }])
 		);
-	// NEDAN ÄR ÄNDRINGEN JAG GJORDE. BASICLLY UPPDATERA setWORKOUTDAYS också och inte bara myPlan
+		// NEDAN ÄR ÄNDRINGEN JAG GJORDE. BASICLLY UPPDATERA setWORKOUTDAYS också och inte bara myPlan
 		setWorkoutDays([...myPlan, { id: Date.now(), day: day, name: name }]);
 		setAddPlan(false);
-		console.log("Add Handler:", myPlan);
-		console.log("Changing myPlan");
 	}
-
 	useEffect(() => {
 		/* Check if myPlan has changed */
 		console.log("myPlan changed");
+		const storedWorkoutDaysJSON = localStorage.getItem(user.email);
+		const parsedWorkoutDays = storedWorkoutDaysJSON
+			? JSON.parse(storedWorkoutDaysJSON)
+			: [];
+
+		setWorkoutDays(parsedWorkoutDays);
 	}, [myPlan]);
 
 	return (

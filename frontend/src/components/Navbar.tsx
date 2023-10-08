@@ -8,7 +8,7 @@ The navbar will be a vertical navbar on the left side of the screen.
 */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {useAccount} from "../hooks/useAccount"
+import { useAccount } from "../hooks/useAccount";
 
 // Import icons and images
 import DashboardIcon from "../assets/Navbar/dashboard.png";
@@ -30,25 +30,22 @@ First div --> flexbox with column direction
 */
 
 type Props = {
-	login: Function,
-    loginError: String,
-    signup: Function,
-    signupError: String,
-    logout: Function,
+	login: Function;
+	loginError: String;
+	signup: Function;
+	signupError: String;
+	logout: Function;
 };
 
-
 function NavbarView({}: Props) {
-
-	function logoutHandler(){
-		 logout();
+	function logoutHandler() {
+		logout();
 	}
 
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
-	const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+	const { login, loginError, signup, signupError, logout } = useAccount({});
 	return (
-
 		<div className="fixed flex flex-col h-screen w-11">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
 			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20">
@@ -114,7 +111,10 @@ function NavbarView({}: Props) {
 				</div>
 				{/*This is the logout button and settings*/}
 				<div className="flex flex-col space-y-4 bg-zinc-100">
-					<div onClick={() => logoutHandler()} className = "cursor-pointer hover:scale-105">
+					<div
+						onClick={() => logoutHandler()}
+						className="cursor-pointer hover:scale-105"
+					>
 						<div>
 							<img src={LogoutIcon} alt="Logout Icon" />
 						</div>
@@ -132,7 +132,6 @@ function NavbarView({}: Props) {
 						</Link>
 					</div>
 				</div>
-
 			</nav>
 		</div>
 	);
