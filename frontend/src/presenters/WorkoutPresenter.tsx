@@ -110,7 +110,8 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			const filteredResult = myPlan.filter((item) => item.name === search);
 			setWorkoutDays(filteredResult);
 		}
-	}, [myPlan, search]);
+		console.log("I am rendering");
+	}, [workoutDays, search]);
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
