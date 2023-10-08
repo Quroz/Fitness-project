@@ -32,10 +32,7 @@ function Settings() {
   const [showGoals, setShowGoals] = useState<boolean>(false)
 
   //när vi renderar users goals så vill vi inte ha ""
-  const [filteredGoals, setFilteredGoals] = useState<string[]>([])
-
-  console.log("goaa", filteredGoals)
-
+  const filteredGoals = (user?.goals || []).filter((goal) => goal.trim() !== "");
 
  
   useEffect(() => {
@@ -64,7 +61,6 @@ function Settings() {
       }
       else{
           setUser(data.user) 
-          setFilteredGoals((user?.goals || []).filter((goal) => goal.trim() !== ""));
       } 
     }
 
