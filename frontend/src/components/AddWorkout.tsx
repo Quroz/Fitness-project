@@ -28,17 +28,19 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
 
   const userJSON = localStorage.getItem("userFittness");
-  const user = userJSON ? JSON.parse(userJSON) : null;
-
-
+  const userParsed = userJSON ? JSON.parse(userJSON) : null;
+  const user = userParsed.token
+  
 
 
   async function addWorkoutHandler(){
+
+    console.log("UUUSA", user)
     const response = await fetch("http://localhost:4000/api/workout/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
+        "Authorization": `Bearer ${user}`
       },
       body: JSON.stringify({
         name: selectedWorkoutName,

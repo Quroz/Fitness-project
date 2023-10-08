@@ -49,6 +49,7 @@ async function addWorkout(req,res){
 
       try {
         const user_id = req.user._id;
+        console.log(user_id)
  
         const addedWorkout = await WorkoutModel.create({day, planName, type,name, bodyPart, muscleTarget, equipment, sets,reps, plan_id, user_id});
        

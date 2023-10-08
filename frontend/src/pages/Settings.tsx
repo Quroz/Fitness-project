@@ -31,6 +31,7 @@ function Settings() {
 
   const [showGoals, setShowGoals] = useState<boolean>(false)
 
+
   //när vi renderar users goals så vill vi inte ha ""
   const filteredGoals = (user?.goals || []).filter((goal) => goal.trim() !== "");
 
@@ -41,9 +42,18 @@ function Settings() {
     async function fetchUser(){
       const userJSON = localStorage.getItem("userFittness");
       const userData = userJSON ? JSON.parse(userJSON) : null;
-   
-      const email = userData.updatedSettings.email
-      
+
+
+      let email = ""
+
+      if(userData?.updatedSettings === undefined){
+         email = userData?.email
+      }
+      else{
+         email = userData?.updatedSettings.email
+      }
+
+  
       const response = await fetch('http://localhost:4000/api/user/getUser', {
         method: "POST",
         headers: {
@@ -84,7 +94,14 @@ function Settings() {
     const userJSON = localStorage.getItem("userFittness");
     const userData = userJSON ? JSON.parse(userJSON) : null;
  
-    const email = userData.updatedSettings.email
+    let email = ""
+
+      if(userData?.updatedSettings === undefined){
+        email = userData?.email
+      }
+      else{
+         email = userData?.updatedSettings.email
+      }
     
       const response = await fetch('http://localhost:4000/api/user/updateSettings', {
         method: "POST",
@@ -103,6 +120,7 @@ function Settings() {
       }
       else{
           localStorage.setItem("userFittness", JSON.stringify(data))
+          setUser(data)
           window.location.reload()
       }
   }

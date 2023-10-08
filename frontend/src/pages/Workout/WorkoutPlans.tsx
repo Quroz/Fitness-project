@@ -12,6 +12,7 @@ type Props = {
 	itemPage: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
 	addPlanPopup: JSX.Element;
+	searchHandler: any,
 };
 
 function WorkoutPlans({
@@ -24,6 +25,7 @@ function WorkoutPlans({
 	itemPage,
 	deleteWorkoutPlan,
 	addPlanPopup,
+	searchHandler
 }: Props): JSX.Element {
 
 	console.log("workoutDats", workoutDays)
@@ -40,6 +42,11 @@ function WorkoutPlans({
 					/>
 					<button
 						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
+						onClick={() => searchHandler(search)}>
+						Search
+					</button>
+					<button
+						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
 						onClick={() => setAddPlan(true)}
 					>
 						Add
@@ -48,8 +55,9 @@ function WorkoutPlans({
 			</div>
 			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto">
 				{workoutDays.map((item: WorkoutDay, index: number) => (
-					<div className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative"
-					key = {index}
+					<div
+						className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative"
+						key={index}
 					>
 						<div
 							className="absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500"

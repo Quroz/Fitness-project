@@ -17,7 +17,9 @@ function ItemPage({}: Props) {
     const [loading, setLoading] = useState(false)
 
     const userJSON = localStorage.getItem("userFittness");
-    const user = userJSON ? JSON.parse(userJSON) : null;
+    const userParsed = userJSON ? JSON.parse(userJSON) : null;
+    const user = userParsed.token
+    
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -27,11 +29,12 @@ function ItemPage({}: Props) {
   useEffect(() => {
 
     async function fetchWorkouts(){
+      console.log("user", user)
       const response = await fetch("http://localhost:4000/api/workout/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${user.token}`
+          "Authorization": `Bearer ${user}`
         },
         body: JSON.stringify({
           plan_id: dataJSON.id
@@ -73,7 +76,7 @@ function ItemPage({}: Props) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${user.token}`
+            "Authorization": `Bearer ${user}`
           },
           body: JSON.stringify({
             name: name,
