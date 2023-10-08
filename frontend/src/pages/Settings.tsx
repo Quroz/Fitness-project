@@ -1,7 +1,21 @@
-import React, { useState } from 'react';
-import { AiFillCheckCircle } from 'react-icons/ai';
+import React, { useState, useEffect } from 'react';
+import { AiFillCheckCircle, AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Settings() {
+
+  interface User {
+    name: string;
+    weight: string;
+    height: string;
+    age: string;
+    weightOptions: { value: string; label: string }[];
+    heightOptions: { value: string; label: string }[];
+    ageOptions: { value: string; label: string }[];
+    goals: string[];
+    updatedSettings: any
+  }
+  
+
   const [weight, setWeight] = useState<string>('');
   const weightOptions = Array.from({ length: 181 }, (_, index) => 20 + index);
 
@@ -13,32 +27,82 @@ function Settings() {
 
   const [goal, setGoal] = useState<string>('');
 
+  const [user, setUser] = useState<User | null>(null);
 
-  const userJSON = localStorage.getItem("userFittness");
-  const user = userJSON ? JSON.parse(userJSON) : null;
-  console.log("logged setting", user)
+  const [showGoals, setShowGoals] = useState<boolean>(false)
 
-  async function updateSettings(){
+  //när vi renderar users goals så vill vi inte ha ""
+  const filteredGoals = (user?.goals || []).filter((goal) => goal.trim() !== "");
 
-      const email = user.email
-    
-      const response = await fetch('http://localhost:4000/api/user/updateSettings/', {
+ 
+  useEffect(() => {
+ 
+
+    async function fetchUser(){
+      const userJSON = localStorage.getItem("userFittness");
+      const userData = userJSON ? JSON.parse(userJSON) : null;
+   
+      const email = userData.updatedSettings.email
+      
+      const response = await fetch('http://localhost:4000/api/user/getUser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({email, weight, height, age, goals: goal})
+        body: JSON.stringify({email})
         })
 
       const data = await response.json()
 
+
       if(response.status !== 200){
-         
+          alert(data.Error)
+          console.log(data.Error)
+      }
+      else{
+          setUser(data.user) 
+      } 
+    }
+
+    fetchUser()
+
+  }, []);
+
+
+
+  async function updateSettings(type: string){
+
+    if(type == "goal" && goal == ""){
+      return alert("You can not add an empty goal, sir!")
+    }
+
+    if (!user) {
+      alert("User data not available");
+      return;
+    }
+    
+    const userJSON = localStorage.getItem("userFittness");
+    const userData = userJSON ? JSON.parse(userJSON) : null;
+ 
+    const email = userData.updatedSettings.email
+    
+      const response = await fetch('http://localhost:4000/api/user/updateSettings', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email, weight, height, age, goals: [goal]})
+        })
+
+      const data = await response.json()
+
+
+      if(response.status !== 200){
+          alert(data.Error)
           console.log(data.Error)
       }
       else{
           localStorage.setItem("userFittness", JSON.stringify(data))
-        
           window.location.reload()
       }
   }
@@ -47,7 +111,7 @@ function Settings() {
   return (
     <div className='w-full min-h-screen bg-lime-300 py-16'>
       <div className='h-full w-[70%] mx-auto flex flex-col gap-4'>
-        <h1 className='font-bold text-2xl'>Hi, {user.name}</h1>
+        <h1 className='font-bold text-2xl'>Hi, {user?.name}</h1>
         <div className='bg-white p-4 rounded-md'>
             <h2 className='text-xl font-semibold mb-2'>Welcome to Your Settings</h2>
             <p className='text-gray-600'>
@@ -58,7 +122,7 @@ function Settings() {
         <div className='bg-white flex flex-col rounded-md'>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current weight: <strong>{user.weight} kg</strong>
+              Current weight: <strong>{user?.weight} kg</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -78,7 +142,7 @@ function Settings() {
           </div>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current height: <strong>{user.height} cm</strong>
+              Current height: <strong>{user?.height} cm</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -98,7 +162,7 @@ function Settings() {
           </div>
           <div className='flex items-center w-full p-8 justify-around'>
             <h1 className='text-2xl'>
-              Current age: <strong>{user.age} years</strong>
+              Current age: <strong>{user?.age} years</strong>
             </h1>
             <div className='flex items-center gap-4'>
               <select
@@ -116,31 +180,52 @@ function Settings() {
               </select>
             </div>
           </div>
-          <AiFillCheckCircle size = {40} className = "cursor-pointer self-center mb-4" color = "green"/>
+          <AiFillCheckCircle size = {40} className = "cursor-pointer self-center mb-4" color = "green"
+          onClick={() => updateSettings("")}
+          />
         </div>
+        {showGoals ? 
+         <div className='bg-white w-full rounded-md relative'>
+            <h1 className='text-2xl text-center font-semibold pt-4'>Your goals</h1>
+            <div className='w-full overflow-y-scroll flex flex-col gap-2 h-[250px] p-8'>
+              <AiOutlineArrowLeft className='absolute top-1 left-1 cursor-pointer' size = {24}
+              onClick = {() => setShowGoals(!showGoals)}
+              />
+              {filteredGoals.map((goal: string, index: number) => (
+                <div className='border-black border-[1px] bg-gray-100 p-8 relative rounded-md' key = {index}>
+                        <h1 className='absolute top-1 left-1 font-bold'>{index+1}</h1>
+                        <p>{goal}</p>
+                </div>
+              ))}
+            </div>
+        </div>  
+      : 
         <div className='bg-white flex w-full p-8 justify-around rounded-md'>
-          <div className='flex flex-col items-center gap-4'>
-            <h1 className='text-2xl'>Do you have any new goals today?</h1>
-            <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'>
-              View current goals
-            </button>
-          </div>
-          <div className='flex flex-col gap-2'>
-            <textarea
-              id='w3review'
-              name='w3review'
-              rows={4}
-              cols={50}
-              className='border-black border-[1px] rounded-md p-1'
-              placeholder='Write any goal..'
-              value={goal}
-              onChange={(e) => setGoal(e.target.value)}
-            />
-            <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'>
-              Add goal
-            </button>
-          </div>
-        </div>
+            <div className='flex flex-col items-center gap-4'>
+              <h1 className='text-2xl'>Do you have any new goals today?</h1>
+              <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'
+              onClick = {() => setShowGoals(!showGoals)} 
+              >
+                View current goals
+              </button>
+            </div>
+            <div className='flex flex-col gap-2'>
+              <textarea
+                rows={4}
+                cols={50}
+                className='border-black border-[1px] rounded-md p-1'
+                placeholder='Write any goal..'
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+              />
+              <button className='bg-lime-300 hover:bg-lime-200 text-black px-2 py-1 rounded-md'
+              onClick = {() => updateSettings("goal")}
+              >
+                Add goal
+              </button>
+            </div>
+        </div> 
+      } 
       </div>
     </div>
   );

@@ -25,6 +25,8 @@ function WorkoutPlans({
 	deleteWorkoutPlan,
 	addPlanPopup,
 }: Props): JSX.Element {
+
+	console.log("workoutDats", workoutDays)
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
 			<div className="flex items-center justify-between">
