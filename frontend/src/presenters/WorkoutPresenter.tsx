@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WorkoutPlans from "../pages/Workout/WorkoutPlans";
 import ChooseView from "../pages/Workout/ChooseView";
-import LogAllWorkouts from "../pages/Workout/LogAllWorkouts";
+import LogAllWorkouts from "../pages/Workout/logAllWorkouts";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import { useNavigate } from "react-router-dom";
 import AddPlan from "../components/Workout/AddPlanPopup";

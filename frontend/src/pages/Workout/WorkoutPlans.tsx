@@ -25,6 +25,8 @@ function WorkoutPlans({
 	deleteWorkoutPlan,
 	addPlanPopup,
 }: Props): JSX.Element {
+
+	console.log("workoutDats", workoutDays)
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
 			<div className="flex items-center justify-between">
@@ -45,8 +47,10 @@ function WorkoutPlans({
 				</div>
 			</div>
 			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto">
-				{workoutDays.map((item: WorkoutDay) => (
-					<div className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative">
+				{workoutDays.map((item: WorkoutDay, index: number) => (
+					<div className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md cursor-pointer hover:bg-gray-100 relative"
+					key = {index}
+					>
 						<div
 							className="absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500"
 							onClick={() => checkHandler(item.id)}
