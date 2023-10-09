@@ -131,9 +131,8 @@ function ItemPage({}: Props) {
                               ))}
                              </div> 
                           : 
-                           <div className='bg-black/20 p-4 mt-10 flex flex-col gap-2 items-center rounded-md'>
-                              <h1 className='text-white text-2xl'>It looks like there are no workouts yet, but don't worry – you're just one click away from adding some!</h1>
-                              <h1 className='text-white text-xl'>Add workout to begin your workout adventure!</h1>
+                           <div className='bg-black/20 p-4 mt-10 flex items-center rounded-md'>
+                              <h1 className='text-white text-2xl'>It looks like there are no workouts yet</h1>
                            </div>
                           }      
             </div>
