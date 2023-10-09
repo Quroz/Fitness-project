@@ -19,12 +19,14 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
   const equipment = Array.from(new Set(data.map((item: any) => item.equipment)));
 
  
-  const [selectedWorkoutName, setSelectedWorkoutName] = useState(data[0]?.name);
-  const [selectedBodyPart, setSelectedBodyPart] = useState(data[0]?.bodyPart);
-  const [selectedTarget, setSelectedTarget] = useState(data[0]?.target);
-  const [selectedEquipment, setSelectedEquipment] = useState(data[0]?.equipment);
-  const [numberOfSets, setNumberOfSets] = useState(1);
-  const [numberOfReps, setNumberOfReps] = useState(1);
+  const [selectedWorkoutName, setSelectedWorkoutName] = useState("");
+  const [selectedBodyPart, setSelectedBodyPart] = useState("");
+  const [selectedTarget, setSelectedTarget] = useState("");
+  const [selectedEquipment, setSelectedEquipment] = useState("");
+  const [numberOfSets, setNumberOfSets] = useState(0);
+  const [numberOfReps, setNumberOfReps] = useState(0);
+
+  console.log(selectedEquipment)
 
 
   const userJSON = localStorage.getItem("userFittness");
@@ -35,7 +37,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
 
   async function addWorkoutHandler(){
 
-    console.log("UUUSA", user)
+
     const response = await fetch("http://localhost:4000/api/workout/add", {
       method: "POST",
       headers: {
@@ -90,6 +92,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
               value={selectedWorkoutName}
               onChange={(e) => setSelectedWorkoutName(e.target.value)}
             >
+              <option value="" disabled>Select workout name</option>
               {workoutName?.map((item: any) => (
                 <option key={item}>{item}</option>
               ))}
@@ -102,6 +105,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
             value={selectedBodyPart}
             onChange={(e) => setSelectedBodyPart(e.target.value)}
           >
+            <option value="" disabled>Select bodypart</option>
             {bodyParts?.map((item: any) => (
               <option key={item}>{item}</option>
             ))}
@@ -113,6 +117,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
             value={selectedTarget}
             onChange={(e) => setSelectedTarget(e.target.value)}
           >
+            <option value="" disabled>Select muscle target</option>
             {target?.map((item: any) => (
               <option key={item}>{item}</option>
             ))}
@@ -124,6 +129,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
             value={selectedEquipment}
             onChange={(e) => setSelectedEquipment(e.target.value)}
           >
+            <option value="" disabled>Select equipment</option>
             {equipment?.map((item: any) => (
               <option key={item}>{item}</option>
             ))}
