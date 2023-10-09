@@ -15,7 +15,7 @@ import WorkoutPage from "./pages/WorkoutPage";
 import Workouts from "./pages/Workouts";
 import ItemPage from "./components/ItemPage";
 import InstructionsPage from "./pages/Explore/InstructionsView";
-import WorkoutPresenter from "./presenters/WorkoutPresenter";
+import { ProgressPresenter } from "./pages/ProgressPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
 
@@ -34,63 +34,31 @@ function App() {
 					</Routes>
 				)}
 
-				{loggedIn && (
-					<div className="flex">
-						<NavbarView />
-						<div className="flex-1 ml-11">
-							<Routes>
-								{/* The same order of the navbar icons drawn in my sketch-Rakin */}
-								{loggedIn &&
-									(pathname === "/login" ||
-										pathname === "/" ||
-										pathname === "/signup") && <Route path="/dashboard" />}
-								<Route
-									path="/dashboard"
-									element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/progress"
-									element={loggedIn ? <Progress /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/explore"
-									element={loggedIn ? <Explore /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/settings"
-									element={loggedIn ? <Settings /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/pageitem"
-									element={loggedIn ? <PageItem /> : <Navigate to="/login" />}
-								/>
-
-								<Route
-									path="/workoutplan"
-									element={
-										loggedIn ? <WorkoutPresenter /> : <Navigate to="/login" />
-									}
-								/>
-
-								{/*Refactoring Workoutplan etc */}
-								{/*<Route path="/workoutplan" element={loggedIn ? <Workouts /> : <Navigate to="/login" />} />*/}
-								<Route
-									path="/itemPage"
-									element={loggedIn ? <ItemPage /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/instructions"
-									element={
-										loggedIn ? <InstructionsPage /> : <Navigate to="/login" />
-									}
-								/>
-							</Routes>
-						</div>
-					</div>
-				)}
-			</BrowserRouter>
-		</div>
-	);
+        {loggedIn && (
+          <div className="flex">
+            <NavbarView />
+            <div className="flex-1 ml-11">
+              <Routes>
+                {/* The same order of the navbar icons drawn in my sketch-Rakin */}
+                {loggedIn && (pathname === "/login" || pathname === "/" || pathname === "/signup") && (
+                    <Route path="/dashboard" />
+                )}
+                <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />
+                <Route path="/progress" element={loggedIn ? <ProgressPresenter/> : <Navigate to="/login" />} />
+                <Route path="/explore" element={loggedIn ? <Explore /> : <Navigate to="/login" />} />
+                <Route path="/settings" element={loggedIn ? <Settings /> : <Navigate to="/login" />} />
+                <Route path="/pageitem" element={loggedIn ? <PageItem /> : <Navigate to="/login" />} />
+            
+                <Route path="/workoutplan" element={loggedIn ? <Workouts /> : <Navigate to="/login" />} />
+                <Route path="/itemPage" element={loggedIn ? <ItemPage /> : <Navigate to="/login" />} />
+                <Route path= "/instructions" element={loggedIn ? <InstructionsPage /> : <Navigate to="/login" />} />
+              </Routes>
+            </div>
+          </div>
+        )}
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
