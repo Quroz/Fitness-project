@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from "react-router-dom"
-const logo =  require("../Assets/logo.png");
+const logo =  require("../assets/logo.png");
 
 type Props = {}
 
@@ -14,7 +14,7 @@ function StartPage({}: Props) {
                    <button className='px-5 py-2 text-sm font-bold text-black bg-orange-400 rounded-full hover:bg-orange-200'>Membership</button>
                 </div>
             </div>
-            <img src = "https://images.contentstack.io/v3/Assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
+            <img src = "https://images.contentstack.io/v3/assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"
             className='w-full h-full object-container'
             />
             <div className='absolute top-0 left-0 w-full h-full bg-black/50'/>

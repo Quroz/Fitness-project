@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Progress from './Progress'
-import data from "../Assets/textOvn.json"
+import data from "../assets/textOvn.json"
 interface Workout {
     name: string;
     equipment: string;

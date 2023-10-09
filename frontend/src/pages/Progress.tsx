@@ -1,5 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-import data from "../Assets/textOvn.json";
+import data from "../assets/textOvn.json";
 
 interface Workout {
   name: string;
