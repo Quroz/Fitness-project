@@ -18,6 +18,7 @@ import WorkoutPage from "./pages/WorkoutPage";
 import Workouts from "./pages/Workouts";
 import ItemPage from "./components/ItemPage";
 import InstructionsPage from "./pages/Explore/InstructionsView";
+import { ProgressPresenter } from "./pages/ProgressPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
 
@@ -46,7 +47,7 @@ function App() {
                     <Route path="/dashboard" />
                 )}
                 <Route path="/dashboard" element={loggedIn ? <Dashboard /> : <Navigate to="/login" />} />
-                <Route path="/progress" element={loggedIn ? <Progress /> : <Navigate to="/login" />} />
+                <Route path="/progress" element={loggedIn ? <ProgressPresenter/> : <Navigate to="/login" />} />
                 <Route path="/explore" element={loggedIn ? <Explore /> : <Navigate to="/login" />} />
                 <Route path="/settings" element={loggedIn ? <Settings /> : <Navigate to="/login" />} />
                 <Route path="/pageitem" element={loggedIn ? <PageItem /> : <Navigate to="/login" />} />

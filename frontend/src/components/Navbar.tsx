@@ -11,12 +11,12 @@ import { Link } from "react-router-dom";
 import {useAccount} from "../hooks/useAccount"
 
 // Import icons and images
-import DashboardIcon from "../assets/Navbar/dashboard.png";
-import WorkoutPlanIcon from "../assets/Navbar/workout.png";
-import ProgressionIcon from "../assets/Navbar/progress.png";
-import ExploreIcon from "../assets/Navbar/explore.png";
-import SettingsIcon from "../assets/Navbar/settings.png";
-import LogoutIcon from "../assets/Navbar/logout.png";
+import DashboardIcon from "../Assets/Navbar/dashboard.png";
+import WorkoutPlanIcon from "../Assets/Navbar/workout.png";
+import ProgressionIcon from "../Assets/Navbar/progress.png";
+import ExploreIcon from "../Assets/Navbar/explore.png";
+import SettingsIcon from "../Assets/Navbar/settings.png";
+import LogoutIcon from "../Assets/Navbar/logout.png";
 
 /* REGARDING THE STYLING OF THE NAVBAR:
 ______________________________________
