@@ -108,9 +108,10 @@ function ItemPage({}: Props) {
                      onClick={() => addWorkoutHandler()}
                      >Add workout</button>
                  </div>
+                      {workouts.length > 0 ?
                         <div className='overflow-y-auto flex flex-col gap-8 pt-4 w-[50%]'>
-                          {workouts.length > 0 ?
-                           <>
+                         
+                           
                               {workouts?.map((workout: any) => (
                                 <div className='relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50'>
                                   <div className='absolute flex items-center gap-2 top-1 right-2'>
@@ -128,12 +129,12 @@ function ItemPage({}: Props) {
                                     <h1 className = "text-lg"><strong>Amount of reps:</strong> {workout.reps}</h1>
                                 </div>
                               ))}
-                            </>
+                             </div> 
                           : 
-                          <h1>hej</h1>
-                          }
-                                 
-                    </div> 
+                           <div className='bg-black/20 p-4 mt-10 flex items-center rounded-md'>
+                              <h1 className='text-white text-2xl'>It looks like there are no workouts yet</h1>
+                           </div>
+                          }      
             </div>
              {addWorkout && 
                       <div className={addWorkout ? 'bottom-0 left-0 right-0 top-[5%] m-auto absolute z-20 w-[400px] duration-500 ease-in' : 'left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]'}>
