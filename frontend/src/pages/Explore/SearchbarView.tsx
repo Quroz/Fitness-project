@@ -58,12 +58,13 @@ export default function SearchbarView({
 	setShowLoading,
 }: SearchbarViewProps) {
 	return (
-		<div className="mt-16">
+		<div className="mt-16 overflow-y-scroll">
+	
 			<div className="flex flex-1 ">
-				<div className="flex flex-row mb-5 w-fit ">
+				<div className="flex flex-row  w-fit ">
 					<div className="w-fit">
 						<div className="mb-5">
-							<div className="flex flex-row justify-between">
+							<div className="flex flex-row justify-between gap-2">
 								<input
 									type="text"
 									placeholder={"Search for an exercise"}
@@ -73,21 +74,23 @@ export default function SearchbarView({
 									}}
 								/>
 
-								<button
-									className="flex flex-col"
-									onClick={() => {
-										setSearchByName(searchByName + 1);
-										setExercisesShown(1000);
-										setShowLoading(true);
-									}}
-									disabled={searchExercise === ""}
-								>
+								<div className="flex items-center border-[1px] border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer">
+									<button
+										className="w-full h-full p-1 rounded-md text-gray-400 cursor-pointer"
+										onClick={() => {
+											setSearchByName(searchByName + 1);
+											setExercisesShown(1000);
+											setShowLoading(true);
+										}}
+										disabled={searchExercise === ""}
+									>
+										Enter
+									</button>
 									<MagnifyingGlassIcon
-										className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
-										aria-hidden="true"
+											className="w-7 h-7 ml-2 mr-1 text-blue-200 hover:text-blue-100"
+											aria-hidden="true"
 									/>
-									Enter
-								</button>
+								</div>
 							</div>
 						</div>
 						<div className="flex">
@@ -182,7 +185,7 @@ export default function SearchbarView({
 					</div>
 				</div>
 			</div>
-			<div>
+			<div className= "flex flex-col">
 				{showLoading ? (
 					(console.log("Loading"), (<LoadingComp loading={showLoading} />))
 				) : exercise_results.length > 0 ? (
@@ -206,15 +209,15 @@ export default function SearchbarView({
 								}
 							})
 							.map((exercise) => (
-								<div key={exercise.id} className="flex w-32">
-									<div className="flex flex-row my-6 border border-red-300 bg-slate-100 ">
-										<div>{exercise.name}</div>
+								<div key={exercise.id} className="flex w-[14rem]">
+									<div className="flex items-center my-6 border border-red-300">
+										<div className="ml-1">{exercise.name}</div>
 										<div
 											onClick={() => {
 												goToInstructionsPage(exercise);
 											}}
 										>
-											<img src={exercise.gifUrl} alt={exercise.name} />
+											<img src={exercise.gifUrl} alt={exercise.name}/>
 										</div>
 									</div>
 								</div>
@@ -227,7 +230,7 @@ export default function SearchbarView({
 						</button>
 					</>
 				) : (
-					<div className="my-5">
+					<div className="my-5 text-center">
 						<p>No exercises to display.</p>
 					</div>
 				)}

@@ -57,9 +57,12 @@ function ExplorePresenter() {
 	}
 
 	return (
-		<div className="flex w-full h-screen my-4 ">
-			<div className="flex flex-1">
-				<div className="flex justify-center w-full h-screen mx-5 mr-2 ">
+		<div className="flex flex-col first-letter w-full h-screen bg-gray-100">
+			<div className="w-full mt-8 py-1">
+				<h1 className="text-5xl text-center">Explore Page</h1>
+			</div>
+			<div className="flex flex-1 bg-gray-100">
+				<div className="flex justify-center w-full h-screen">
 					<SearchbarView
 						// Related to filtering and searching by body part
 						bodyPart={bodyPart}
