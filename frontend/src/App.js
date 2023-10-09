@@ -12,6 +12,7 @@ import Settings from "./pages/Settings";
 import StartPage from "./pages/StartPage";
 import PageItem from "./pages/Workouts";
 import WorkoutPage from "./pages/WorkoutPage";
+import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import Workouts from "./pages/Workouts";
 import ItemPage from "./components/ItemPage";
 import InstructionsPage from "./pages/Explore/InstructionsView";
@@ -49,7 +50,7 @@ function App() {
                 <Route path="/settings" element={loggedIn ? <Settings /> : <Navigate to="/login" />} />
                 <Route path="/pageitem" element={loggedIn ? <PageItem /> : <Navigate to="/login" />} />
             
-                <Route path="/workoutplan" element={loggedIn ? <Workouts /> : <Navigate to="/login" />} />
+                <Route path="/workoutplan" element={loggedIn ? <WorkoutPresenter /> : <Navigate to="/login" />} />
                 <Route path="/itemPage" element={loggedIn ? <ItemPage /> : <Navigate to="/login" />} />
                 <Route path= "/instructions" element={loggedIn ? <InstructionsPage /> : <Navigate to="/login" />} />
               </Routes>

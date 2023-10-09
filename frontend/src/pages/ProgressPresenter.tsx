@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Progress from './Progress'
 import data from "../assets/textOvn.json"
+import {useLocation} from "react-router-dom"
 interface Workout {
     name: string;
     equipment: string;
@@ -13,6 +14,36 @@ interface Workout {
 export const ProgressPresenter = () => {
     const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
     const [current, setCurrent] = useState<number>(0);
+    const [workouts, setWorkouts] = useState([])
+
+    const location = useLocation();
+    const searchData = new URLSearchParams(location.search).get('data');
+    const dataJSON = searchData ? JSON.parse(decodeURIComponent(searchData)) : null;
+    const userJSON = localStorage.getItem("userFittness");
+    const userParsed = userJSON ? JSON.parse(userJSON) : null;
+    const user = userParsed.token
+
+    useEffect(() => {
+
+      async function fetchWorkouts(){
+        console.log("fetching i progress", dataJSON.id)
+        const response = await fetch("http://localhost:4000/api/workout/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${user}`
+          },
+          body: JSON.stringify({
+            plan_id: dataJSON.id
+          }),
+        });
+        const data = await response.json();
+        setWorkouts(data)
+      }
+     fetchWorkouts()
+    }, [])
+
+    console.log("workouts i progress", workouts)
     useEffect(()=>{
         let copy: Workout[] = new Array(data.length);
         for (let index = 0; index < data.length; index++) {

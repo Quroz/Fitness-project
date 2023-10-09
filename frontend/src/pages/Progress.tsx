@@ -21,7 +21,7 @@ interface IProps {
 }
 function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current }: IProps) {
   
-  console.log(currentWorkout);
+  
   return (
     <div className="flex w-full h-screen">
       <div className="flex w-1/6 flex-col justify-center text-center">

@@ -19,6 +19,8 @@ function ItemPage({}: Props) {
     const userJSON = localStorage.getItem("userFittness");
     const userParsed = userJSON ? JSON.parse(userJSON) : null;
     const user = userParsed.token
+    const storedWorkoutDaysJSON = localStorage.getItem(user.email);
+    const parsedWorkoutDays = storedWorkoutDaysJSON ? JSON.parse(storedWorkoutDaysJSON): [];
     
     const navigate = useNavigate();
 
@@ -26,9 +28,12 @@ function ItemPage({}: Props) {
     const searchData = new URLSearchParams(location.search).get('data');
     const dataJSON = searchData ? JSON.parse(decodeURIComponent(searchData)) : null;
 
+
+
   useEffect(() => {
 
     async function fetchWorkouts(){
+      console.log("fetching i itemPage", dataJSON.id)
       console.log("user", user)
       const response = await fetch("http://localhost:4000/api/workout/", {
         method: "POST",
@@ -42,7 +47,7 @@ function ItemPage({}: Props) {
       });
       const data = await response.json();
       setWorkouts(data)
-      console.log("workouts", workouts)
+      console.log("workouts new", workouts)
     }
    fetchWorkouts()
   }, [])
@@ -62,7 +67,7 @@ function ItemPage({}: Props) {
               try {
                 const response = await fetch(url, options);
                 const result = await response.json();
-                console.log("api",result);
+                console.log("api new",result);
                 setData(result)
                 setLoading(false)
               } catch (error) {
@@ -93,6 +98,7 @@ function ItemPage({}: Props) {
       } 
 
     const [addWorkout, setAddWorkout] = useState(false)
+
     
   return (
     <div className='relative w-full h-screen'>
@@ -101,7 +107,7 @@ function ItemPage({}: Props) {
              onClick = {() => navigate(`/workoutPlan`)}
              />
             <div className='absolute top-0 left-0 z-10 flex flex-col items-center w-full h-full gap-4 p-8 pt-48 bg-black/40'>
-                 <h1 className='font-bold text-white text-7xl'>My workout plan</h1>
+                 <h1 className='font-bold text-white text-7xl'>{dataJSON.name}</h1>
                  <h1 className='text-xl text-white'>Your one-stop destination for creating, tracking, and achieving your fitness goals.</h1>
                  <div className='flex items-center justify-center w-full gap-48 mt-8'>
                      <button className='px-4 py-4 w-[250px] bg-lime-300 text-white font-bold rounded-md hover:bg-lime-200'
