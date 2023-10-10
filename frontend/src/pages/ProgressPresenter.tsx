@@ -14,18 +14,20 @@ export const ProgressPresenter = () => {
     const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
     const [current, setCurrent] = useState<number>(0);
     const [workouts, setWorkouts] = useState<Workout[]>([])
-
+    const [loading, setLoading] = useState<boolean>(false)
     const location = useLocation();
     const searchData = new URLSearchParams(location.search).get('data');
     const dataJSON = searchData ? JSON.parse(decodeURIComponent(searchData)) : null;
     const userJSON = localStorage.getItem("userFittness");
     const userParsed = userJSON ? JSON.parse(userJSON) : null;
     const user = userParsed.token
+    
 
     useEffect(() => {
 
       async function fetchWorkouts(){
         console.log("fetching i progress", dataJSON.id)
+        setLoading(true)
         const response = await fetch("http://localhost:4000/api/workout/", {
           method: "POST",
           headers: {
@@ -38,11 +40,13 @@ export const ProgressPresenter = () => {
         });
         const data = await response.json();
         setWorkouts(data)
+        setLoading(false)
       }
      fetchWorkouts()
     }, [])
 
     console.log("workouts i progress", workouts)
+ 
     useEffect(()=>{
         let copy: Workout[] = new Array(workouts.length);
         for (let index = 0; index < workouts.length; index++) {
@@ -116,6 +120,6 @@ export const ProgressPresenter = () => {
     }
 
   return (
-    <Progress current={current} addWeight={addWeight} addReps={addReps} addSet={addSet} handleExcerciseChange={handleExcerciseChange} currentWorkout = {currentWorkout} setCurrentWorkout = {setCurrentWorkout}/>
+    <Progress current={current} loading = {loading} addWeight={addWeight} addReps={addReps} addSet={addSet} handleExcerciseChange={handleExcerciseChange} currentWorkout = {currentWorkout} setCurrentWorkout = {setCurrentWorkout}/>
   )
 }

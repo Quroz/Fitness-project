@@ -28,6 +28,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	// Used for navigation
 	const navigate = useNavigate();
+	
 
 	function renderHandler(choice: string) {
 		if (choice === "My Workouts") {
@@ -62,7 +63,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 	function itemPage(item: WorkoutDay) {
-		console.log("TRSTTFSA", item);
+		
 	
 		const data = {
 		  id: item.id,
@@ -75,6 +76,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	  }
 
 	  function toWorkout(item: WorkoutDay) {
+		console.log("item", item)
 		const data = {
 			id: item.id,
 		  };
