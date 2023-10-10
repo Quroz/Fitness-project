@@ -1,10 +1,9 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-import data from "../assets/textOvn.json";
 
 interface Workout {
   name: string;
   equipment: string;
-  trained: string;
+  muscleTarget: string;
   sets: number;
   reps: number;
   completedSets: any[];
@@ -25,7 +24,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
   return (
     <div className="flex w-full h-screen">
       <div className="flex w-1/6 flex-col justify-center text-center">
-        {data.map((ex, id) => {
+        {currentWorkout.map((ex, id) => {
           if (current === id) {
             return (
               <strong
@@ -59,7 +58,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
           <p className="w-full text-4xl">First Workout</p>
         </div>
         <div className="h-1/4">
-          <img className="h-full" src={data[current].gifUrl} alt="Excercise" />
+   
         </div>
         <div className="flex">
           <strong>

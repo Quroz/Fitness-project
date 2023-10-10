@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Progress from './Progress'
-import data from "../assets/textOvn.json"
 import {useLocation} from "react-router-dom"
 interface Workout {
     name: string;
     equipment: string;
-    trained: string;
+    muscleTarget: string;
     sets: number;
     reps: number;
     completedSets: any[];
@@ -14,7 +13,7 @@ interface Workout {
 export const ProgressPresenter = () => {
     const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
     const [current, setCurrent] = useState<number>(0);
-    const [workouts, setWorkouts] = useState([])
+    const [workouts, setWorkouts] = useState<Workout[]>([])
 
     const location = useLocation();
     const searchData = new URLSearchParams(location.search).get('data');
@@ -45,22 +44,22 @@ export const ProgressPresenter = () => {
 
     console.log("workouts i progress", workouts)
     useEffect(()=>{
-        let copy: Workout[] = new Array(data.length);
-        for (let index = 0; index < data.length; index++) {
+        let copy: Workout[] = new Array(workouts.length);
+        for (let index = 0; index < workouts.length; index++) {
             copy[index] = 
             {
-                name: data[index].name,
-                equipment: data[index].equipment,
-                trained: data[index].target + data[index].secondaryMuscles.map(ex =>{return(", " + ex)}).join(""),
-                sets: 0,
-                reps: 0,
+                name: workouts[index].name,
+                equipment: workouts[index].equipment,
+                muscleTarget: workouts[index].muscleTarget,
+                sets: workouts[index].sets,
+                reps: workouts[index].reps,
                 completedSets: []
 
             }
             
         }
         setCurrentWorkout(copy);
-    },[])
+    },[workouts])
 
     function addSet(nrOfSets: number) {
       setCurrentWorkout((prevList: Workout[]) => {

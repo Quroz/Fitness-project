@@ -25,6 +25,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
   const [selectedEquipment, setSelectedEquipment] = useState("");
   const [numberOfSets, setNumberOfSets] = useState(0);
   const [numberOfReps, setNumberOfReps] = useState(0);
+  const [currentID, setCurrentId] = useState(0);
 
   console.log(selectedEquipment)
 
@@ -90,11 +91,11 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
               id="workoutName"
               name="workoutName"
               value={selectedWorkoutName}
-              onChange={(e) => setSelectedWorkoutName(e.target.value)}
+              onChange={(e) => {setSelectedWorkoutName(e.target.value)}}
             >
               <option value="" disabled>Select workout name</option>
-              {workoutName?.map((item: any) => (
-                <option key={item}>{item}</option>
+              {workoutName?.map((item: any, id: number) => (
+                <option key={item} >{item}</option>
               ))}
             </select>
           </div>
@@ -105,7 +106,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
             value={selectedBodyPart}
             onChange={(e) => setSelectedBodyPart(e.target.value)}
           >
-            <option value="" disabled>Select bodypart</option>
+            <option value={""} disabled>Select bodypart</option>
             {bodyParts?.map((item: any) => (
               <option key={item}>{item}</option>
             ))}
