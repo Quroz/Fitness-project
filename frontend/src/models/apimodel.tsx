@@ -24,7 +24,7 @@ const Exercise_api = {
 	async exercise_name(name: string, limit: number): Promise<Exercise[]> {
 		try {
 			const response = await fetch(
-				`${Base_URL}/name/${name}?limit=${limit}`,
+				`${Base_URL}/name/${name.toLowerCase()}?limit=${limit}`,
 				options
 			);
 			const data = await response.json();
