@@ -58,14 +58,21 @@ export default function SearchbarView({
   setShowLoading,
 }: SearchbarViewProps) {
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center h-4/5">
       <div className="mt-5 flex h-fit">
         <div className="flex divide-x">
           <input
-            className="rounded-l-lg text-center"
+            className="rounded-l-lg px-2"
             type="text"
             placeholder={"Search for an exercise"}
             value={searchExercise}
+            onKeyDown = {(e)=> {
+              if(e.key === "Enter"){                
+                setSearchByName(searchByName + 1);
+                setExercisesShown(1000);
+                setShowLoading(true);
+              }
+            }}
             onChange={(e) => {
               setSearchExercise(e.target.value);
             }}
@@ -75,7 +82,7 @@ export default function SearchbarView({
             className=" p-1  bg-white rounded-r-lg border-gray-200  cursor-pointer"
             onClick={() => {
               setSearchByName(searchByName + 1);
-              setExercisesShown(1000);
+              setExercisesShown(100);
               setShowLoading(true);
             }}
             disabled={searchExercise === ""}
@@ -87,17 +94,21 @@ export default function SearchbarView({
           </button>
         </div>
         <div className="flex">
-          <Menu as="div" className="relative inline-block text-left">
-            <div className="flex">
+          <Menu as="div" className="relative inline-block text-left ml-5">
+            <div>
               <Menu.Button
-                className={`flex flex-row py-2 text-sm rounded-sm w-15 ${
-                  searchExercise !== ""
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-lime-300 hover:bg-lime-200"
-                }`}
+              className={`inline-flex w-full justify-center rounded-md bg-black  px-4 py-2 text-sm font-medium  hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${
+                searchExercise !== ""
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-lime-300 hover:bg-lime-200"
+              }`}
                 disabled={searchExercise !== ""}
               >
                 {selectedPart}
+                <ChevronDownIcon
+                  className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
+                  aria-hidden="true"
+                />
               </Menu.Button>
 
               <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -111,7 +122,7 @@ export default function SearchbarView({
                         onClick={() => {
                           setSelectedPart(bodyArea.apiCall);
                           // Increment the number of exercises shown by 10
-                          setExercisesShown(1000);
+                          setExercisesShown(100);
                           setShowLoading(true);
                         }}
                       >
@@ -123,23 +134,24 @@ export default function SearchbarView({
               </Menu.Items>
             </div>
           </Menu>
-          <Menu as="div" className="relative inline-block text-left">
-            <div className="flex">
+          <Menu as="div" className="relative inline-block text-left ml-5">
+            <div>
               <Menu.Button
-                className={`flex flex-row py-2 text-sm rounded-sm ${
-                  searchExercise !== ""
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-lime-300 hover:bg-lime-200"
-                }`}
-                disabled={searchExercise !== ""}
+              className={`inline-flex w-full justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${
+                searchExercise !== ""
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-lime-300 hover:bg-lime-200"
+              }`}                disabled={searchExercise !== ""}
               >
+                {equipments}
                 <ChevronDownIcon
                   className="w-5 h-5 ml-2 -mr-1 text-blue-200 hover:text-blue-100"
                   aria-hidden="true"
                 />
-                {equipments}
+                
               </Menu.Button>
               <Menu.Items className="h-96 absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-scroll">
+                <div className="px-1 py-1 ">
                 {equipmentList.map((equipment) => (
                   <Menu.Item key={equipment.equipment}>
                     {({ active }) => (
@@ -161,12 +173,13 @@ export default function SearchbarView({
                     )}
                   </Menu.Item>
                 ))}
+                </div>
               </Menu.Items>
             </div>
           </Menu>
         </div>
       </div>
-      <div className="flex flex-wrap h-3/5 w-4/5 mt-10 overflow-y-scroll">
+      <div className="flex justify-center flex-wrap h-4/5 w-4/5 mt-10 overflow-y-scroll">
         {showLoading ? (
           (console.log("Loading"), (<LoadingComp loading={showLoading} />))
         ) : exercise_results.length > 0 ? (
@@ -205,7 +218,7 @@ export default function SearchbarView({
               ))}
             <button
               className="py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200"
-              onClick={() => setExercisesShown(exercisesShown + 1000)}
+              onClick={() => setExercisesShown(exercisesShown + 50)}
             >
               Load more exercises
             </button>
