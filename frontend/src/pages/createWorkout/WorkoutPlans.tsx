@@ -30,7 +30,7 @@ function WorkoutPlans({
 	toWorkout
 }: Props): JSX.Element {
 
-
+	console.log("pelma", workoutDays)
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
 			<div className="flex items-center justify-between">
@@ -63,12 +63,12 @@ function WorkoutPlans({
 					>
 						<div className="flex items-center justify-between w-[200px] ml-5">
 						<h1>
-							<strong>Day:</strong> {item.day}
+							<strong>Day:</strong> {item.workoutDay}
 						</h1>
 						</div>
 						<div className="flex items-center justify-between w-[450px] ml-5">
 						<h1>
-							<strong>Name:</strong> {item.name}
+							<strong>Name:</strong> {item.workoutName}
 						</h1>
 						</div>
 						<div className="flex items-center gap-4 top-4 right-2 w-[250px]">
@@ -88,7 +88,7 @@ function WorkoutPlans({
 								className="cursor-pointer absolute top-5 right-2"
 								color="red"
 								size={24}
-								onClick={() => deleteWorkoutPlan(item.id)}
+								onClick={() => deleteWorkoutPlan(item.plan_id)}
 							/>
 					</div>
 				))}

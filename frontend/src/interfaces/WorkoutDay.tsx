@@ -1,7 +1,7 @@
 interface WorkoutDay {
-  id: number;
-  day: string;
-  name: string;
+  plan_id: number;
+  workoutDay: string;
+  workoutName: string;
 }
 
 export default WorkoutDay;

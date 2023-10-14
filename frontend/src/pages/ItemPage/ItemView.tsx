@@ -5,12 +5,13 @@ import ExerciseDay from "../../interfaces/ExerciseDay";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
-	deleteWorkoutHandler: (name: String) => void;
+	deleteWorkoutHandler: (name: number) => void;
 	myworkouts: ExerciseDay[];
 	addWorkoutHandler: () => void;
 	navigate: ReturnType<typeof useNavigate>;
 	addExerciseToDay: JSX.Element; // Custom component
 	addWorkout: React.SetStateAction<boolean>;
+	workoutName: String;
 };
 
 function ItemView({
@@ -20,6 +21,7 @@ function ItemView({
 	navigate,
 	addExerciseToDay,
 	addWorkout,
+	workoutName
 }: Props): JSX.Element {
 
 	console.log("myworkouts:", myworkouts);
@@ -37,7 +39,7 @@ function ItemView({
 				onClick={() => navigate(`/workoutPlan`)}
 			/>
 			<div className="absolute top-0 left-0 z-10 flex flex-col items-center w-full h-full gap-4 p-8 pt-48 bg-black/40">
-				<h1 className="font-bold text-white text-7xl">My workout plan</h1>
+				<h1 className="font-bold text-white text-7xl">{workoutName}</h1>
 				<h1 className="text-xl text-white">
 					Your one-stop destination for creating, tracking, and achieving your
 					fitness goals.
@@ -55,15 +57,14 @@ function ItemView({
 				</div>
 				{myworkouts.length > 0 ? (
 					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-[50%]">
-						{myworkouts?.map((workout: ExerciseDay) => (
+						{myworkouts?.map((workout: ExerciseDay, index: number) => (
 							<div className="relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50">
 								<div className="absolute flex items-center gap-2 top-1 right-2">
 									<AiOutlineClose
 										color="red"
 										size={20}
-										onClick={() => deleteWorkoutHandler(workout.name)}
+										onClick={() => deleteWorkoutHandler(index)}
 									/>
-									<AiFillEdit color="green" size={20} />
 								</div>
 								{/*<div className= {workout.check != 0 ? 'absolute left-2 top-1 border-[1px] border-black w-4 h-4 bg-green-500' : 'absolute left-2 top-2 border-[1px] border-black w-4 h-4'} onClick={workout.check == 0 ? () => checkHandler(workout.plan_id, workout.name, 1) : () => checkHandler(workout.plan_id, workout.name, 0)}/>*/}
 								<h1 className="text-lg">
@@ -71,9 +72,6 @@ function ItemView({
 								</h1>
 								<h1 className="text-lg">
 									<strong>Bodypart:</strong> {workout.bodyPart}
-								</h1>
-								<h1 className="text-lg">
-									<strong>Muscle target:</strong> {workout.muscleTarget}
 								</h1>
 								<h1 className="text-lg">
 									<strong>Equipment:</strong> {workout.equipment}

@@ -9,6 +9,7 @@ type Props = {
 	setDay: React.Dispatch<React.SetStateAction<string>>;
 	name: string;
 	setName: React.Dispatch<React.SetStateAction<string>>;
+	addToDatabase: () => void;
 };
 
 function AddPlanPopup({
@@ -18,6 +19,7 @@ function AddPlanPopup({
 	setDay,
 	name,
 	setName,
+	addToDatabase
 }: Props) {
 	return (
 		<div className="flex flex-col">
@@ -53,7 +55,7 @@ function AddPlanPopup({
 				</div>
 				<button
 					className="px-2 py-2 mt-8 text-sm font-bold text-white rounded-md bg-lime-300 hover:bg-lime-200"
-					onClick={addHandler}
+					onClick={addToDatabase}
 				>
 					Add
 				</button>
