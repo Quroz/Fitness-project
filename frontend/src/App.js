@@ -9,10 +9,7 @@ import Progress from "./pages/Progress";
 import Explore from "./presenters/Explore";
 import Settings from "./pages/Settings";
 import StartPage from "./pages/StartPage";
-import PageItem from "./pages/Workouts";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
-import Workouts from "./pages/Workouts";
-import ItemPage from "./components/ItemPage";
 import ItemPagePresenter from "./presenters/ItemPresenter";
 import InstructionsPage from "./pages/Explore/InstructionsView";
 
@@ -62,10 +59,6 @@ function App() {
 								<Route
 									path="/settings"
 									element={loggedIn ? <Settings /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/pageitem"
-									element={loggedIn ? <PageItem /> : <Navigate to="/login" />}
 								/>
 
 								<Route
