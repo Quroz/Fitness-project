@@ -10,9 +10,12 @@ type Props = {
 };
 
 function ItemPage({}: Props) {
+  // Data from the API
 	const [data, setData] = useState([]);
+  // Data from the database
 	const [workouts, setWorkouts] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [addWorkout, setAddWorkout] = useState(false);
 
 	const userJSON = localStorage.getItem("userFittness");
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
@@ -88,8 +91,6 @@ function ItemPage({}: Props) {
 			window.location.reload();
 		}
 	}
-
-	const [addWorkout, setAddWorkout] = useState(false);
 
 	return (
 		<div className="relative w-full h-screen">

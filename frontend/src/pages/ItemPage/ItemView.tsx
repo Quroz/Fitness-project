@@ -9,6 +9,8 @@ type Props = {
 	myworkouts: ExerciseDay[];
 	addWorkoutHandler: () => void;
 	navigate: ReturnType<typeof useNavigate>;
+	addExerciseToDay: JSX.Element; // Custom component
+	addWorkout: React.SetStateAction<boolean>;
 };
 
 function ItemView({
@@ -16,6 +18,8 @@ function ItemView({
 	myworkouts,
 	addWorkoutHandler,
 	navigate,
+	addExerciseToDay,
+	addWorkout,
 }: Props): JSX.Element {
 	return (
 		<div className="relative w-full h-screen">
@@ -38,7 +42,10 @@ function ItemView({
 				<div className="flex items-center justify-center w-full gap-48 mt-8">
 					<button
 						className="px-4 py-4 w-[250px] bg-lime-300 text-white font-bold rounded-md hover:bg-lime-200"
-						onClick={() => addWorkoutHandler()}
+						onClick={() => {
+							addWorkoutHandler();
+							console.log("workout:", addWorkout);
+						}}
 					>
 						Add workout
 					</button>
@@ -85,7 +92,7 @@ function ItemView({
 					</div>
 				)}
 			</div>
-			{/*addWorkout && (
+			{addWorkout && (
 				<div
 					className={
 						addWorkout
@@ -93,14 +100,9 @@ function ItemView({
 							: "left-0 top-[-100%] absolute z-20 h-[400px] w-[400px]"
 					}
 				>
-					<AddWorkout
-						setAddWorkout={setAddWorkout}
-						data={data}
-						id={dataJSON.id}
-						loading={loading}
-					/>
+					{addExerciseToDay}
 				</div>
-        )*/}
+			)}
 		</div>
 	);
 }
