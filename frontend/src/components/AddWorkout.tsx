@@ -52,7 +52,7 @@ const AddWorkout = ({ setAddWorkout, data, id, loading }: Props) => {
         equipment: selectedEquipment,
         sets: numberOfSets,
         reps: numberOfReps,
-        plan_id: id
+        plan_id: id,
       }),
     });
     const data = await response.json();

@@ -24,6 +24,7 @@ interface IProps {
 }
 function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, loading }: IProps) {
   
+  console.log("currentWorkout", currentWorkout)
   
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
       :
 
 <>
-      {currentWorkout.map((ex, id) => {
+      {currentWorkout?.map((ex, id) => {
         if (current === id) {
           return (
             <strong
