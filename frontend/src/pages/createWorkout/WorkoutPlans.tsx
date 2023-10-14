@@ -13,7 +13,7 @@ type Props = {
 	toWorkout: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
 	addPlanPopup: JSX.Element;
-	searchHandler: any,
+	searchHandler: (name: string) => void;
 };
 
 function WorkoutPlans({

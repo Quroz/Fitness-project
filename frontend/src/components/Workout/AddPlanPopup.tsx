@@ -3,10 +3,7 @@ import WorkoutDay from "../../interfaces/WorkoutDay";
 import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
-	addPlan: boolean;
 	setAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
-	myPlan: WorkoutDay[];
-	setMyPlan: React.Dispatch<React.SetStateAction<WorkoutDay[]>>;
 	addHandler: () => void;
 	day: string;
 	setDay: React.Dispatch<React.SetStateAction<string>>;
@@ -15,10 +12,7 @@ type Props = {
 };
 
 function AddPlanPopup({
-	addPlan,
 	setAddPlan,
-	myPlan,
-	setMyPlan,
 	addHandler,
 	day,
 	setDay,
@@ -37,7 +31,7 @@ function AddPlanPopup({
 			<div className="flex flex-col flex-1 gap-4 p-4 bg-gray-100 rounded-b-md">
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col gap-2">
-						<label className="text-lg">Day of the workout</label>
+						<label className="text-lg">Day of the week</label>
 						<input
 							type="text"
 							placeholder="Day.."
@@ -47,7 +41,7 @@ function AddPlanPopup({
 						/>
 					</div>
 					<div className="flex flex-col gap-2">
-						<label className="text-lg">Name of the workout</label>
+						<label className="text-lg">Name of workout</label>
 						<input
 							type="text"
 							placeholder="Name.."
