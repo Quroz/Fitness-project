@@ -28,6 +28,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	// Used for navigation
 	const navigate = useNavigate();
+	
 
 	function renderHandler(choice: string) {
 		if (choice === "My Workouts") {
@@ -61,12 +62,29 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			console.log(error);
 		}
 	}
-
 	function itemPage(item: WorkoutDay) {
-		const id = { id: item.id };
-		const queryParam = encodeURIComponent(JSON.stringify(id));
+		
+	
+		const data = {
+		  id: item.id,
+		  name: item.name,
+		};
+	  
+		const queryParam = encodeURIComponent(JSON.stringify(data));
+	
 		navigate(`/itemPage?data=${queryParam}`);
-	}
+	  }
+
+	  function toWorkout(item: WorkoutDay) {
+		console.log("item", item)
+		const data = {
+			id: item.id,
+		  };
+		
+		  const queryParam = encodeURIComponent(JSON.stringify(data));
+	  
+		  navigate(`/progress?data=${queryParam}`);
+	  }
 
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
@@ -144,6 +162,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 						setAddPlan={setAddPlan}
 						checkHandler={checkHandler}
 						itemPage={itemPage}
+						toWorkout = {toWorkout}
 						deleteWorkoutPlan={deleteWorkoutPlan}
 						addPlanPopup={
 							<AddPlan

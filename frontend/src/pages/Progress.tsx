@@ -1,10 +1,12 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-import data from "../assets/textOvn.json";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from "react-router-dom";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 interface Workout {
   name: string;
   equipment: string;
-  trained: string;
+  muscleTarget: string;
   sets: number;
   reps: number;
   completedSets: any[];
@@ -18,48 +20,78 @@ interface IProps {
   addWeight: (weight:number, setNumber:number) => void;
   addReps: (reps:number, setNumber:number) => void;
   handleExcerciseChange: (id:number) => void;  
+  loading: boolean
 }
-function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current }: IProps) {
+function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, loading }: IProps) {
   
-  console.log(currentWorkout);
+  console.log("currentWorkout", currentWorkout)
+  
+  const navigate = useNavigate();
+
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen relative">
+      <BsFillArrowLeftCircleFill className='absolute z-20 cursor-pointer left-2 top-2' size = {24} color = "black"
+             onClick = {() => navigate(`/workoutPlan`)}
+      />
       <div className="flex w-1/6 flex-col justify-center text-center">
-        {data.map((ex, id) => {
-          if (current === id) {
-            return (
-              <strong
-                key={id}
-                onClick={() => {
-                  handleExcerciseChange(id);
-                }}
-                className="mt-5"
-              >
-                {ex.name}
-              </strong>
-            );
-          } else {
-            return (
-              <p
-                key={id}
-                onClick={() => {
-                  handleExcerciseChange(id);
-                }}
-                className="mt-5 bold text-gray-400 cursor-pointer"
-              >
-                {ex.name}
-              </p>
-            );
-          }
-        })}
+        {loading ? 
+          <ClipLoader
+          color="#000000"
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
+          /> 
+      :
+
+<>
+      {currentWorkout?.map((ex, id) => {
+        if (current === id) {
+          return (
+            <strong
+              key={id}
+              onClick={() => {
+                handleExcerciseChange(id);
+              }}
+              className="mt-5"
+            >
+              {ex.name}
+            </strong>
+          );
+        } else {
+          return (
+            <p
+              key={id}
+              onClick={() => {
+                handleExcerciseChange(id);
+              }}
+              className="mt-5 bold text-gray-400 cursor-pointer"
+            >
+              {ex.name}
+            </p>
+          );
+        }
+      })}
+      </>
+      }
       </div>
 
       <div className="flex w-5/6 flex-col justify-around items-center">
         <div>
           <p className="w-full text-4xl">First Workout</p>
+          {currentWorkout.length === 0 && !loading &&
+          <div className="flex flex-col items-center mt-8 gap-2">
+            <h1 className="text-2xl text-gray-500">There are no added workouts yet</h1>
+              <button
+								className="bg-gray-200 rounded-md py-2 w-[100px] text-sm hover:bg-lime-100"
+                onClick = {() => navigate("/workoutPlan")}
+                >
+								 Add workouts
+							</button>
+           </div>
+          }
         </div>
         <div className="h-1/4">
-          <img className="h-full" src={data[current].gifUrl} alt="Excercise" />
+   
         </div>
         <div className="flex">
           <strong>
