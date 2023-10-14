@@ -11,7 +11,7 @@ type Props = {
 	setmyWorkouts: React.Dispatch<React.SetStateAction<ExerciseDay[]>>; // To set the data in the database
 	setAddWorkout: React.Dispatch<React.SetStateAction<boolean>>; // To render the AddExerciseToDay component
 	loading: boolean; // To show the loading screen when fetching data from the API
-  id: String; // To add the workout to the database
+	id: String; // To add the workout to the database
 
 	// Values to be added into the database
 	selectedWorkoutName: string;
@@ -36,7 +36,7 @@ function AddExerciseToDay({
 	setmyWorkouts,
 	setAddWorkout,
 	loading,
-  id,
+	id,
 
 	// Values to be added into the database
 	selectedWorkoutName,
@@ -54,18 +54,10 @@ function AddExerciseToDay({
 	setNumberOfSets,
 	setNumberOfReps,
 }: Props) {
-	const bodyParts = Array.from(
-		new Set(workoutsData.map((item: Exercise) => item.bodyPart))
-	);
 	const workoutName = Array.from(
 		new Set(workoutsData.map((item: Exercise) => item.name))
 	);
-	const target = Array.from(
-		new Set(workoutsData.map((item: Exercise) => item.target))
-	);
-	const equipment = Array.from(
-		new Set(workoutsData.map((item: Exercise) => item.equipment))
-	);
+
 	return (
 		<div className="flex flex-col">
 			<div className="relative flex items-center justify-center h-12 bg-lime-300 rounded-t-md">
@@ -87,12 +79,22 @@ function AddExerciseToDay({
 				) : (
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-4">
-							<label className="text-lg">Name of the workout</label>
+							<label className="text-lg">Exercise Name</label>
 							<select
 								id="workoutName"
 								name="workoutName"
 								value={selectedWorkoutName}
-								onChange={(e) => setSelectedWorkoutName(e.target.value)}
+								onChange={(e) => {
+									setSelectedWorkoutName(e.target.value);
+									// Find the exercise from the workoutsData array and grab the bodypart, target and equipment
+									const exercise = workoutsData.find(
+										(exercise) => exercise.name === e.target.value
+									);
+									setSelectedBodyPart(exercise?.bodyPart || "");
+									setSelectedTarget(exercise?.target || "");
+									setSelectedEquipment(exercise?.equipment || "");
+									console.log("exercise added!");
+								}}
 							>
 								<option value="" disabled>
 									Select workout name
@@ -102,48 +104,7 @@ function AddExerciseToDay({
 								))}
 							</select>
 						</div>
-						<label className="text-lg">Bodypart</label>
-						<select
-							id="bodypart"
-							name="bodypart"
-							value={selectedBodyPart}
-							onChange={(e) => setSelectedBodyPart(e.target.value)}
-						>
-							<option value="" disabled>
-								Select bodypart
-							</option>
-							{bodyParts?.map((item: any) => (
-								<option key={item}>{item}</option>
-							))}
-						</select>
-						<label className="text-lg">Muscle target</label>
-						<select
-							id="target"
-							name="target"
-							value={selectedTarget}
-							onChange={(e) => setSelectedTarget(e.target.value)}
-						>
-							<option value="" disabled>
-								Select muscle target
-							</option>
-							{target?.map((item: any) => (
-								<option key={item}>{item}</option>
-							))}
-						</select>
-						<label className="text-lg">Equipment</label>
-						<select
-							id="equipment"
-							name="equipment"
-							value={selectedEquipment}
-							onChange={(e) => setSelectedEquipment(e.target.value)}
-						>
-							<option value="" disabled>
-								Select equipment
-							</option>
-							{equipment?.map((item: any) => (
-								<option key={item}>{item}</option>
-							))}
-						</select>
+
 						<label className="text-lg">Amount of sets</label>
 						<input
 							type="number"
