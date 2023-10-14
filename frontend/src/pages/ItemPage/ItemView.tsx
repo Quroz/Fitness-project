@@ -1,96 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import AddWorkout from "./AddWorkout";
-import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
+import React from "react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
+import ExerciseDay from "../../interfaces/ExerciseDay";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
-	item: any;
-	setAddWorkout: any;
+	deleteWorkoutHandler: (name: String) => void;
+	myworkouts: ExerciseDay[];
+	addWorkoutHandler: () => void;
+	navigate: ReturnType<typeof useNavigate>;
 };
 
-function ItemPage({}: Props) {
-	const [data, setData] = useState([]);
-	const [workouts, setWorkouts] = useState([]);
-	const [loading, setLoading] = useState(false);
-
-	const userJSON = localStorage.getItem("userFittness");
-	const userParsed = userJSON ? JSON.parse(userJSON) : null;
-	const user = userParsed.token;
-
-	const navigate = useNavigate();
-
-	const location = useLocation();
-	const searchData = new URLSearchParams(location.search).get("data");
-	const dataJSON = searchData
-		? JSON.parse(decodeURIComponent(searchData))
-		: null;
-
-	useEffect(() => {
-		async function fetchWorkouts() {
-			console.log("user", user);
-			const response = await fetch("http://localhost:4000/api/workout/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
-				},
-				body: JSON.stringify({
-					plan_id: dataJSON.id,
-				}),
-			});
-			const data = await response.json();
-			setWorkouts(data);
-			console.log("workouts", workouts);
-		}
-		fetchWorkouts();
-	}, []);
-
-	async function addWorkoutHandler() {
-		setAddWorkout(true);
-		setLoading(true);
-		const url = "https://exercisedb.p.rapidapi.com/exercises?limit=1000";
-		const options = {
-			method: "GET",
-			headers: {
-				"X-RapidAPI-Key": "15157ef7b5msh145eaabd9036395p16c555jsn7dde4f641913",
-				"X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-			},
-		};
-
-		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-			console.log("api", result);
-			setData(result);
-			setLoading(false);
-		} catch (error) {
-			console.error(error);
-		}
-	}
-
-	async function deleteWorkoutHandler(name: any) {
-		const response = await fetch("http://localhost:4000/api/workout/delete", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
-			},
-			body: JSON.stringify({
-				name: name,
-				plan_id: dataJSON.id,
-			}),
-		});
-
-		if (response.status !== 200) {
-			alert("Could not delete workout");
-		} else {
-			window.location.reload();
-		}
-	}
-
-	const [addWorkout, setAddWorkout] = useState(false);
-
+function ItemView({
+	deleteWorkoutHandler,
+	myworkouts,
+	addWorkoutHandler,
+	navigate,
+}: Props): JSX.Element {
 	return (
 		<div className="relative w-full h-screen">
 			<img
@@ -117,9 +43,9 @@ function ItemPage({}: Props) {
 						Add workout
 					</button>
 				</div>
-				{workouts.length > 0 ? (
+				{myworkouts.length > 0 ? (
 					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-[50%]">
-						{workouts?.map((workout: any) => (
+						{myworkouts?.map((workout: any) => (
 							<div className="relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50">
 								<div className="absolute flex items-center gap-2 top-1 right-2">
 									<AiOutlineClose
@@ -159,7 +85,7 @@ function ItemPage({}: Props) {
 					</div>
 				)}
 			</div>
-			{addWorkout && (
+			{/*addWorkout && (
 				<div
 					className={
 						addWorkout
@@ -174,9 +100,9 @@ function ItemPage({}: Props) {
 						loading={loading}
 					/>
 				</div>
-			)}
+        )*/}
 		</div>
 	);
 }
 
-export default ItemPage;
+export default ItemView;

@@ -13,7 +13,9 @@ import PageItem from "./pages/Workouts";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import Workouts from "./pages/Workouts";
 import ItemPage from "./components/ItemPage";
+import ItemPagePresenter from "./presenters/ItemPresenter";
 import InstructionsPage from "./pages/Explore/InstructionsView";
+
 import { ProgressPresenter } from "./pages/ProgressPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
@@ -74,7 +76,9 @@ function App() {
 								/>
 								<Route
 									path="/itemPage"
-									element={loggedIn ? <ItemPage /> : <Navigate to="/login" />}
+									element={
+										loggedIn ? <ItemPagePresenter /> : <Navigate to="/login" />
+									}
 								/>
 								<Route
 									path="/instructions"
