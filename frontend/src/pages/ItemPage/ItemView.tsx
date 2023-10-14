@@ -52,7 +52,7 @@ function ItemView({
 				</div>
 				{myworkouts.length > 0 ? (
 					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-[50%]">
-						{myworkouts?.map((workout: any) => (
+						{myworkouts?.map((workout: ExerciseDay) => (
 							<div className="relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50">
 								<div className="absolute flex items-center gap-2 top-1 right-2">
 									<AiOutlineClose
@@ -70,7 +70,7 @@ function ItemView({
 									<strong>Bodypart:</strong> {workout.bodyPart}
 								</h1>
 								<h1 className="text-lg">
-									<strong>Muscle target:</strong> {workout.muscleTarget}
+									<strong>Muscle target:</strong> {workout.target}
 								</h1>
 								<h1 className="text-lg">
 									<strong>Equipment:</strong> {workout.equipment}
