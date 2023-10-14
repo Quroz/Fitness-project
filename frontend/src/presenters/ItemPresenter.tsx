@@ -1,8 +1,6 @@
 // Components and Custom components
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import ItemView from "../pages/ItemPage/ItemView";
 import AddExerciseToDay from "../pages/ItemPage/AddExerciseToDay";
 
