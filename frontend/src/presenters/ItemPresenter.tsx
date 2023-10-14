@@ -105,6 +105,7 @@ function ItemPagePresenter({}: Props): JSX.Element {
 	}
 
 	async function addToDatabase(id: String) {
+		console.log("selectedTarget", selectedTarget)
 		const response = await fetch("http://localhost:4000/api/workout/add", {
 			method: "POST",
 			headers: {

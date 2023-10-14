@@ -21,6 +21,9 @@ function ItemView({
 	addExerciseToDay,
 	addWorkout,
 }: Props): JSX.Element {
+
+	console.log("myworkouts:", myworkouts);
+
 	return (
 		<div className="relative w-full h-screen">
 			<img
@@ -70,7 +73,7 @@ function ItemView({
 									<strong>Bodypart:</strong> {workout.bodyPart}
 								</h1>
 								<h1 className="text-lg">
-									<strong>Muscle target:</strong> {workout.target}
+									<strong>Muscle target:</strong> {workout.muscleTarget}
 								</h1>
 								<h1 className="text-lg">
 									<strong>Equipment:</strong> {workout.equipment}

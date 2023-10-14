@@ -4,7 +4,7 @@ interface Exercise {
 	gifUrl: string;
 	id: string;
 	name: string;
-	target: string;
+	muscleTarget: string;
 	secondaryMuscles: string[];
 	instructions: string[];
 }

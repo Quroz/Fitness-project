@@ -1,10 +1,11 @@
 interface ExerciseDay {
+
 	bodyPart: string;
 	equipment: string;
 	gifUrl: string;
 	id: string;
 	name: string;
-	target: string;
+	muscleTarget: string;
 	secondaryMuscles: string[];
 	instructions: string[];
 	sets: number | null;
