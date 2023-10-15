@@ -20,13 +20,11 @@ export const ProgressPresenter = () => {
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
 	const user = userParsed.token;
 
-	console.log("dataJSON progress", dataJSON);
 
 	useEffect(() => {
 		async function fetchWorkouts() {
-			console.log("fetching i progress", dataJSON.id);
-			setLoading(true);
-			const response = await fetch("http://localhost:4000/api/workout/", {
+			
+			const response = await fetch("http://localhost:4000/api/workout/getExercises", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -43,8 +41,10 @@ export const ProgressPresenter = () => {
 		fetchWorkouts();
 	}, []);
 
-	console.log("workouts i progress", workouts)
+	console.log("workouts test", workouts);
 
+
+	
 	useEffect(() => {
 		let copy: Workout[] = new Array(workouts.length);
 	
@@ -61,7 +61,7 @@ export const ProgressPresenter = () => {
 		setCurrentWorkout(copy);
 	}, [workouts]);
 	
-	console.log("currentWorkout i progress DE DEN", currentWorkout)
+	console.log("currentWorkout test", currentWorkout);
 
 	function addSet(nrOfSets: number) {
 		setCurrentWorkout((prevList: Workout[]) => {
