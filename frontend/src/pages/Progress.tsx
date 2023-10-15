@@ -1,5 +1,7 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import Workout from "../interfaces/WorkoutInterface";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import {  useNavigate } from "react-router-dom";
 
 interface IProps {
   currentWorkout: Workout[];
@@ -13,9 +15,16 @@ interface IProps {
 }
 function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, finishWorkout }: IProps) {
   
+  const navigate = useNavigate();
   console.log(currentWorkout);
   return (
-    <div className="flex w-full h-screen">
+    <div className="flex w-full h-screen relative">
+      <BsFillArrowLeftCircleFill
+				className="absolute z-20 cursor-pointer left-2 top-2"
+				size={24}
+				color="black"
+				onClick={() => navigate(`/workoutPlan`)}
+			/>
       <div className="flex w-1/6 flex-col justify-center text-center">
         {currentWorkout.map((ex, id) => {
           if (current === id) {
