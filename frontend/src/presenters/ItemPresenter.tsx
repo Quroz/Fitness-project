@@ -78,6 +78,8 @@ function ItemPagePresenter({}: Props): JSX.Element {
 		// Check if workoutsData is already populated. If it is then use that data --> Cache data
 		if (workoutsData.length > 0) {
 			setLoading(false);
+			console.log("Skipped API call");
+
 			return; // Skip API call
 		}
 		Exercise_api.exercises_call(2000)
@@ -139,7 +141,7 @@ function ItemPagePresenter({}: Props): JSX.Element {
 		const data = await response.json();
 		if (response.status === 200) {
 			alert("Added!");
-			window.location.reload();
+			setAddWorkout(false);
 		} else {
 			console.log(data.Error);
 			alert("Fail");

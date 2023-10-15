@@ -48,7 +48,6 @@ function ItemView({
 						className="px-4 py-4 w-[250px] bg-lime-300 text-white font-bold rounded-md hover:bg-lime-200"
 						onClick={() => {
 							addWorkoutHandler();
-							console.log("workout:", addWorkout);
 						}}
 					>
 						Add workout
