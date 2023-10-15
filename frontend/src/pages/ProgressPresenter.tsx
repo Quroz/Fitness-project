@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Progress from "./Progress";
 import { useLocation } from "react-router-dom";
-interface Workout {
-    name: string;
-    equipment: string;
-    bodyPart: string;
-    sets: number;
-    reps: number;
-    completedSets: any[];
-	
-  }
+import Workout from "../interfaces/WorkoutInterface";
 
 export const ProgressPresenter = () => {
 	const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);

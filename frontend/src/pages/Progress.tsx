@@ -1,13 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-
-interface Workout {
-  name: string;
-  equipment: string;
-  bodyPart: string;
-  sets: number;
-  reps: number;
-  completedSets: any[];
-}
+import Workout from "../interfaces/WorkoutInterface";
 
 interface IProps {
   currentWorkout: Workout[];

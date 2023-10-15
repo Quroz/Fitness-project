@@ -21,6 +21,9 @@ function LogAllWorkouts({completedWorkouts}:Iprops) {
 						<div>
 							{wo.name}
 						</div>
+						<div>
+							
+						</div>
 					</div>
 				)
 			})}
