@@ -38,7 +38,7 @@ function ItemView({
 				color="white"
 				onClick={() => navigate(`/workoutPlan`)}
 			/>
-			<div className="absolute top-0 left-0 z-10 flex flex-col items-center w-full h-full gap-4 p-8 pt-48 bg-black/40">
+			<div className="absolute top-0 left-0 z-10 flex flex-col justify-center items-center w-full h-full gap-4 p-8 pt-48 bg-black/40">
 				<h1 className="font-bold text-white text-7xl">{workoutName}</h1>
 				<h1 className="text-xl text-white">
 					Your one-stop destination for creating, tracking, and achieving your
@@ -56,7 +56,7 @@ function ItemView({
 					</button>
 				</div>
 				{myworkouts.length > 0 ? (
-					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-[50%]">
+					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-full md:w-[50%]">
 						{myworkouts?.map((workout: ExerciseDay, index: number) => (
 							<div className="relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50">
 								<div className="absolute flex items-center gap-2 top-1 right-2">
