@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
 
+// All the pages are imported here
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./presenters/Explore";
@@ -11,8 +12,8 @@ import StartPage from "./pages/StartPage";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import ItemPagePresenter from "./presenters/ItemPresenter";
 import InstructionsPage from "./pages/Explore/InstructionsView";
-
-import { ProgressPresenter } from "./pages/ProgressPresenter";
+import { ProgressPresenter } from "./presenters/ProgressPresenter";
+import SettingsPresenter from "./presenters/SettingsPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
 
@@ -57,7 +58,9 @@ function App() {
 								/>
 								<Route
 									path="/settings"
-									element={loggedIn ? <Settings /> : <Navigate to="/login" />}
+									element={
+										loggedIn ? <SettingsPresenter /> : <Navigate to="/login" />
+									}
 								/>
 
 								<Route

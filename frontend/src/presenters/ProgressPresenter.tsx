@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Progress from "./Progress";
+import Progress from "../pages/Progress";
 import { useLocation } from "react-router-dom";
 interface Workout {
 	completedSets: any[];
@@ -20,20 +20,21 @@ export const ProgressPresenter = () => {
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
 	const user = userParsed.token;
 
-
 	useEffect(() => {
 		async function fetchWorkouts() {
-			
-			const response = await fetch("http://localhost:4000/api/workout/getExercises", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
-				},
-				body: JSON.stringify({
-					plan_id: dataJSON.id,
-				}),
-			});
+			const response = await fetch(
+				"http://localhost:4000/api/workout/getExercises",
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${user}`,
+					},
+					body: JSON.stringify({
+						plan_id: dataJSON.id,
+					}),
+				}
+			);
 			const data = await response.json();
 			setWorkouts(data);
 			setLoading(false);
@@ -43,24 +44,22 @@ export const ProgressPresenter = () => {
 
 	console.log("workouts test", workouts);
 
-
-	
 	useEffect(() => {
 		let copy: Workout[] = new Array(workouts.length);
-	
+
 		for (let index = 0; index < workouts.length; index++) {
 			const workout = workouts[index];
 			const exercises = workout.exercises; // Make sure exercises is an array or collection
-	
+
 			copy[index] = {
 				completedSets: [],
 				exercises: exercises, // Include the exercises property
 			};
 		}
-	
+
 		setCurrentWorkout(copy);
 	}, [workouts]);
-	
+
 	console.log("currentWorkout test", currentWorkout);
 
 	function addSet(nrOfSets: number) {
@@ -72,9 +71,7 @@ export const ProgressPresenter = () => {
 							sets: nrOfSets,
 							completedSets:
 								obj.completedSets.length < nrOfSets
-									
-								
-								? [...obj.completedSets, { reps: 0, weight: 0 }]
+									? [...obj.completedSets, { reps: 0, weight: 0 }]
 									: obj.completedSets.slice(0, -1),
 					  }
 					: obj
@@ -116,9 +113,7 @@ export const ProgressPresenter = () => {
 		else {
 			setCurrent(id);
 		}
-		
 	}
-
 
 	return (
 		<Progress

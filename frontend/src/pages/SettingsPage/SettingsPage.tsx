@@ -1,106 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { AiFillCheckCircle, AiOutlineArrowLeft } from "react-icons/ai";
-import User from "../interfaces/User";
+import User from "../../interfaces/User";
 
-function Settings() {
-	const [weight, setWeight] = useState<string>("");
-	const weightOptions = Array.from({ length: 181 }, (_, index) => 20 + index);
+type Props = {
+	user: User | null;
+	weight: string;
+	setWeight: React.Dispatch<React.SetStateAction<string>>;
+	weightOptions: number[];
+	height: string;
+	setHeight: React.Dispatch<React.SetStateAction<string>>;
+	heightOptions: number[];
+	updateSettings: (type: string) => void;
+	setGoal: React.Dispatch<React.SetStateAction<string>>;
+	goal: string;
+	setAge: React.Dispatch<React.SetStateAction<string>>;
+	age: string;
+	showGoals: boolean;
+	setShowGoals: React.Dispatch<React.SetStateAction<boolean>>;
+	filteredGoals: string[];
+	ageOptions: number[];
+};
 
-	const [height, setHeight] = useState<string>("");
-	const heightOptions = Array.from({ length: 121 }, (_, index) => 100 + index);
-
-	const [age, setAge] = useState<string>("");
-	const ageOptions = Array.from({ length: 100 }, (_, index) => index + 1);
-
-	const [goal, setGoal] = useState<string>("");
-
-	const [user, setUser] = useState<User | null>(null);
-
-	const [showGoals, setShowGoals] = useState<boolean>(false);
-
-	//när vi renderar users goals så vill vi inte ha ""
-	const filteredGoals = (user?.goals || []).filter(
-		(goal) => goal.trim() !== ""
-	);
-
-	async function fetchUser() {
-		const userJSON = localStorage.getItem("userFittness");
-		const userData = userJSON ? JSON.parse(userJSON) : null;
-
-		let email = "";
-
-		if (userData?.updatedSettings === undefined) {
-			email = userData?.email;
-		} else {
-			email = userData?.updatedSettings.email;
-		}
-
-		const response = await fetch("http://localhost:4000/api/user/getUser", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email }),
-		});
-
-		const data = await response.json();
-
-		if (response.status !== 200) {
-			alert(data.Error);
-			console.log(data.Error);
-		} else {
-			setUser(data.user);
-		}
-	}
-
-	useEffect(() => {
-		fetchUser();
-	}, []);
-
-	async function updateSettings(type: string) {
-		if (type == "goal" && goal == "") {
-			return alert("You can not add an empty goal, sir!");
-		}
-
-		if (!user) {
-			alert("User data not available");
-			return;
-		}
-
-		const userJSON = localStorage.getItem("userFittness");
-		const userData = userJSON ? JSON.parse(userJSON) : null;
-
-		let email = "";
-
-		if (userData?.updatedSettings === undefined) {
-			email = userData?.email;
-		} else {
-			email = userData?.updatedSettings.email;
-		}
-
-		const response = await fetch(
-			"http://localhost:4000/api/user/updateSettings",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ email, weight, height, age, goals: [goal] }),
-			}
-		);
-
-		const data = await response.json();
-
-		if (response.status !== 200) {
-			alert(data.Error);
-			console.log(data.Error);
-		} else {
-			localStorage.setItem("userFittness", JSON.stringify(data));
-			setUser(data);
-			window.location.reload();
-		}
-	}
-
+function SettingsPage({
+	user,
+	weight,
+	setWeight,
+	weightOptions,
+	height,
+	setHeight,
+	heightOptions,
+	updateSettings,
+	setGoal,
+	goal,
+	setAge,
+	age,
+	showGoals,
+	setShowGoals,
+	filteredGoals,
+	ageOptions,
+}: Props): JSX.Element {
 	return (
 		<div className="w-full min-h-screen py-16 bg-lime-300">
 			<div className="h-full w-[70%] mx-auto flex flex-col gap-4">
@@ -240,4 +178,4 @@ function Settings() {
 	);
 }
 
-export default Settings;
+export default SettingsPage;

@@ -56,9 +56,11 @@ function ExplorePresenter() {
     navigate(`/instructions?data=${queryParam}`);
   }
 
+  
+
   return (
-    <div className="flex flex-col first-letter w-full h-screen bg-gray-100">
-      <div className="w-full mt-8 py-1">
+    <div className="flex flex-col w-full h-screen bg-gray-100 first-letter">
+      <div className="w-full py-1 mt-8">
         <h1 className="text-5xl text-center">Explore Page</h1>
       </div>
       <SearchbarView
