@@ -39,7 +39,7 @@ function ItemView({
 				onClick={() => navigate(`/workoutPlan`)}
 			/>
 			<div className="absolute top-0 left-0 z-10 flex flex-col justify-center items-center w-full h-full gap-4 p-8 pt-48 bg-black/40">
-				<h1 className="font-bold text-white text-7xl">{workoutName}</h1>
+				<h1 className="font-bold text-white text-7xl text-center">{workoutName}</h1>
 				<h1 className="text-xl text-white">
 					Your one-stop destination for creating, tracking, and achieving your
 					fitness goals.
