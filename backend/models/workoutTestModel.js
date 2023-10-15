@@ -26,6 +26,40 @@ const WorkoutSchema = new Schema({
             },
         }
     ],
+    completedWorkouts: [
+        {
+            workout: [
+                {
+                    name: {
+                        type: String,
+                        required: false,
+                    },
+                    bodyPart: {
+                        type: String,
+                        required: false,
+                    },
+                    equipment: {
+                        type: String,
+                        required: false,
+                    },
+                    completedSets: [{
+                        reps: {
+                            type: Number,
+                            required: false
+                        },
+                        weight: {
+                            type: Number,
+                            required: false
+                        }
+                    }]
+                }
+            ],
+            date: {
+                type: String,
+                required: false
+            }
+        }
+    ],
     workoutName: {
         type: String,
         required: true,

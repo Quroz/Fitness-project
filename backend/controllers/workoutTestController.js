@@ -55,6 +55,28 @@ async function addWorkout(req, res) {
     }
 }
 
+async function addCompletedWorkout(req,res){
+    const { workout, plan_id, date } = req.body;
+   
+
+    try {
+        const user_id = req.user._id;
+        const existingWorkout = await WorkoutModel.findOne({ plan_id, user_id });
+
+        if (!existingWorkout) {
+            return res.status(404).json({ Error: "Workout not found" });
+        }
+
+        const completedWorkout = existingWorkout.completedWorkouts;
+        completedWorkout.push({workout, date});
+        const updatedWorkout = await existingWorkout.save();
+
+        res.status(200).json(updatedWorkout);
+    } catch (error) {
+        res.status(400).json({ Error: error.message });
+    }
+}
+
 // Add an exercise to an existing workout
 async function addExerciseToWorkout(req, res) {
     const user_id = req.user._id;
@@ -190,4 +212,4 @@ async function checkWorkout(req, res) {
     }
 }
 
-module.exports = { addWorkout, getWorkouts, deleteWorkout, updateWorkout, deleteAllWorkouts, checkWorkout, addExerciseToWorkout, getExercises, deleteExerciseFromWorkout };
+module.exports = { addWorkout, getWorkouts, deleteWorkout, updateWorkout, deleteAllWorkouts, checkWorkout, addExerciseToWorkout, getExercises, deleteExerciseFromWorkout, addCompletedWorkout };
