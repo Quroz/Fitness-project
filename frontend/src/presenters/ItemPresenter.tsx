@@ -1,14 +1,17 @@
 // Components and Custom components
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ItemView from "../pages/ItemPage/ItemView";
-import AddExerciseToDay from "../pages/ItemPage/AddExerciseToDay";
 
 // Interfaces
 import ExerciseDay from "../interfaces/ExerciseDay";
 
 // APi
 import Exercise_api from "../models/apimodel";
+
+const ItemView = lazy(() => import("../pages/ItemPage/ItemView"));
+const AddExerciseToDay = lazy(
+	() => import("../pages/ItemPage/AddExerciseToDay")
+);
 
 type Props = {};
 
@@ -65,24 +68,30 @@ function ItemPagePresenter({}: Props): JSX.Element {
 		} else {
 			window.location.reload();
 		}
-
-		console.log("deleteWorkoutHandler");
 	}
 
 	// Adds workout to the database
 	async function addWorkoutHandler() {
 		setAddWorkout(true);
 		setLoading(true);
-		Exercise_api.exercises_call(2000).then((data) => {
-			console.log(data);
-			const updatedWorkouts = data.map((exercise) => ({
-				...exercise,
-				sets: null,
-				reps: null,
-			}));
-			setWorkoutsData(updatedWorkouts);
-		});
-		setLoading(false);
+
+		// Check if workoutsData is already populated. If it is then use that data --> Cache data
+		if (workoutsData.length > 0) {
+			setLoading(false);
+			return; // Skip API call
+		}
+		Exercise_api.exercises_call(2000)
+			.then((data) => {
+				const updatedWorkouts = data.map((exercise) => ({
+					...exercise,
+					sets: null,
+					reps: null,
+				}));
+				setWorkoutsData(updatedWorkouts);
+			})
+			.finally(() => {
+				setLoading(false);
+			});
 	}
 
 	// Fetches the workouts from the database
@@ -140,46 +149,47 @@ function ItemPagePresenter({}: Props): JSX.Element {
 	useEffect(() => {
 		fetchWorkouts();
 	});
-
 	return (
 		<div>
-			<ItemView
-				deleteWorkoutHandler={deleteWorkoutHandler}
-				myworkouts={myworkouts}
-				addWorkoutHandler={addWorkoutHandler}
-				navigate={navigate}
-				workoutName={dataJSON.name}
-				addExerciseToDay={
-					<AddExerciseToDay
-						// Function that adds workouts to the database
-						addToDatabase={addToDatabase}
-						// To fetch data from the API
-						workoutsData={workoutsData}
-						// To fetch workouts from the database
-						setmyWorkouts={setmyWorkouts}
-						// To Render Add page or not
-						setAddWorkout={setAddWorkout}
-						// To show the loading screen when fetching data from the API
-						loading={loading}
-						id={dataJSON.id}
-						// These are going to be added to the database
-						selectedWorkoutName={selectedWorkoutName}
-						selectedBodyPart={selectedBodyPart}
-						selectedTarget={selectedTarget}
-						selectedEquipment={selectedEquipment}
-						numberOfSets={numberOfSets}
-						numberOfReps={numberOfReps}
-						// To add workouts to the database
-						setSelectedWorkoutName={setSelectedWorkoutName}
-						setSelectedBodyPart={setSelectedBodyPart}
-						setSelectedTarget={setSelectedTarget}
-						setSelectedEquipment={setSelectedEquipment}
-						setNumberOfSets={setNumberOfSets}
-						setNumberOfReps={setNumberOfReps}
-					/>
-				}
-				addWorkout={addWorkout}
-			/>
+			<Suspense fallback={<div>Loading...</div>}>
+				<ItemView
+					deleteWorkoutHandler={deleteWorkoutHandler}
+					myworkouts={myworkouts}
+					addWorkoutHandler={addWorkoutHandler}
+					navigate={navigate}
+					workoutName={dataJSON.name}
+					addExerciseToDay={
+						<AddExerciseToDay
+							// Function that adds workouts to the database
+							addToDatabase={addToDatabase}
+							// To fetch data from the API
+							workoutsData={workoutsData}
+							// To fetch workouts from the database
+							setmyWorkouts={setmyWorkouts}
+							// To Render Add page or not
+							setAddWorkout={setAddWorkout}
+							// To show the loading screen when fetching data from the API
+							loading={loading}
+							id={dataJSON.id}
+							// These are going to be added to the database
+							selectedWorkoutName={selectedWorkoutName}
+							selectedBodyPart={selectedBodyPart}
+							selectedTarget={selectedTarget}
+							selectedEquipment={selectedEquipment}
+							numberOfSets={numberOfSets}
+							numberOfReps={numberOfReps}
+							// To add workouts to the database
+							setSelectedWorkoutName={setSelectedWorkoutName}
+							setSelectedBodyPart={setSelectedBodyPart}
+							setSelectedTarget={setSelectedTarget}
+							setSelectedEquipment={setSelectedEquipment}
+							setNumberOfSets={setNumberOfSets}
+							setNumberOfReps={setNumberOfReps}
+						/>
+					}
+					addWorkout={addWorkout}
+				/>
+			</Suspense>
 		</div>
 	);
 }

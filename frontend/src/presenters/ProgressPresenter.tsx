@@ -17,8 +17,6 @@ export const ProgressPresenter = () => {
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
 	const user = userParsed.token;
 
-	
-
 	useEffect(() => {
 		async function fetchWorkouts() {
 			const response = await fetch(
@@ -44,47 +42,53 @@ export const ProgressPresenter = () => {
 	console.log("workouts test", workouts);
 
 	async function finishWorkout() {
-		const response = await fetch("http://localhost:4000/api/workout/addCompletedWorkout", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
-			},
-			body: JSON.stringify({
-				plan_id: dataJSON.id,
-				workout: currentWorkout,
-				date: new Date().getDate() + "/"+ new Date().getMonth() +"/"+ new Date().getFullYear()  ,
-			}),
-		});
+		const response = await fetch(
+			"http://localhost:4000/api/workout/addCompletedWorkout",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user}`,
+				},
+				body: JSON.stringify({
+					plan_id: dataJSON.id,
+					workout: currentWorkout,
+					date:
+						new Date().getDate() +
+						"/" +
+						new Date().getMonth() +
+						"/" +
+						new Date().getFullYear(),
+				}),
+			}
+		);
 		const data = await response.json();
-		
-		if(response.status !== 200){
-			alert("Something went wrong, please try again")
-		}
-		else{
-			alert("Workout completed")
-			window.location.reload()
+
+		if (response.status !== 200) {
+			alert("Something went wrong, please try again");
+		} else {
+			alert("Workout completed");
+			window.location.reload();
 		}
 	}
 
-	
 	useEffect(() => {
 		let copy: Workout[] = new Array(workouts.length);
 
 		for (let index = 0; index < workouts.length; index++) {
-
-	
 			copy[index] = {
 				name: workouts[index].name,
-                equipment: workouts[index].equipment,
-                bodyPart: workouts[index].bodyPart,
-                sets: workouts[index].sets,
-                reps: workouts[index].reps,
-                completedSets: []
-				
+				equipment: workouts[index].equipment,
+				bodyPart: workouts[index].bodyPart,
+				sets: workouts[index].sets,
+				reps: workouts[index].reps,
+				completedSets: [],
 			};
-			for(let i = 0; i< workouts[index].sets; i++){
-				copy[index].completedSets.push({reps: workouts[index].reps, weight: 0});
+			for (let i = 0; i < workouts[index].sets; i++) {
+				copy[index].completedSets.push({
+					reps: workouts[index].reps,
+					weight: 0,
+				});
 			}
 		}
 
@@ -137,15 +141,14 @@ export const ProgressPresenter = () => {
 			);
 		});
 	}
-	function handleExcerciseChange(id:number){
-		if(id < 0) setCurrent(0);
-		else if( id > currentWorkout.length-1) setCurrent(currentWorkout.length-1);
-		else{
-		  setCurrent(id);
+	function handleExcerciseChange(id: number) {
+		if (id < 0) setCurrent(0);
+		else if (id > currentWorkout.length - 1)
+			setCurrent(currentWorkout.length - 1);
+		else {
+			setCurrent(id);
 		}
-		
-		
-	  }
+	}
 
 	return (
 		<Progress
@@ -158,7 +161,7 @@ export const ProgressPresenter = () => {
 			handleExcerciseChange={handleExcerciseChange}
 			currentWorkout={currentWorkout}
 			setCurrentWorkout={setCurrentWorkout}
-			workoutName = {dataJSON.name}
+			workoutName={dataJSON.name}
 		/>
 	);
 };

@@ -25,27 +25,34 @@ function WorkoutPlans({
 	deleteWorkoutPlan,
 	addPlanPopup,
 	searchHandler,
-	toWorkout
+	toWorkout,
 }: Props): JSX.Element {
-	console.log(workoutDays);
-
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
 			<div className="flex flex-col items-center justify-between w-full gap-2 md:gap-2 md:flex-row">
 				<h1>{workoutDays.length} Workouts</h1>
 				<div className="flex items-center justify-between w-full gap-2 md:w-auto">
-					<input
-						className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-full md:w-[150px] p-1 px-2 text-black text-sm"
-						placeholder="Search by workout"
-						value={search}
-						onChange={(e) => setSearch(e.target.value)}
-					/>
+					{/*
+					____________________RAKIN________: Tycker vi tar bort dessa för att det är onödigt att söka på workout
+					och detta sänker vår UX experience.
+
+					
+						<input
+							className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-full md:w-[150px] p-1 px-2 text-black text-sm"
+							placeholder="Search by workout"
+							value={search}
+							onChange={(e) => setSearch(e.target.value)}
+						/>
+					*/}
 					<div className="flex items-center w-full gap-1">
-						<button
-							className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
-							onClick={() => searchHandler(search)}>
-							Search
-						</button>
+						{/*
+							<button
+								className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
+								onClick={() => searchHandler(search)}
+							>
+								Search
+							</button>
+						*/}
 						<button
 							className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
 							onClick={() => setAddPlan(true)}
@@ -69,27 +76,28 @@ function WorkoutPlans({
 								<strong>Name:</strong> {item.workoutName}
 							</h1>
 						</div>
-					
+
 						<div className="flex items-center justify-around w-full gap-4">
 							<div className="flex flex-col items-center justify-center w-full gap-4 mx-4 md:mx-0 md:flex-row">
 								<button
-									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"		
-									onClick={() => toWorkout(item)}>
+									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"
+									onClick={() => toWorkout(item)}
+								>
 									To workout
 								</button>
 								<button
-									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"		
-									onClick={() => itemPage(item)}>
+									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"
+									onClick={() => itemPage(item)}
+								>
 									Edit Workout
 								</button>
-								
 							</div>
 							<AiOutlineClose
-									className="absolute cursor-pointer top-2 right-2"
-									color="red"
-									size={24}
-									onClick={() => deleteWorkoutPlan(item.plan_id)}
-								/>
+								className="absolute cursor-pointer top-2 right-2"
+								color="red"
+								size={24}
+								onClick={() => deleteWorkoutPlan(item.plan_id)}
+							/>
 						</div>
 					</div>
 				))}

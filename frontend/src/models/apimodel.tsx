@@ -60,8 +60,8 @@ const Exercise_api = {
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": apiKey,
-				"X-RapidAPI-Host": host,
+				"X-RapidAPI-Key": "8a354e8a27msh1bad040c9cceae5p1e730fjsn03fd27ba67a5",
+				"X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
 			},
 		};
 
