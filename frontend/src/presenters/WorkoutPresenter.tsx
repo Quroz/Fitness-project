@@ -41,30 +41,6 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			setShowLog(true);
 		}
 	}
-	// Check workout
-	async function checkHandler(id: number) {
-		const response = await fetch("http://localhost:4000/api/user/updateCheck", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user.token}`,
-			},
-			body: JSON.stringify({
-				check: [new Date().toISOString().slice(0, 10)],
-				email: user.email,
-			}),
-		});
-
-		try {
-			if (response.status !== 200) {
-				alert("Could not check workout");
-			} else {
-				window.location.reload();
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	}
 	// Navigate to item page
 	function itemPage(item: WorkoutDay) {
 		const data = {
@@ -220,7 +196,6 @@ function WorkoutPresenter({}: Props): JSX.Element {
 							addPlan={addPlan}
 							searchHandler={searchHandler}
 							setAddPlan={setAddPlan}
-							checkHandler={checkHandler}
 							itemPage={itemPage}
 							toWorkout={toWorkout}
 							deleteWorkoutPlan={deleteWorkoutPlan}
