@@ -208,7 +208,7 @@ function Settings() {
 						</div>
 					</div>
 				) : (
-					<div className="flex justify-around w-full p-8 bg-white rounded-md">
+					<div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-around w-full p-8 bg-white rounded-md">
 						<div className="flex flex-col items-center gap-4">
 							<h1 className="text-2xl">Do you have any new goals today?</h1>
 							<button
@@ -221,8 +221,7 @@ function Settings() {
 						<div className="flex flex-col gap-2">
 							<textarea
 								rows={4}
-								cols={50}
-								className="border-black border-[1px] rounded-md p-1"
+								className="border-black border-[1px] rounded-md p-1 w-[250px]"
 								placeholder="Write any goal.."
 								value={goal}
 								onChange={(e) => setGoal(e.target.value)}
