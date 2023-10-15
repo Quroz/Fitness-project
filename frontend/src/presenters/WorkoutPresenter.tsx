@@ -158,7 +158,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
+				Authorization: `Bearer ${user.token}`,
 			},
 		});
 		const data = await response.json();
@@ -194,7 +194,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	useEffect(() => {
 		fetchWorkouts();
 		fetchCompletedWorkouts();
-	}, [myPlan, search]);
+	}, [myPlan, search, completedWorkouts]);
 
 	function searchHandler(name: string) {
 		const filteredWorkoutDays = workoutDays.filter(
@@ -237,7 +237,9 @@ function WorkoutPresenter({}: Props): JSX.Element {
 							}
 						/>
 					)}
-					{showLog && <LogAllWorkoutPresenter />}
+					{showLog && (
+						<LazyLogAllWorkouts completedWorkouts={completedWorkouts} />
+					)}
 				</div>
 			</Suspense>
 		</div>

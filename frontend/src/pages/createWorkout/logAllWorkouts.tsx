@@ -1,31 +1,24 @@
 import React from "react";
-import Workout from "../../interfaces/WorkoutInterface"
+import Workout from "../../interfaces/WorkoutInterface";
 
-interface CompWorkouts{
+interface CompWorkouts {
 	name: string;
 	date: string;
 	workout: Workout;
 }
-interface Iprops{
-	completedWorkouts: CompWorkouts[]
+interface Iprops {
+	completedWorkouts: CompWorkouts[];
 }
-function LogAllWorkouts({completedWorkouts}:Iprops) {
-
-
-
+function LogAllWorkouts({ completedWorkouts }: Iprops) {
 	return (
 		<div>
 			{completedWorkouts.map((wo, index) => {
-				return(
+				return (
 					<div className="flex">
-						<div>
-							{wo.name}
-						</div>
-						<div>
-							
-						</div>
+						<div>{wo.name}</div>
+						<div></div>
 					</div>
-				)
+				);
 			})}
 		</div>
 	);
