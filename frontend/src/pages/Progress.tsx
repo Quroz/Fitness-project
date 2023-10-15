@@ -20,7 +20,7 @@ interface IProps {
 }
 function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, loading }: IProps) {
   
-  console.log("currentWorkout", currentWorkout)
+
   
   const navigate = useNavigate();
 
@@ -40,10 +40,9 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
       :
 
 <>
-{console.log("ex", currentWorkout[0])}
+
     {currentWorkout[0]?.exercises.map((ex, id) => {
-      console.log("current", current)
-      console.log("id", id)
+ 
         if (current === id) {
           return (
             <strong
@@ -77,7 +76,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
       <div className="flex w-5/6 flex-col justify-around items-center">
         <div>
           <p className="w-full text-4xl">First Workout</p>
-          {currentWorkout.length === 0 && !loading &&
+          {currentWorkout[0]?.exercises.length === 0 && !loading &&
           <div className="flex flex-col items-center mt-8 gap-2">
             <h1 className="text-2xl text-gray-500">There are no added workouts yet</h1>
               <button
