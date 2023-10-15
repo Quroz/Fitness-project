@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import AddPlan from "../components/Workout/AddPlanPopup";
 
-const LazyChooseView = lazy(() => import("../pages/createWorkout/ChooseView"));
+const LazyChooseView = lazy(() => import("../pages/Workout/ChooseView"));
 const LazyLogAllWorkouts = lazy(
-	() => import("../pages/createWorkout/logAllWorkouts")
+	() => import("../pages/Workout/logAllWorkouts")
 );
 const LazyWorkoutPlans = lazy(
-	() => import("../pages/createWorkout/WorkoutPlans")
+	() => import("../pages/Workout/WorkoutPlans")
 );
 
 type Props = {};

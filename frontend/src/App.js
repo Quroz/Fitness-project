@@ -1,20 +1,23 @@
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
-
-// All the pages are imported here
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
-import Explore from "./presenters/Explore";
 import StartPage from "./pages/StartPage";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import ItemPagePresenter from "./presenters/ItemPresenter";
-import InstructionsPage from "./pages/Explore/InstructionsView";
 import { ProgressPresenter } from "./presenters/ProgressPresenter";
 import SettingsPresenter from "./presenters/SettingsPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
+
+// Lazy-loaded components
+const Explore = React.lazy(() => import("./presenters/Explore"));
+const InstructionsPage = React.lazy(() =>
+	import("./pages/Explore/InstructionsView")
+);
 
 function App() {
 	const pathname = window.location.pathname;
@@ -36,7 +39,6 @@ function App() {
 						<NavbarView />
 						<div className="flex-1 ml-11">
 							<Routes>
-								{/* The same order of the navbar icons drawn in my sketch-Rakin */}
 								{loggedIn &&
 									(pathname === "/login" ||
 										pathname === "/" ||
@@ -53,7 +55,15 @@ function App() {
 								/>
 								<Route
 									path="/explore"
-									element={loggedIn ? <Explore /> : <Navigate to="/login" />}
+									element={
+										loggedIn ? (
+											<Suspense fallback={<div>Loading...</div>}>
+												<Explore />
+											</Suspense>
+										) : (
+											<Navigate to="/login" />
+										)
+									}
 								/>
 								<Route
 									path="/settings"
@@ -61,7 +71,6 @@ function App() {
 										loggedIn ? <SettingsPresenter /> : <Navigate to="/login" />
 									}
 								/>
-
 								<Route
 									path="/workoutplan"
 									element={
@@ -77,7 +86,13 @@ function App() {
 								<Route
 									path="/instructions"
 									element={
-										loggedIn ? <InstructionsPage /> : <Navigate to="/login" />
+										loggedIn ? (
+											<Suspense fallback={<div>Loading...</div>}>
+												<InstructionsPage />
+											</Suspense>
+										) : (
+											<Navigate to="/login" />
+										)
 									}
 								/>
 							</Routes>

@@ -75,12 +75,11 @@ function ItemPagePresenter({}: Props): JSX.Element {
 		setAddWorkout(true);
 		setLoading(true);
 
-		// Check if workoutsData is already populated
+		// Check if workoutsData is already populated. If it is then use that data --> Cache data
 		if (workoutsData.length > 0) {
 			setLoading(false);
 			return; // Skip API call
 		}
-
 		Exercise_api.exercises_call(2000)
 			.then((data) => {
 				const updatedWorkouts = data.map((exercise) => ({
