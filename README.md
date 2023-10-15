@@ -27,3 +27,28 @@ The website is suppose to be a gym-app application where users can track their p
 3. Run `npm install` in backend folder
 4. `cd backend` and run `node server.js`
 5. `cd frontend` and run `npm start`
+
+## Possible points to collect
+
+### Architecture
+
+- No bugs & clean console
+- Persistence - Model - Presenter - Views (You are free to choose other patterns, but you need to be consistent and separate concerns)
+
+### UX
+
+- Good feedback on user action
+- Good feedback on system status (e.g. requests, info displayed when needed)
+- "Efficient task accomplishment
+  "
+- Application functionality is easy to discover through exploration
+
+### Point System
+
+- Ionic cross platform
+- Run own database (e.g. local MongoDB, MySQL, Elasticsearch, Redis)
+- Node (express.js framework or plain node)
+- Use d3.js or chart.js for displaying data
+- "Typescript: Excessive use of ""any"" (or similar) type is considered to be JS and will not be valid for TS points. "
+
+Among many more
