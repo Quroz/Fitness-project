@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
-import WorkoutPlans from "../pages/createWorkout/WorkoutPlans";
-import ChooseView from "../pages/createWorkout/ChooseView";
-import LogAllWorkoutPresenter from "../pages/createWorkout/LogAllWorkoutPresenter";
-import WorkoutDay from "../interfaces/WorkoutDay";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
+import WorkoutDay from "../interfaces/WorkoutDay";
 import AddPlan from "../components/Workout/AddPlanPopup";
+import LogAllWorkoutPresenter from "../pages/createWorkout/LogAllWorkoutPresenter";
+
+const LazyChooseView = lazy(() => import("../pages/createWorkout/ChooseView"));
+const LazyLogAllWorkouts = lazy(
+	() => import("../pages/createWorkout/logAllWorkouts")
+);
+const LazyWorkoutPlans = lazy(
+	() => import("../pages/createWorkout/WorkoutPlans")
+);
 
 type Props = {};
 
@@ -12,23 +18,20 @@ const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 
 function WorkoutPresenter({}: Props): JSX.Element {
-	// MyWorkouts and Showlog are used to render the correct component
 	const [myWorkouts, setMyWorkouts] = useState(true);
 	const [showLog, setShowLog] = useState(false);
-	// Used to store and search the workout days. --> filteredArray
 	const [workoutDays, setWorkoutDays] = useState<WorkoutDay[]>([]);
 	const [myPlan, setMyPlan] = useState<WorkoutDay[]>([]);
 	const [search, setSearch] = useState("");
-	// Used to add a new plan
 	const [addPlan, setAddPlan] = useState(false);
-
-	// Related to AddPlanPopup
 	const [day, setDay] = useState("");
 	const [name, setName] = useState("");
+	const [completedWorkouts, setCompletedWorkouts] = useState<any[]>([]);
 
 	// Used for navigation
 	const navigate = useNavigate();
 
+	// Render handler for choose view
 	function renderHandler(choice: string) {
 		if (choice === "My Workouts") {
 			setMyWorkouts(true);
@@ -38,6 +41,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			setShowLog(true);
 		}
 	}
+	// Check workout
 	async function checkHandler(id: number) {
 		const response = await fetch("http://localhost:4000/api/user/updateCheck", {
 			method: "POST",
@@ -61,6 +65,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			console.log(error);
 		}
 	}
+	// Navigate to item page
 	function itemPage(item: WorkoutDay) {
 		const data = {
 			id: item.plan_id,
@@ -71,6 +76,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		navigate(`/itemPage?data=${queryParam}`);
 	}
 
+	// Navigate to workout page
 	function toWorkout(item: WorkoutDay) {
 		const data = {
 			id: item.plan_id,
@@ -83,6 +89,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		navigate(`/progress?data=${queryParam}`);
 	}
 
+	// Delete workout plan from database
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
 			"http://localhost:4000/api/workout/deleteAllWorkouts",
@@ -108,6 +115,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 
+	// Add new plan to local storage
 	function addHandler() {
 		const newItem = { id: Date.now(), day: day, name: name };
 
@@ -119,6 +127,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		setAddPlan(false);
 	}
 
+	// Add new plan to database
 	async function addToDatabase() {
 		const response = await fetch("http://localhost:4000/api/workout/add", {
 			method: "POST",
@@ -144,22 +153,48 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 
-	useEffect(() => {
-		/* Check if myPlan has changed */
-		async function fetchWorkouts() {
-			const response = await fetch("http://localhost:4000/api/workout/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user.token}`,
-				},
+	async function fetchCompletedWorkouts() {
+		const response = await fetch("http://localhost:4000/api/workout/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user.token}`,
+			},
+		});
+		const data = await response.json();
+
+		console.log("data log all workouts", data);
+		let filteredData: any = [];
+		for (let i = 0; i < data.length; i++) {
+			data[i].completedWorkouts.forEach((workout: any) => {
+				filteredData.push({
+					name: data[i].workoutName,
+					workout: workout,
+				});
 			});
-			const data = await response.json();
-			//setmyWorkouts(data);
-			setWorkoutDays(data);
 		}
+		console.log("filtered data", filteredData);
+		setCompletedWorkouts(filteredData);
+	}
+
+	// Fetch all workouts from database
+	async function fetchWorkouts() {
+		const response = await fetch("http://localhost:4000/api/workout/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user.token}`,
+			},
+		});
+		const data = await response.json();
+		//setmyWorkouts(data);
+		setWorkoutDays(data);
+	}
+
+	useEffect(() => {
 		fetchWorkouts();
-	}, [myPlan, search]);
+		fetchCompletedWorkouts();
+	}, [myPlan, search, completedWorkouts]);
 
 	function searchHandler(name: string) {
 		const filteredWorkoutDays = workoutDays.filter(
@@ -170,39 +205,43 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
-			<ChooseView
-				showLog={showLog}
-				renderHandler={renderHandler}
-				myWorkouts={myWorkouts}
-			/>
-			<div className="bg-[#edeaea] flex-1 ">
-				{myWorkouts && (
-					<WorkoutPlans
-						workoutDays={workoutDays}
-						search={search}
-						setSearch={setSearch}
-						addPlan={addPlan}
-						searchHandler={searchHandler}
-						setAddPlan={setAddPlan}
-						checkHandler={checkHandler}
-						itemPage={itemPage}
-						toWorkout={toWorkout}
-						deleteWorkoutPlan={deleteWorkoutPlan}
-						addPlanPopup={
-							<AddPlan
-								addToDatabase={addToDatabase}
-								setAddPlan={setAddPlan}
-								addHandler={addHandler}
-								day={day}
-								setDay={setDay}
-								name={name}
-								setName={setName}
-							/>
-						}
-					/>
-				)}
-				{showLog && <LogAllWorkoutPresenter />}
-			</div>
+			<Suspense fallback={<div>Loading...</div>}>
+				<LazyChooseView
+					showLog={showLog}
+					renderHandler={renderHandler}
+					myWorkouts={myWorkouts}
+				/>
+				<div className="bg-[#edeaea] flex-1">
+					{myWorkouts && (
+						<LazyWorkoutPlans
+							workoutDays={workoutDays}
+							search={search}
+							setSearch={setSearch}
+							addPlan={addPlan}
+							searchHandler={searchHandler}
+							setAddPlan={setAddPlan}
+							checkHandler={checkHandler}
+							itemPage={itemPage}
+							toWorkout={toWorkout}
+							deleteWorkoutPlan={deleteWorkoutPlan}
+							addPlanPopup={
+								<AddPlan
+									addToDatabase={addToDatabase}
+									setAddPlan={setAddPlan}
+									addHandler={addHandler}
+									day={day}
+									setDay={setDay}
+									name={name}
+									setName={setName}
+								/>
+							}
+						/>
+					)}
+					{showLog && (
+						<LazyLogAllWorkouts completedWorkouts={completedWorkouts} />
+					)}
+				</div>
+			</Suspense>
 		</div>
 	);
 }
