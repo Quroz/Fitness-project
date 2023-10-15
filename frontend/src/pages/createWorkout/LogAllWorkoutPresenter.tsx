@@ -25,10 +25,10 @@ function LogAllWorkoutPresenter({}: Props) {
 
         console.log("data log all workouts", data)
         let filteredData:any = [];
-        for(let i = 0; i<data.length; i++){
-        data[i].completedWorkouts.forEach((workout:any) => {
+        for(const element of data){
+        element.completedWorkouts.forEach((workout:any) => {
             filteredData.push({
-            name: data[i].workoutName,
+            name: element.workoutName,
             workout: workout
             })
         });

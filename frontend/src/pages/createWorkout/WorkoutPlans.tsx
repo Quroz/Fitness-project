@@ -29,7 +29,7 @@ function WorkoutPlans({
 	searchHandler,
 	toWorkout
 }: Props): JSX.Element {
-
+	console.log(workoutDays);
 
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
@@ -58,7 +58,8 @@ function WorkoutPlans({
 				</div>
 			</div>
 			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto relative">
-				{workoutDays.map((item: WorkoutDay, index: number) => (
+				{
+				 workoutDays.map((item: WorkoutDay, index: number) => (
 					<div
 						className="gap-4 md:gap-0 flex flex-col md:flex-row items-center justify-around w-full py-4 bg-white border-[1px] border-gray-300 rounded-md relative"
 						key={index}
