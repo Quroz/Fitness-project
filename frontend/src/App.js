@@ -7,7 +7,6 @@ import Signup from "./pages/SignupView";
 import NavbarView from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./presenters/Explore";
-import Settings from "./pages/Settings";
 import StartPage from "./pages/StartPage";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import ItemPagePresenter from "./presenters/ItemPresenter";
