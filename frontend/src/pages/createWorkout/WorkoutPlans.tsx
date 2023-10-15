@@ -8,7 +8,6 @@ type Props = {
 	setSearch: React.Dispatch<React.SetStateAction<string>>;
 	addPlan: boolean;
 	setAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
-	checkHandler: (id: number) => void;
 	itemPage: (item: WorkoutDay) => void;
 	toWorkout: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
@@ -22,7 +21,6 @@ function WorkoutPlans({
 	setSearch,
 	addPlan,
 	setAddPlan,
-	checkHandler,
 	itemPage,
 	deleteWorkoutPlan,
 	addPlanPopup,
@@ -33,16 +31,16 @@ function WorkoutPlans({
 
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
-			<div className="gap-2 md:gap-2 w-full flex flex-col md:flex-row items-center justify-between">
+			<div className="flex flex-col items-center justify-between w-full gap-2 md:gap-2 md:flex-row">
 				<h1>{workoutDays.length} Workouts</h1>
-				<div className="w-full md:w-auto flex items-center gap-2 justify-between">
+				<div className="flex items-center justify-between w-full gap-2 md:w-auto">
 					<input
 						className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-full md:w-[150px] p-1 px-2 text-black text-sm"
 						placeholder="Search by workout"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 					/>
-					<div className="flex items-center gap-1 w-full">
+					<div className="flex items-center w-full gap-1">
 						<button
 							className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
 							onClick={() => searchHandler(search)}>
@@ -57,7 +55,7 @@ function WorkoutPlans({
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto relative">
+			<div className="relative flex flex-col w-full gap-4 my-8 overflow-y-auto">
 				{workoutDays.map((item: WorkoutDay, index: number) => (
 					<div
 						className="gap-4 md:gap-0 flex flex-col md:flex-row items-center justify-around w-full py-4 bg-white border-[1px] border-gray-300 rounded-md relative"
@@ -72,8 +70,8 @@ function WorkoutPlans({
 							</h1>
 						</div>
 					
-						<div className="w-full flex items-center justify-around gap-4">
-							<div className="w-full mx-4 md:mx-0 flex flex-col md:flex-row justify-center items-center gap-4">
+						<div className="flex items-center justify-around w-full gap-4">
+							<div className="flex flex-col items-center justify-center w-full gap-4 mx-4 md:mx-0 md:flex-row">
 								<button
 									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"		
 									onClick={() => toWorkout(item)}>
@@ -87,7 +85,7 @@ function WorkoutPlans({
 								
 							</div>
 							<AiOutlineClose
-									className="cursor-pointer absolute top-2 right-2"
+									className="absolute cursor-pointer top-2 right-2"
 									color="red"
 									size={24}
 									onClick={() => deleteWorkoutPlan(item.plan_id)}
