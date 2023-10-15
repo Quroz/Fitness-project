@@ -65,7 +65,6 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	}
 	function itemPage(item: WorkoutDay) {
 		
-		console.log("do it elr", item)
 	
 		const data = {
 		  id: item.plan_id,
@@ -184,7 +183,7 @@ function addHandler() {
 	}, [myPlan, search]);
 
 	function searchHandler(name: string) {
-		console.log("search", name);
+		console.log("search test", name);
 		const filteredWorkoutDays = workoutDays.filter(
 			(workout) => workout.workoutName === name
 		);
