@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
-import WorkoutPlans from "../pages/createWorkout/WorkoutPlans";
-import ChooseView from "../pages/createWorkout/ChooseView";
-import LogAllWorkouts from "../pages/createWorkout/logAllWorkouts";
-import WorkoutDay from "../interfaces/WorkoutDay";
+import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
+import WorkoutDay from "../interfaces/WorkoutDay";
 import AddPlan from "../components/Workout/AddPlanPopup";
+
+const LazyChooseView = lazy(() => import("../pages/createWorkout/ChooseView"));
+const LazyLogAllWorkouts = lazy(
+	() => import("../pages/createWorkout/logAllWorkouts")
+);
+const LazyWorkoutPlans = lazy(
+	() => import("../pages/createWorkout/WorkoutPlans")
+);
 
 type Props = {};
 
@@ -12,17 +17,12 @@ const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 
 function WorkoutPresenter({}: Props): JSX.Element {
-	// MyWorkouts and Showlog are used to render the correct component
 	const [myWorkouts, setMyWorkouts] = useState(true);
 	const [showLog, setShowLog] = useState(false);
-	// Used to store and search the workout days. --> filteredArray
 	const [workoutDays, setWorkoutDays] = useState<WorkoutDay[]>([]);
 	const [myPlan, setMyPlan] = useState<WorkoutDay[]>([]);
 	const [search, setSearch] = useState("");
-	// Used to add a new plan
 	const [addPlan, setAddPlan] = useState(false);
-
-	// Related to AddPlanPopup
 	const [day, setDay] = useState("");
 	const [name, setName] = useState("");
 
@@ -170,39 +170,41 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
-			<ChooseView
-				showLog={showLog}
-				renderHandler={renderHandler}
-				myWorkouts={myWorkouts}
-			/>
-			<div className="bg-[#edeaea] flex-1 ">
-				{myWorkouts && (
-					<WorkoutPlans
-						workoutDays={workoutDays}
-						search={search}
-						setSearch={setSearch}
-						addPlan={addPlan}
-						searchHandler={searchHandler}
-						setAddPlan={setAddPlan}
-						checkHandler={checkHandler}
-						itemPage={itemPage}
-						toWorkout={toWorkout}
-						deleteWorkoutPlan={deleteWorkoutPlan}
-						addPlanPopup={
-							<AddPlan
-								addToDatabase={addToDatabase}
-								setAddPlan={setAddPlan}
-								addHandler={addHandler}
-								day={day}
-								setDay={setDay}
-								name={name}
-								setName={setName}
-							/>
-						}
-					/>
-				)}
-				{showLog && <LogAllWorkouts />}
-			</div>
+			<Suspense fallback={<div>Loading...</div>}>
+				<LazyChooseView
+					showLog={showLog}
+					renderHandler={renderHandler}
+					myWorkouts={myWorkouts}
+				/>
+				<div className="bg-[#edeaea] flex-1">
+					{myWorkouts && (
+						<LazyWorkoutPlans
+							workoutDays={workoutDays}
+							search={search}
+							setSearch={setSearch}
+							addPlan={addPlan}
+							searchHandler={searchHandler}
+							setAddPlan={setAddPlan}
+							checkHandler={checkHandler}
+							itemPage={itemPage}
+							toWorkout={toWorkout}
+							deleteWorkoutPlan={deleteWorkoutPlan}
+							addPlanPopup={
+								<AddPlan
+									addToDatabase={addToDatabase}
+									setAddPlan={setAddPlan}
+									addHandler={addHandler}
+									day={day}
+									setDay={setDay}
+									name={name}
+									setName={setName}
+								/>
+							}
+						/>
+					)}
+					{showLog && <LazyLogAllWorkouts />}
+				</div>
+			</Suspense>
 		</div>
 	);
 }
