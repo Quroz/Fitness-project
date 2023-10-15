@@ -26,10 +26,12 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	const [addPlan, setAddPlan] = useState(false);
 	const [day, setDay] = useState("");
 	const [name, setName] = useState("");
+	const [completedWorkouts, setCompletedWorkouts] = useState<any[]>([]);
 
 	// Used for navigation
 	const navigate = useNavigate();
 
+	// Render handler for choose view
 	function renderHandler(choice: string) {
 		if (choice === "My Workouts") {
 			setMyWorkouts(true);
@@ -39,6 +41,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			setShowLog(true);
 		}
 	}
+	// Check workout
 	async function checkHandler(id: number) {
 		const response = await fetch("http://localhost:4000/api/user/updateCheck", {
 			method: "POST",
@@ -62,6 +65,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 			console.log(error);
 		}
 	}
+	// Navigate to item page
 	function itemPage(item: WorkoutDay) {
 		const data = {
 			id: item.plan_id,
@@ -72,6 +76,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		navigate(`/itemPage?data=${queryParam}`);
 	}
 
+	// Navigate to workout page
 	function toWorkout(item: WorkoutDay) {
 		const data = {
 			id: item.plan_id,
@@ -84,6 +89,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		navigate(`/progress?data=${queryParam}`);
 	}
 
+	// Delete workout plan from database
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
 			"http://localhost:4000/api/workout/deleteAllWorkouts",
@@ -109,6 +115,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 
+	// Add new plan to local storage
 	function addHandler() {
 		const newItem = { id: Date.now(), day: day, name: name };
 
@@ -120,6 +127,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		setAddPlan(false);
 	}
 
+	// Add new plan to database
 	async function addToDatabase() {
 		const response = await fetch("http://localhost:4000/api/workout/add", {
 			method: "POST",
@@ -145,21 +153,47 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 
-	useEffect(() => {
-		/* Check if myPlan has changed */
-		async function fetchWorkouts() {
-			const response = await fetch("http://localhost:4000/api/workout/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user.token}`,
-				},
+	async function fetchCompletedWorkouts() {
+		const response = await fetch("http://localhost:4000/api/workout/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user}`,
+			},
+		});
+		const data = await response.json();
+
+		console.log("data log all workouts", data);
+		let filteredData: any = [];
+		for (let i = 0; i < data.length; i++) {
+			data[i].completedWorkouts.forEach((workout: any) => {
+				filteredData.push({
+					name: data[i].workoutName,
+					workout: workout,
+				});
 			});
-			const data = await response.json();
-			//setmyWorkouts(data);
-			setWorkoutDays(data);
 		}
+		console.log("filtered data", filteredData);
+		setCompletedWorkouts(filteredData);
+	}
+
+	// Fetch all workouts from database
+	async function fetchWorkouts() {
+		const response = await fetch("http://localhost:4000/api/workout/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user.token}`,
+			},
+		});
+		const data = await response.json();
+		//setmyWorkouts(data);
+		setWorkoutDays(data);
+	}
+
+	useEffect(() => {
 		fetchWorkouts();
+		fetchCompletedWorkouts();
 	}, [myPlan, search]);
 
 	function searchHandler(name: string) {
