@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WorkoutPlans from "../pages/createWorkout/WorkoutPlans";
 import ChooseView from "../pages/createWorkout/ChooseView";
-import LogAllWorkouts from "../pages/createWorkout/logAllWorkouts";
+import LogAllWorkoutPresenter from "../pages/createWorkout/LogAllWorkoutPresenter";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import { useNavigate } from "react-router-dom";
 import AddPlan from "../components/Workout/AddPlanPopup";
@@ -201,7 +201,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 						}
 					/>
 				)}
-				{showLog && <LogAllWorkouts />}
+				{showLog && <LogAllWorkoutPresenter />}
 			</div>
 		</div>
 	);

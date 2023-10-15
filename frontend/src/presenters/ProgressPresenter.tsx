@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Progress from "../pages/Progress";
 import { useLocation } from "react-router-dom";
-interface Workout {
-	completedSets: any[];
-	exercises: any[];
-}
+import Workout from "../interfaces/WorkoutInterface";
 
 export const ProgressPresenter = () => {
 	const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
@@ -44,17 +41,48 @@ export const ProgressPresenter = () => {
 
 	console.log("workouts test", workouts);
 
+	async function finishWorkout() {
+		const response = await fetch("http://localhost:4000/api/workout/addCompletedWorkout", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${user}`,
+			},
+			body: JSON.stringify({
+				plan_id: dataJSON.id,
+				workout: currentWorkout,
+				date: new Date(),
+			}),
+		});
+		const data = await response.json();
+		
+		if(response.status !== 200){
+			alert("Something went wrong, please try again")
+		}
+		else{
+			alert("Workout completed")
+			window.location.reload()
+		}
+	}
+
+	
 	useEffect(() => {
 		let copy: Workout[] = new Array(workouts.length);
 
 		for (let index = 0; index < workouts.length; index++) {
-			const workout = workouts[index];
-			const exercises = workout.exercises; // Make sure exercises is an array or collection
 
+	
 			copy[index] = {
-				completedSets: [],
-				exercises: exercises, // Include the exercises property
+				name: workouts[index].name,
+                equipment: workouts[index].equipment,
+                bodyPart: workouts[index].bodyPart,
+                sets: workouts[index].sets,
+                reps: workouts[index].reps,
+                completedSets: []
 			};
+			for(let i = 0; i< workouts[index].sets; i++){
+				copy[index].completedSets.push({reps: workouts[index].reps, weight: 0});
+			}
 		}
 
 		setCurrentWorkout(copy);
@@ -106,19 +134,21 @@ export const ProgressPresenter = () => {
 			);
 		});
 	}
-	function handleExcerciseChange(id: number) {
-		if (id < 0) setCurrent(0);
-		else if (id > currentWorkout[0].exercises.length - 1)
-			setCurrent(currentWorkout[0].exercises.length - 1);
-		else {
-			setCurrent(id);
+	function handleExcerciseChange(id:number){
+		if(id < 0) setCurrent(0);
+		else if( id > currentWorkout.length-1) setCurrent(currentWorkout.length-1);
+		else{
+		  setCurrent(id);
 		}
-	}
+		
+		
+	  }
 
 	return (
 		<Progress
 			current={current}
-			loading={loading}
+			//loading={loading}
+			finishWorkout={finishWorkout}
 			addWeight={addWeight}
 			addReps={addReps}
 			addSet={addSet}
