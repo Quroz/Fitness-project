@@ -1,10 +1,11 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
-import { useNavigate } from "react-router-dom";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 interface Workout {
-  exercises: any[];
+  name: string;
+  equipment: string;
+  bodyPart: string;
+  sets: number;
+  reps: number;
   completedSets: any[];
 }
 
@@ -16,81 +17,48 @@ interface IProps {
   addWeight: (weight:number, setNumber:number) => void;
   addReps: (reps:number, setNumber:number) => void;
   handleExcerciseChange: (id:number) => void;  
-  loading: boolean
+  finishWorkout: () => void;
 }
-function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, loading }: IProps) {
+function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, finishWorkout }: IProps) {
   
-
-  
-  const navigate = useNavigate();
-
+  console.log(currentWorkout);
   return (
-    <div className="flex w-full h-screen relative">
-      <BsFillArrowLeftCircleFill className='absolute z-20 cursor-pointer left-2 top-2' size = {24} color = "black"
-             onClick = {() => navigate(`/workoutPlan`)}
-      />
+    <div className="flex w-full h-screen">
       <div className="flex w-1/6 flex-col justify-center text-center">
-        {loading ? 
-          <ClipLoader
-          color="#000000"
-          loading={loading}
-          size={150}
-          aria-label="Loading Spinner"
-          /> 
-      :
-
-<>
-
-    {currentWorkout[0]?.exercises.map((ex, id) => {
- 
-        if (current === id) {
-          return (
-            <strong
-              key={id}
-              onClick={() => {
-                handleExcerciseChange(id);
-              }}
-              className="mt-5"
-            >
-              {ex.name}
-            </strong>
-          );
-        } else {
-          return (
-            <p
-              key={id}
-              onClick={() => {
-                handleExcerciseChange(id);
-              }}
-              className="mt-5 bold text-gray-400 cursor-pointer"
-            >
-               {ex.name}
-            </p>
-          );
-        }
-      })}
-      </>
-      }
+        {currentWorkout.map((ex, id) => {
+          if (current === id) {
+            return (
+              <strong
+                key={id}
+                onClick={() => {
+                  handleExcerciseChange(id);
+                }}
+                className="mt-5"
+              >
+                {ex.name}
+              </strong>
+            );
+          } else {
+            return (
+              <p
+                key={id}
+                onClick={() => {
+                  handleExcerciseChange(id);
+                }}
+                className="mt-5 bold text-gray-400 cursor-pointer"
+              >
+                {ex.name}
+              </p>
+            );
+          }
+        })}
       </div>
 
       <div className="flex w-5/6 flex-col justify-around items-center">
         <div>
           <p className="w-full text-4xl">First Workout</p>
-          {currentWorkout[0]?.exercises.length === 0 && !loading &&
-          <div className="flex flex-col items-center mt-8 gap-2">
-            <h1 className="text-2xl text-gray-500">There are no added workouts yet</h1>
-              <button
-								className="bg-gray-200 rounded-md py-2 w-[100px] text-sm hover:bg-lime-100"
-                onClick = {() => navigate("/workoutPlan")}
-                >
-								 Add workouts
-							</button>
-           </div>
-          }
         </div>
-        <div className="h-1/4">
    
-        </div>
         <div className="flex">
           <strong>
             Sets{" "}
@@ -103,7 +71,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
               }}
               className="w-8"
               placeholder="0"
-              value={currentWorkout[0]?.exercises.length ? currentWorkout[0]?.exercises[current].sets : 0}
+              value={currentWorkout.length ? currentWorkout[current].sets : 0}
             />
           </strong>
           <div className="ml-5"></div>
@@ -171,6 +139,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
           </button>
           <button
             className="ml-5 bg-green-400 rounded-xl h-4/5 shadow w-1/5"
+            onClick = {finishWorkout}
           >
             Finish
           </button>
