@@ -11,7 +11,6 @@ type Props = {};
 const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 
-
 function WorkoutPresenter({}: Props): JSX.Element {
 	// MyWorkouts and Showlog are used to render the correct component
 	const [myWorkouts, setMyWorkouts] = useState(true);
@@ -29,7 +28,6 @@ function WorkoutPresenter({}: Props): JSX.Element {
 
 	// Used for navigation
 	const navigate = useNavigate();
-	
 
 	function renderHandler(choice: string) {
 		if (choice === "My Workouts") {
@@ -64,31 +62,26 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		}
 	}
 	function itemPage(item: WorkoutDay) {
-		
-	
-		const data = {
-		  id: item.plan_id,
-		  name: item.workoutName,
-		  day: item.workoutDay,
-		};
-	  
-		const queryParam = encodeURIComponent(JSON.stringify(data));
-	
-		navigate(`/itemPage?data=${queryParam}`);
-	  }
-
-	  function toWorkout(item: WorkoutDay) {
-		console.log("item", item)
 		const data = {
 			id: item.plan_id,
 			name: item.workoutName,
 			day: item.workoutDay,
-		  };
-		
-		  const queryParam = encodeURIComponent(JSON.stringify(data));
-	  
-		  navigate(`/progress?data=${queryParam}`);
-	  }
+		};
+		const queryParam = encodeURIComponent(JSON.stringify(data));
+		navigate(`/itemPage?data=${queryParam}`);
+	}
+
+	function toWorkout(item: WorkoutDay) {
+		const data = {
+			id: item.plan_id,
+			name: item.workoutName,
+			day: item.workoutDay,
+		};
+
+		const queryParam = encodeURIComponent(JSON.stringify(data));
+
+		navigate(`/progress?data=${queryParam}`);
+	}
 
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
@@ -110,13 +103,12 @@ function WorkoutPresenter({}: Props): JSX.Element {
 		} else {
 			alert("Deleted!");
 			const updatedMyPlan = myPlan.filter((item) => item.plan_id !== id);
-			console.log("updatedMyPlan", updatedMyPlan);
 			setMyPlan(updatedMyPlan);
 			localStorage.setItem(user.email, JSON.stringify(updatedMyPlan));
 		}
 	}
 
-function addHandler() {
+	function addHandler() {
 		const newItem = { id: Date.now(), day: day, name: name };
 
 		//setWorkoutDays((prevWorkoutDays) => [...prevWorkoutDays, newItem]);
@@ -125,10 +117,9 @@ function addHandler() {
 		localStorage.setItem(user.email, JSON.stringify([...workoutDays, newItem]));
 
 		setAddPlan(false);
-	} 
+	}
 
 	async function addToDatabase() {
-	
 		const response = await fetch("http://localhost:4000/api/workout/add", {
 			method: "POST",
 			headers: {
@@ -156,34 +147,21 @@ function addHandler() {
 	useEffect(() => {
 		/* Check if myPlan has changed */
 		async function fetchWorkouts() {
-			console.log("Fetching Data from user: ", user);
 			const response = await fetch("http://localhost:4000/api/workout/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${user.token}`,
 				},
-		
 			});
 			const data = await response.json();
 			//setmyWorkouts(data);
-			console.log("workouts de latj", data);
 			setWorkoutDays(data);
 		}
 		fetchWorkouts();
-		{/*if (search == "") {
-			const storedWorkoutDaysJSON = localStorage.getItem(user.email);
-			const parsedWorkoutDays = storedWorkoutDaysJSON
-				? JSON.parse(storedWorkoutDaysJSON)
-				: [];
-
-			console.log("daays", workoutDays);
-			setWorkoutDays(parsedWorkoutDays);
-		} */}
 	}, [myPlan, search]);
 
 	function searchHandler(name: string) {
-		console.log("search test", name);
 		const filteredWorkoutDays = workoutDays.filter(
 			(workout) => workout.workoutName === name
 		);
@@ -208,11 +186,11 @@ function addHandler() {
 						setAddPlan={setAddPlan}
 						checkHandler={checkHandler}
 						itemPage={itemPage}
-						toWorkout = {toWorkout}
+						toWorkout={toWorkout}
 						deleteWorkoutPlan={deleteWorkoutPlan}
 						addPlanPopup={
 							<AddPlan
-							   addToDatabase={addToDatabase}
+								addToDatabase={addToDatabase}
 								setAddPlan={setAddPlan}
 								addHandler={addHandler}
 								day={day}

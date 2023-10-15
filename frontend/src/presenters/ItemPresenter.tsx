@@ -1,8 +1,6 @@
 // Components and Custom components
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import ItemView from "../pages/ItemPage/ItemView";
 import AddExerciseToDay from "../pages/ItemPage/AddExerciseToDay";
 
@@ -44,21 +42,23 @@ function ItemPagePresenter({}: Props): JSX.Element {
 		? JSON.parse(decodeURIComponent(searchData))
 		: null;
 	const navigate = useNavigate();
-	console.log("pelam hihihi", dataJSON);
 
 	// Delete workout from the database
 	async function deleteWorkoutHandler(index: number) {
-		const response = await fetch("http://localhost:4000/api/workout/deleteExerciseFromWorkout", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
-			},
-			body: JSON.stringify({
-				exercise_id: index,
-				plan_id: dataJSON.id,
-			}),
-		});
+		const response = await fetch(
+			"http://localhost:4000/api/workout/deleteExerciseFromWorkout",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user}`,
+				},
+				body: JSON.stringify({
+					exercise_id: index,
+					plan_id: dataJSON.id,
+				}),
+			}
+		);
 
 		if (response.status !== 200) {
 			alert("Could not delete workout");
@@ -83,50 +83,51 @@ function ItemPagePresenter({}: Props): JSX.Element {
 			setWorkoutsData(updatedWorkouts);
 		});
 		setLoading(false);
-		console.log("addWorkoutHandler");
-		console.log("Show the AddExerciseToDay component: " + addWorkout);
 	}
 
 	// Fetches the workouts from the database
 	async function fetchWorkouts() {
-		console.log("Fetching Data from user: ", user);
-		const response = await fetch("http://localhost:4000/api/workout/getExercises", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
-			},
-			body: JSON.stringify({
-				plan_id: dataJSON.id,
-			}),
-		});
+		const response = await fetch(
+			"http://localhost:4000/api/workout/getExercises",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user}`,
+				},
+				body: JSON.stringify({
+					plan_id: dataJSON.id,
+				}),
+			}
+		);
 		const data = await response.json();
-		console.log("data NEW", data)
 		setmyWorkouts(data);
-		console.log("workouts", setmyWorkouts);
 	}
 
 	async function addToDatabase(id: String) {
-		console.log("selectedTarget", selectedTarget)
-		const response = await fetch("http://localhost:4000/api/workout/addExerciseToWorkout", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user}`,
-			},
-			body: JSON.stringify({
-				exercises: [
-					{	name: selectedWorkoutName,
-						bodyPart: selectedBodyPart,
-						equipment: selectedEquipment,
-						sets: numberOfSets,
-						reps: numberOfReps,}
-				  ],
-				plan_id: id,
-			}),
-		});
+		const response = await fetch(
+			"http://localhost:4000/api/workout/addExerciseToWorkout",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user}`,
+				},
+				body: JSON.stringify({
+					exercises: [
+						{
+							name: selectedWorkoutName,
+							bodyPart: selectedBodyPart,
+							equipment: selectedEquipment,
+							sets: numberOfSets,
+							reps: numberOfReps,
+						},
+					],
+					plan_id: id,
+				}),
+			}
+		);
 		const data = await response.json();
-		console.log(data);
 		if (response.status === 200) {
 			alert("Added!");
 			window.location.reload();
@@ -138,7 +139,7 @@ function ItemPagePresenter({}: Props): JSX.Element {
 
 	useEffect(() => {
 		fetchWorkouts();
-	}, []);
+	});
 
 	return (
 		<div>
@@ -147,7 +148,7 @@ function ItemPagePresenter({}: Props): JSX.Element {
 				myworkouts={myworkouts}
 				addWorkoutHandler={addWorkoutHandler}
 				navigate={navigate}
-				workoutName = {dataJSON.name}
+				workoutName={dataJSON.name}
 				addExerciseToDay={
 					<AddExerciseToDay
 						// Function that adds workouts to the database
