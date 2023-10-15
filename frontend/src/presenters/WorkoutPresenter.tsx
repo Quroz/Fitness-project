@@ -2,6 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import AddPlan from "../components/Workout/AddPlanPopup";
+import LogAllWorkoutPresenter from "../pages/createWorkout/LogAllWorkoutPresenter";
 
 const LazyChooseView = lazy(() => import("../pages/createWorkout/ChooseView"));
 const LazyLogAllWorkouts = lazy(
@@ -202,7 +203,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 							}
 						/>
 					)}
-					{showLog && <LazyLogAllWorkouts />}
+					{showLog && <LogAllWorkoutPresenter />}
 				</div>
 			</Suspense>
 		</div>
