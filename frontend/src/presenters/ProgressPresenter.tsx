@@ -53,7 +53,12 @@ export const ProgressPresenter = () => {
 				body: JSON.stringify({
 					plan_id: dataJSON.id,
 					workout: currentWorkout,
-					date: new Date(),
+					date:
+						new Date().getDate() +
+						"/" +
+						new Date().getMonth() +
+						"/" +
+						new Date().getFullYear(),
 				}),
 			}
 		);
@@ -90,7 +95,7 @@ export const ProgressPresenter = () => {
 		setCurrentWorkout(copy);
 	}, [workouts]);
 
-	console.log("currentWorkout test", currentWorkout);
+	console.log("currentWorkout test new", currentWorkout);
 
 	function addSet(nrOfSets: number) {
 		setCurrentWorkout((prevList: Workout[]) => {
@@ -156,6 +161,7 @@ export const ProgressPresenter = () => {
 			handleExcerciseChange={handleExcerciseChange}
 			currentWorkout={currentWorkout}
 			setCurrentWorkout={setCurrentWorkout}
+			workoutName={dataJSON.name}
 		/>
 	);
 };

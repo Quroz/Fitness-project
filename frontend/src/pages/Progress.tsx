@@ -12,11 +12,12 @@ interface IProps {
   addReps: (reps:number, setNumber:number) => void;
   handleExcerciseChange: (id:number) => void;  
   finishWorkout: () => void;
+  workoutName: String;
 }
-function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, finishWorkout }: IProps) {
+function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseChange, current, finishWorkout, workoutName }: IProps) {
   
   const navigate = useNavigate();
-  console.log(currentWorkout);
+
   return (
     <div className="flex w-full h-screen relative">
       <BsFillArrowLeftCircleFill
@@ -57,8 +58,12 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
 
       <div className="flex w-5/6 flex-col justify-around items-center">
         <div>
-          <p className="w-full text-4xl">First Workout</p>
+          <p className="w-full text-4xl">{workoutName}</p>
         </div>
+        {currentWorkout.length === 0 &&
+
+          <h1 className="text-2xl">There are no added workouts. Go back to workout page and add some!</h1>
+        }
    
         <div className="flex">
           <strong>
