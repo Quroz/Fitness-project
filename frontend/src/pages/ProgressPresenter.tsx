@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import Progress from "./Progress";
 import { useLocation } from "react-router-dom";
 interface Workout {
-	name: string;
-	equipment: string;
-	muscleTarget: string;
-	sets: number;
-	reps: number;
 	completedSets: any[];
+	exercises: any[];
 }
 
 export const ProgressPresenter = () => {
@@ -23,6 +19,8 @@ export const ProgressPresenter = () => {
 	const userJSON = localStorage.getItem("userFittness");
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
 	const user = userParsed.token;
+
+	console.log("dataJSON progress", dataJSON);
 
 	useEffect(() => {
 		async function fetchWorkouts() {
@@ -45,22 +43,25 @@ export const ProgressPresenter = () => {
 		fetchWorkouts();
 	}, []);
 
-	console.log("workouts i progress", workouts);
+	console.log("workouts i progress", workouts)
 
 	useEffect(() => {
 		let copy: Workout[] = new Array(workouts.length);
+	
 		for (let index = 0; index < workouts.length; index++) {
+			const workout = workouts[index];
+			const exercises = workout.exercises; // Make sure exercises is an array or collection
+	
 			copy[index] = {
-				name: workouts[index].name,
-				equipment: workouts[index].equipment,
-				muscleTarget: workouts[index].muscleTarget,
-				sets: workouts[index].sets,
-				reps: workouts[index].reps,
 				completedSets: [],
+				exercises: exercises, // Include the exercises property
 			};
 		}
+	
 		setCurrentWorkout(copy);
 	}, [workouts]);
+	
+	console.log("currentWorkout i progress DE DEN", currentWorkout)
 
 	function addSet(nrOfSets: number) {
 		setCurrentWorkout((prevList: Workout[]) => {
@@ -71,7 +72,9 @@ export const ProgressPresenter = () => {
 							sets: nrOfSets,
 							completedSets:
 								obj.completedSets.length < nrOfSets
-									? [...obj.completedSets, { reps: 0, weight: 0 }]
+									
+								
+								? [...obj.completedSets, { reps: 0, weight: 0 }]
 									: obj.completedSets.slice(0, -1),
 					  }
 					: obj
@@ -108,12 +111,14 @@ export const ProgressPresenter = () => {
 	}
 	function handleExcerciseChange(id: number) {
 		if (id < 0) setCurrent(0);
-		else if (id > currentWorkout.length - 1)
-			setCurrent(currentWorkout.length - 1);
+		else if (id > currentWorkout[0].exercises.length - 1)
+			setCurrent(currentWorkout[0].exercises.length - 1);
 		else {
 			setCurrent(id);
 		}
+		
 	}
+
 
 	return (
 		<Progress

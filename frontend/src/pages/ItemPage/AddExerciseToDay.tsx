@@ -91,7 +91,7 @@ function AddExerciseToDay({
 										(exercise) => exercise.name === e.target.value
 									);
 									setSelectedBodyPart(exercise?.bodyPart || "");
-									setSelectedTarget(exercise?.muscleTarget || "");
+									//setSelectedTarget(exercise?.muscleTarget || "");
 									setSelectedEquipment(exercise?.equipment || "");
 									console.log("exercise added!");
 								}}

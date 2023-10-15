@@ -33,63 +33,66 @@ function WorkoutPlans({
 
 	return (
 		<div className="mt-24 w-[80%] mx-auto">
-			<div className="flex items-center justify-between">
+			<div className="gap-2 md:gap-2 w-full flex flex-col md:flex-row items-center justify-between">
 				<h1>{workoutDays.length} Workouts</h1>
-				<div className="flex items-center gap-2">
+				<div className="w-full md:w-auto flex items-center gap-2 justify-between">
 					<input
-						className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-[250px] text-black"
-						placeholder="Search workout by name"
+						className="bg-white border-[1px] border-gray-300 indent-1 rounded-sm py-2 w-full md:w-[150px] p-1 px-2 text-black text-sm"
+						placeholder="Search by workout"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 					/>
-					<button
-						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
-						onClick={() => searchHandler(search)}>
-						Search
-					</button>
-					<button
-						className="bg-lime-300  rounded-sm py-2 w-[100px] text-sm hover:bg-lime-200"
-						onClick={() => setAddPlan(true)}
-					>
-						Add Workout
-					</button>
+					<div className="flex items-center gap-1 w-full">
+						<button
+							className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
+							onClick={() => searchHandler(search)}>
+							Search
+						</button>
+						<button
+							className="bg-lime-300  rounded-sm py-2 w-full md:w-[100px] text-sm hover:bg-lime-200"
+							onClick={() => setAddPlan(true)}
+						>
+							Add Workout
+						</button>
+					</div>
 				</div>
 			</div>
-			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto">
+			<div className="flex flex-col w-full gap-4 my-8 overflow-y-auto relative">
 				{workoutDays.map((item: WorkoutDay, index: number) => (
 					<div
-						className="flex items-center justify-around max-w-full py-4 bg-white border-[1px] border-gray-300 rounded-md relative"
+						className="gap-4 md:gap-0 flex flex-col md:flex-row items-center justify-around w-full py-4 bg-white border-[1px] border-gray-300 rounded-md relative"
 						key={index}
 					>
-						<div className="flex items-center justify-between w-[200px] ml-5">
-						<h1>
-							<strong>Day:</strong> {item.day}
-						</h1>
+						<div className="flex items-center justify-around w-full">
+							<h1>
+								<strong>Day:</strong> {item.workoutDay}
+							</h1>
+							<h1>
+								<strong>Name:</strong> {item.workoutName}
+							</h1>
 						</div>
-						<div className="flex items-center justify-between w-[450px] ml-5">
-						<h1>
-							<strong>Name:</strong> {item.name}
-						</h1>
+					
+						<div className="w-full flex items-center justify-around gap-4">
+							<div className="w-full mx-4 md:mx-0 flex flex-col md:flex-row justify-center items-center gap-4">
+								<button
+									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"		
+									onClick={() => toWorkout(item)}>
+									To workout
+								</button>
+								<button
+									className="bg-gray-200 rounded-md py-2 w-full md:w-[100px] text-sm hover:bg-lime-100"		
+									onClick={() => itemPage(item)}>
+									Edit Workout
+								</button>
+								
+							</div>
+							<AiOutlineClose
+									className="cursor-pointer absolute top-2 right-2"
+									color="red"
+									size={24}
+									onClick={() => deleteWorkoutPlan(item.plan_id)}
+								/>
 						</div>
-						<div className="flex items-center gap-4 top-4 right-2 w-[250px]">
-							<button
-								className="bg-gray-200 rounded-md py-2 w-[100px] text-sm hover:bg-lime-100"		
-								onClick={() => toWorkout(item)}>
-								 To workout
-							</button>
-							<button
-								className="bg-gray-200 rounded-md py-2 w-[100px] text-sm hover:bg-lime-100"		
-								onClick={() => itemPage(item)}>
-								 Edit Workout
-							</button>
-							
-						</div>
-						<AiOutlineClose
-								className="cursor-pointer absolute top-5 right-2"
-								color="red"
-								size={24}
-								onClick={() => deleteWorkoutPlan(item.id)}
-							/>
 					</div>
 				))}
 			</div>

@@ -4,11 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 interface Workout {
-  name: string;
-  equipment: string;
-  muscleTarget: string;
-  sets: number;
-  reps: number;
+  exercises: any[];
   completedSets: any[];
 }
 
@@ -44,7 +40,10 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
       :
 
 <>
-      {currentWorkout?.map((ex, id) => {
+{console.log("ex", currentWorkout[0])}
+    {currentWorkout[0]?.exercises.map((ex, id) => {
+      console.log("current", current)
+      console.log("id", id)
         if (current === id) {
           return (
             <strong
@@ -66,7 +65,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
               }}
               className="mt-5 bold text-gray-400 cursor-pointer"
             >
-              {ex.name}
+               {ex.name}
             </p>
           );
         }
@@ -105,7 +104,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
               }}
               className="w-8"
               placeholder="0"
-              value={currentWorkout.length ? currentWorkout[current].sets : 0}
+              value={currentWorkout[0]?.exercises.length ? currentWorkout[0]?.exercises[current].sets : 0}
             />
           </strong>
           <div className="ml-5"></div>
