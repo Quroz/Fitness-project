@@ -27,7 +27,7 @@ function WorkoutPlans({
 	searchHandler,
 	toWorkout
 }: Props): JSX.Element {
-
+	console.log(workoutDays);
 
 	return (
 		<div className="mt-24 w-[80%] mx-auto">

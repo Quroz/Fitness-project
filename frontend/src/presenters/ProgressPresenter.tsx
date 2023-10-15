@@ -53,7 +53,7 @@ export const ProgressPresenter = () => {
 			body: JSON.stringify({
 				plan_id: dataJSON.id,
 				workout: currentWorkout,
-				date: new Date(),
+				date: new Date().getDate() + "/"+ new Date().getMonth() +"/"+ new Date().getFullYear()  ,
 			}),
 		});
 		const data = await response.json();
@@ -81,6 +81,7 @@ export const ProgressPresenter = () => {
                 sets: workouts[index].sets,
                 reps: workouts[index].reps,
                 completedSets: []
+				
 			};
 			for(let i = 0; i< workouts[index].sets; i++){
 				copy[index].completedSets.push({reps: workouts[index].reps, weight: 0});
