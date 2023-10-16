@@ -1,6 +1,6 @@
 const WorkoutModel = require("../models/workoutTestModel");
 
-// Get all workouts for a specific user and plan
+
 async function getWorkouts(req, res) {
     const user_id = req.user._id;
     //const { plan_id } = req.body;
