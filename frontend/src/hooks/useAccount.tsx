@@ -11,7 +11,7 @@ export function useAccount(props: IAppProps) {
 	async function login(email: String, password: String) {
 		setLoginError(null);
 
-		const response = await fetch("http://localhost:4000/api/user/login/", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/user/login/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,7 +41,7 @@ export function useAccount(props: IAppProps) {
 	) {
 		setSignupError(null);
 
-		const response = await fetch("http://localhost:4000/api/user/signup/", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/user/signup/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

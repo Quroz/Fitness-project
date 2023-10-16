@@ -34,7 +34,7 @@ function SettingsPresenter() {
 			email = userData?.updatedSettings.email;
 		}
 
-		const response = await fetch("http://localhost:4000/api/user/getUser", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/user/getUser", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -75,7 +75,7 @@ function SettingsPresenter() {
 		}
 
 		const response = await fetch(
-			"http://localhost:4000/api/user/updateSettings",
+			"https://fitnessproject.onrender.com/api/user/updateSettings",
 			{
 				method: "POST",
 				headers: {

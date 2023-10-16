@@ -14,7 +14,7 @@ function DashboardPresenter() {
 
   useEffect(() => {
     async function fetchCompletedWorkouts() {
-		const response = await fetch("http://localhost:4000/api/workout/", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

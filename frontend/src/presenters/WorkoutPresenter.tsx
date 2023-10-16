@@ -65,7 +65,7 @@ function WorkoutPresenter(): JSX.Element {
 	// Delete workout plan from database
 	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
-			"http://localhost:4000/api/workout/deleteAllWorkouts",
+			"https://fitnessproject.onrender.com/api/workout/deleteAllWorkouts",
 			{
 				method: "POST",
 				headers: {
@@ -102,7 +102,7 @@ function WorkoutPresenter(): JSX.Element {
 
 	// Add new plan to database
 	async function addToDatabase() {
-		const response = await fetch("http://localhost:4000/api/workout/add", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/workout/add", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -127,7 +127,7 @@ function WorkoutPresenter(): JSX.Element {
 	}
 
 	async function fetchCompletedWorkouts() {
-		const response = await fetch("http://localhost:4000/api/workout/", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -152,7 +152,7 @@ function WorkoutPresenter(): JSX.Element {
 
 	// Fetch all workouts from database
 	async function fetchWorkouts() {
-		const response = await fetch("http://localhost:4000/api/workout/", {
+		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

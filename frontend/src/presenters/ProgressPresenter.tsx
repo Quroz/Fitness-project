@@ -20,7 +20,7 @@ export const ProgressPresenter = () => {
 	useEffect(() => {
 		async function fetchWorkouts() {
 			const response = await fetch(
-				"http://localhost:4000/api/workout/getExercises",
+				"https://fitnessproject.onrender.com/api/workout/getExercises",
 				{
 					method: "POST",
 					headers: {
@@ -43,7 +43,7 @@ export const ProgressPresenter = () => {
 
 	async function finishWorkout() {
 		const response = await fetch(
-			"http://localhost:4000/api/workout/addCompletedWorkout",
+			"https://fitnessproject.onrender.com/api/workout/addCompletedWorkout",
 			{
 				method: "POST",
 				headers: {
