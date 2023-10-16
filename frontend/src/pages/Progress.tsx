@@ -21,7 +21,7 @@ function Progress({ currentWorkout, addSet, addReps, addWeight, handleExcerciseC
   return (
     <div className="flex w-full h-screen relative">
       <BsFillArrowLeftCircleFill
-				className="absolute z-20 cursor-pointer left-2 top-2"
+				className="absolute z-20 cursor-pointer left-7 top-2"
 				size={24}
 				color="black"
 				onClick={() => navigate(`/workoutPlan`)}

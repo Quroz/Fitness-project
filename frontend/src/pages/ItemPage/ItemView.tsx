@@ -30,7 +30,7 @@ function ItemView({
 				className="sticky object-cover w-full h-full"
 			/>
 			<BsFillArrowLeftCircleFill
-				className="absolute z-20 cursor-pointer left-2 top-2"
+				className="absolute z-20 cursor-pointer left-7 top-2"
 				size={24}
 				color="white"
 				onClick={() => navigate(`/workoutPlan`)}
