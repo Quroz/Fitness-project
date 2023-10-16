@@ -1,6 +1,7 @@
 import React from "react";
-import Exercise from "../../interfaces/Exercise";
+//import Exercise from "../../interfaces/Exercise";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 function InstructionsPage(): JSX.Element {
 	const location = useLocation();
@@ -10,9 +11,12 @@ function InstructionsPage(): JSX.Element {
 		? JSON.parse(decodeURIComponent(searchData))
 		: null;
 
+	const navigate = useNavigate()
+
 	return (
-		<div className="flex flex-col items-center justify-center h-screen p-4">
+		<div className="flex flex-col items-center justify-center h-screen p-4 relative">
 			<div className="mb-4 text-center">
+				<BsFillArrowLeftCircleFill className="absolute top-2 left-2 cursor-pointer" size = {24} onClick={() => navigate("/explore")}/>
 				<h1 className="text-3xl font-bold">{dataJSON?.exercise.name}</h1>
 			</div>
 			<div className="mb-4">

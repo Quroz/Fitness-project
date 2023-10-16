@@ -13,7 +13,7 @@ import {useAccount} from "../hooks/useAccount"
 // Import icons and images
 import DashboardIcon from "../assets/Navbar/dashboard.png";
 import WorkoutPlanIcon from "../assets/Navbar/workout.png";
-import ProgressionIcon from "../assets/Navbar/progress.png";
+//import ProgressionIcon from "../assets/Navbar/progress.png";
 import ExploreIcon from "../assets/Navbar/explore.png";
 import SettingsIcon from "../assets/Navbar/settings.png";
 import LogoutIcon from "../assets/Navbar/logout.png";
@@ -29,16 +29,9 @@ The navbar will have a height of 100% of the screen.
 First div --> flexbox with column direction
 */
 
-type Props = {
-	login: Function,
-    loginError: String,
-    signup: Function,
-    signupError: String,
-    logout: Function,
-};
 
 
-function NavbarView({}: Props) {
+function NavbarView() {
 
 	function logoutHandler(){
 		 logout();
@@ -46,18 +39,18 @@ function NavbarView({}: Props) {
 
 	const [thisPage, setThisPage] = useState("dashboard"); // ['dashboard', 'workoutplan', 'progress', 'explore', 'settings'
 	/*If link is pressed, the icon is to have a darker background */
-	const {login, loginError ,signup ,signupError ,logout} = useAccount({})
+	const {logout} = useAccount({})
 	return (
 
-		<div className="fixed flex flex-col h-screen w-11">
+		<div className="fixed flex flex-col h-screen w-16 bg-white px-2">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
 			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20">
 				{/*This is the 4 icons */}
-				<div className="flex flex-col space-y-4 bg-zinc-100">
+				<div className="flex flex-col space-y-4">
 					<div
 						className={`${
 							thisPage === "dashboard"
-								? "bg-green-100 border border-black	"
+								? "bg-green-100 	"
 								: "bg-transparent"
 						} transform transition-transform hover:scale-110`}
 						onClick={() => setThisPage("dashboard")}
@@ -69,7 +62,7 @@ function NavbarView({}: Props) {
 					<div
 						className={`${
 							thisPage === "workoutplan"
-								? "bg-green-100 border border-black "
+								? "bg-green-100 "
 								: "bg-transparent"
 						} transform transition-transform hover:scale-110`}
 						onClick={() => setThisPage("workoutplan")}
@@ -82,27 +75,10 @@ function NavbarView({}: Props) {
 							/>
 						</Link>
 					</div>
-
-					<div
-						className={`${
-							thisPage === "progress"
-								? "bg-green-100 border border-black"
-								: "bg-transparent"
-						} transform transition-transform hover:scale-110`}
-						onClick={() => setThisPage("progress")}
-					>
-						<Link to="/progress">
-							<img
-								src={ProgressionIcon}
-								alt="Progression Icon"
-								className="my-2"
-							/>
-						</Link>
-					</div>
 					<div
 						className={`${
 							thisPage === "explore"
-								? "bg-green-100 border border-black"
+								? "bg-green-100"
 								: "bg-transparent"
 						} transform transition-transform hover:scale-110`}
 						onClick={() => setThisPage("explore")}
@@ -113,7 +89,7 @@ function NavbarView({}: Props) {
 					</div>
 				</div>
 				{/*This is the logout button and settings*/}
-				<div className="flex flex-col space-y-4 bg-zinc-100">
+				<div className="flex flex-col space-y-4">
 					<div onClick={() => logoutHandler()} className = "cursor-pointer hover:scale-105">
 						<div>
 							<img src={LogoutIcon} alt="Logout Icon" />
@@ -122,7 +98,7 @@ function NavbarView({}: Props) {
 					<div
 						className={`${
 							thisPage === "settings"
-								? "bg-green-100 border border-black"
+								? "bg-green-100"
 								: "bg-transparent"
 						} transform transition-transform hover:scale-110`}
 						onClick={() => setThisPage("settings")}

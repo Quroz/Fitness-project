@@ -1,13 +1,7 @@
 import React from "react";
-import Workout from "../../interfaces/WorkoutInterface";
+import CompWorkouts from "../../interfaces/CompWorkouts"
 
-interface CompWorkouts {
-  name: string;
-  workout: {
-    workout: Workout[];
-    date: string;
-  };
-}
+
 interface Iprops {
   completedWorkouts: CompWorkouts[];
 }

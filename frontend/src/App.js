@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/SignupView";
 import NavbarView from "./components/Navbar";
-import Dashboard from "./pages/Dashboard";
+import DashboardPresenter from "./presenters/DashboardPresenter";
 import StartPage from "./pages/StartPage";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import ItemPagePresenter from "./presenters/ItemPresenter";
@@ -20,7 +20,7 @@ const InstructionsPage = React.lazy(() =>
 );
 
 function App() {
-	const pathname = window.location.pathname;
+	//const pathname = window.location.pathname;
 
 	return (
 		<div>
@@ -39,60 +39,26 @@ function App() {
 						<NavbarView />
 						<div className="flex-1 ml-11">
 							<Routes>
-								{loggedIn &&
-									(pathname === "/login" ||
-										pathname === "/" ||
-										pathname === "/signup") && <Route path="/dashboard" />}
-								<Route
-									path="/dashboard"
-									element={loggedIn ? <Dashboard /> : <Navigate to="/login" />}
-								/>
-								<Route
-									path="/progress"
-									element={
-										loggedIn ? <ProgressPresenter /> : <Navigate to="/login" />
-									}
-								/>
+								<Route path="/" element={<DashboardPresenter />} />
+								<Route path="/dashboard" element={<DashboardPresenter />} />
+								<Route path="/progress" element={<ProgressPresenter />} />
 								<Route
 									path="/explore"
 									element={
-										loggedIn ? (
-											<Suspense fallback={<div>Loading...</div>}>
-												<Explore />
-											</Suspense>
-										) : (
-											<Navigate to="/login" />
-										)
+										<Suspense fallback={<div>Loading...</div>}>
+											<Explore />
+										</Suspense>
 									}
 								/>
-								<Route
-									path="/settings"
-									element={
-										loggedIn ? <SettingsPresenter /> : <Navigate to="/login" />
-									}
-								/>
-								<Route
-									path="/workoutplan"
-									element={
-										loggedIn ? <WorkoutPresenter /> : <Navigate to="/login" />
-									}
-								/>
-								<Route
-									path="/itemPage"
-									element={
-										loggedIn ? <ItemPagePresenter /> : <Navigate to="/login" />
-									}
-								/>
+								<Route path="/settings" element={<SettingsPresenter />} />
+								<Route path="/workoutplan" element={<WorkoutPresenter />} />
+								<Route path="/itemPage" element={<ItemPagePresenter />} />
 								<Route
 									path="/instructions"
 									element={
-										loggedIn ? (
-											<Suspense fallback={<div>Loading...</div>}>
-												<InstructionsPage />
-											</Suspense>
-										) : (
-											<Navigate to="/login" />
-										)
+										<Suspense fallback={<div>Loading...</div>}>
+											<InstructionsPage />
+										</Suspense>
 									}
 								/>
 							</Routes>

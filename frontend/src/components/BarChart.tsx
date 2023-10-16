@@ -5,29 +5,13 @@ import { text } from "d3";
 interface IProps {
   heightSVG: number;
   widthSVG: number;
+  barData: { name: string, value: number }[]
 }
-function BarChart({ heightSVG, widthSVG }: IProps) {
+function BarChart({ heightSVG, widthSVG, barData }: IProps) {
   let margin = { top: 10, right: 30, bottom: 90, left: 40 },
     width = widthSVG - margin.left - margin.right,
     height = heightSVG - margin.top - margin.bottom;
-  const data = [
-    {
-      week: "Week 1",
-      workouts: 4,
-    },
-    {
-      week: "Week 2",
-      workouts: 6,
-    },
-    {
-      week: "Week 3",
-      workouts: 5,
-    },
-    {
-      week: "Week 4",
-      workouts: 2,
-    },
-  ];
+  console.log(barData)
   const svgRef = useRef<null | SVGSVGElement>(null);
   const [svg, setSelection] = useState<null | Selection<
     SVGSVGElement | null,
@@ -38,12 +22,12 @@ function BarChart({ heightSVG, widthSVG }: IProps) {
 
   const xAxis = d3
     .scaleBand()
-    .domain(data.map((d) => d.week))
+    .domain(barData.map((d) => d.name))
     .range([0, width])
     .padding(0.6);
   const yAxis = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.workouts + 2)!])
+    .domain([0, d3.max(barData, (d) => d.value + 2)!])
     .range([height, 0]);
 
   useEffect(() => {
@@ -56,24 +40,24 @@ function BarChart({ heightSVG, widthSVG }: IProps) {
 
       selection
         .selectAll("rect")
-        .data(data)
+        .data(barData)
         .enter()
         .append("rect")
         .attr("width", xAxis.bandwidth())
-        .attr("x", (d) => xAxis(d.week)!)
-        .attr("y", (d) => yAxis(d.workouts))
-        .attr("fill", "#D8FFF8")
-        .attr("height", (d) => height - yAxis(d.workouts))
+        .attr("x", (d) => xAxis(d.name)!)
+        .attr("y", (d) => yAxis(d.value))
+        .attr("fill", "darkslateblue")
+        .attr("height", (d) => height - yAxis(d.value))
         .attr("rx", "10");
 
       selection
         .selectAll("text")
-        .data(data)
+        .data(barData)
         .enter()
         .append("text")
-        .text((d) => d.workouts) // Assuming you want to display the workouts data as labels
-        .attr("x", (d) => xAxis(d.week)! + xAxis.bandwidth() / 2) // Position text in the middle of the rectangle
-        .attr("y", (d) => yAxis(d.workouts) - 5) // Adjust the y position for better placement
+        .text((d) => d.value) // Assuming you want to display the workouts data as labels
+        .attr("x", (d) => xAxis(d.name)! + xAxis.bandwidth() / 2) // Position text in the middle of the rectangle
+        .attr("y", (d) => yAxis(d.value) - 5) // Adjust the y position for better placement
         .attr("text-anchor", "middle"); // Center the text horizontally
 
       selection
@@ -83,7 +67,7 @@ function BarChart({ heightSVG, widthSVG }: IProps) {
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .style("text-decoration", "underline")
-        .text("Workouts in the last 4 weeks");
+        .text("Workouts in the last Week");
 
       const xLine = selection
         .append("g")
@@ -98,7 +82,7 @@ function BarChart({ heightSVG, widthSVG }: IProps) {
 
       xLine.selectAll("text").style("fill", "#fafafa") // Set text to white
     }
-  }, [svg]);
+  }, [svg, barData]);
 
   return (
     <svg
