@@ -42,7 +42,7 @@ function NavbarView() {
 	const {logout} = useAccount({})
 	return (
 
-		<div className="fixed flex flex-col h-screen w-16 bg-white px-2">
+		<div className="z-50 fixed flex flex-col h-screen w-16 bg-white px-2">
 			{/*This is the logo --> om ni vill ha grå bakgrund på hela navbar då lägg bg-zinc-100 nedanför i nav:et */}
 			<nav className="flex flex-col justify-between object-center h-screen my-10 mt-20">
 				{/*This is the 4 icons */}
