@@ -11,8 +11,7 @@ The website is suppose to be a gym-app application where users can track their p
 - React
 - Node.js
 - Express.js
-- MongoDB
-- Mongoose
+- MongoDB (Specifically Moongoose) 
 
 ## React packages (main ones used)
 
@@ -45,7 +44,6 @@ The website is suppose to be a gym-app application where users can track their p
 
 ### Point System
 
-- Ionic cross platform
 - Run own database (e.g. local MongoDB, MySQL, Elasticsearch, Redis)
 - Node (express.js framework or plain node)
 - Use d3.js or chart.js for displaying data
