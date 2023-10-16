@@ -11,8 +11,7 @@ The website is suppose to be a gym-app application where users can track their p
 - React
 - Node.js
 - Express.js
-- MongoDB
-- Mongoose
+- MongoDB (Specifically Moongoose) 
 
 ## React packages (main ones used)
 
