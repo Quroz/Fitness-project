@@ -16,17 +16,17 @@ async function getWorkouts(req, res) {
 
 async function getExercises(req, res) {
     const user_id = req.user._id;
-    const { plan_id } = req.body; // Assuming plan_id is in the URL parameter
+    const { plan_id } = req.body; 
 
     try {
-        // Find workouts with the specified plan_id and user_id
+      
         const workouts = await WorkoutModel.find({ user_id, plan_id });
 
         if (!workouts) {
             return res.status(404).json({ Error: "No workouts found for the specified plan_id" });
         }
 
-        // Extract exercises from the workouts
+      
         const exercises = workouts.map((workout) => workout.exercises).flat();
 
         res.status(200).json(exercises);
@@ -35,7 +35,7 @@ async function getExercises(req, res) {
     }
 }
 
-// Add a new workout
+
 async function addWorkout(req, res) {
     const { exercises, workoutName, workoutDay, plan_id } = req.body;
 
@@ -77,25 +77,25 @@ async function addCompletedWorkout(req,res){
     }
 }
 
-// Add an exercise to an existing workout
+
 async function addExerciseToWorkout(req, res) {
     const user_id = req.user._id;
     const { plan_id, exercises } = req.body;
 
     try {
-        // Find the workout based on plan_id and user_id
+    
         const existingWorkout = await WorkoutModel.findOne({ plan_id, user_id });
 
         if (!existingWorkout) {
             return res.status(404).json({ Error: "Workout not found" });
         }
 
-        // Add each exercise to the exercises array
+       
         exercises.forEach((exercise) => {
             existingWorkout.exercises.push(exercise);
         });
 
-        // Save the updated workout
+       
         const updatedWorkout = await existingWorkout.save();
 
         res.status(200).json(updatedWorkout);
@@ -106,7 +106,7 @@ async function addExerciseToWorkout(req, res) {
 
 
 
-// Delete a specific workout by name and plan_id
+
 async function deleteWorkout(req, res) {
     const user_id = req.user._id;
     const { plan_id, name } = req.body;
@@ -122,7 +122,7 @@ async function deleteWorkout(req, res) {
     }
 }
 
-// Delete all workouts for a specific user and plan
+
 async function deleteAllWorkouts(req, res) {
     const user_id = req.user._id;
     const { plan_id } = req.body;
@@ -168,7 +168,7 @@ async function deleteExerciseFromWorkout(req, res) {
 }
 
 
-// Update a specific workout by name and plan_id
+
 async function updateWorkout(req, res) {
     const { exercises, workoutName, workoutDay, plan_id, name } = req.body;
     const user_id = req.user._id;
@@ -190,7 +190,7 @@ async function updateWorkout(req, res) {
     }
 }
 
-// Add check data to a workout
+
 async function checkWorkout(req, res) {
     const { check, plan_id, name } = req.body;
     const user_id = req.user._id;
