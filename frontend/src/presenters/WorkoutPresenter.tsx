@@ -7,9 +7,7 @@ const LazyChooseView = lazy(() => import("../pages/Workout/ChooseView"));
 const LazyLogAllWorkouts = lazy(
 	() => import("../pages/Workout/logAllWorkouts")
 );
-const LazyWorkoutPlans = lazy(
-	() => import("../pages/Workout/WorkoutPlans")
-);
+const LazyWorkoutPlans = lazy(() => import("../pages/Workout/WorkoutPlans"));
 
 type Props = {};
 
@@ -169,7 +167,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 	useEffect(() => {
 		fetchWorkouts();
 		fetchCompletedWorkouts();
-	}, [myPlan, search, completedWorkouts]);
+	}, [myPlan]);
 
 	function searchHandler(name: string) {
 		const filteredWorkoutDays = workoutDays.filter(
