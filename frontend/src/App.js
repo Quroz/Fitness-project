@@ -35,7 +35,7 @@ function App() {
 				)}
 
 				{loggedIn && (
-					<div className="flex">
+					<div className="flex h-screen">
 						<NavbarView />
 						<div className="flex-1 ml-11">
 							<Routes>
