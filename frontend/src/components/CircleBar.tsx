@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import { useState } from "react";
 import CompWorkouts from "../interfaces/CompWorkouts"
 
 interface IProps {

@@ -38,7 +38,7 @@ function DashboardPresenter() {
     favouriteWorkout(filteredData);
 	}
     fetchCompletedWorkouts()
-  }, [])
+  })
   function favouriteWorkout(workouts:CompWorkouts[]){
     let mostCommon: { name: string, value: number }[] = [
   ];

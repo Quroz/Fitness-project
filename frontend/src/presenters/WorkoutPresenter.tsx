@@ -9,12 +9,12 @@ const LazyLogAllWorkouts = lazy(
 );
 const LazyWorkoutPlans = lazy(() => import("../pages/Workout/WorkoutPlans"));
 
-type Props = {};
+
 
 const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 
-function WorkoutPresenter({}: Props): JSX.Element {
+function WorkoutPresenter(): JSX.Element {
 	const [myWorkouts, setMyWorkouts] = useState(true);
 	const [showLog, setShowLog] = useState(false);
 	const [workoutDays, setWorkoutDays] = useState<WorkoutDay[]>([]);
@@ -77,7 +77,7 @@ function WorkoutPresenter({}: Props): JSX.Element {
 				}),
 			}
 		);
-		const data = await response.json();
+		
 		if (response.status !== 200) {
 			alert("Could not delete workout plan");
 		} else {

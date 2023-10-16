@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
 import LoadingComp from "../../components/Loading";
-
 
 interface SearchbarViewProps {
   // Searching for body part
@@ -20,8 +19,7 @@ interface SearchbarViewProps {
   equipmentList: { equipment: string; apiCall: string }[];
   equipments: string;
   setEquipments: (equipment: string) => void;
-  filterbyEquipment: boolean;
-  setFilterbyEquipment: (equipment: boolean) => void;
+
 
   // Searching for exercise by name
   searchExercise: string;
@@ -35,6 +33,10 @@ interface SearchbarViewProps {
   // Loading spinner
   showLoading: boolean;
   setShowLoading: (loading: boolean) => void;
+
+  numberOfEx: number;
+  setNumberOfEx: (numberOfEx: number) => void;
+  filterResults: (selectedEquipment: string, filter: boolean)=> void;
 }
 
 export default function SearchbarView({
@@ -43,12 +45,9 @@ export default function SearchbarView({
   bodyPart,
   exercise_results,
   setExercisesShown,
-  exercisesShown,
   equipments,
   equipmentList,
   setEquipments,
-  filterbyEquipment,
-  setFilterbyEquipment,
   searchExercise,
   setSearchExercise,
   searchByName,
@@ -56,7 +55,14 @@ export default function SearchbarView({
   goToInstructionsPage,
   showLoading,
   setShowLoading,
+  numberOfEx,
+  setNumberOfEx,
+  filterResults
 }: SearchbarViewProps) {
+useEffect(() => {
+
+},[exercise_results])
+	
   return (
     <div className="flex flex-col items-center h-4/5">
       <div className="flex flex-col gap-2 md:gap-0 md:flex-row items-center md:items-start mt-5 h-fit">
@@ -69,7 +75,7 @@ export default function SearchbarView({
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 setSearchByName(searchByName + 1);
-                setExercisesShown(1000);
+                setExercisesShown(100);
                 setShowLoading(true);
               }
             }}
@@ -83,6 +89,7 @@ export default function SearchbarView({
             onClick={() => {
               setSearchByName(searchByName + 1);
               setExercisesShown(100);
+              setNumberOfEx(10);
               setShowLoading(true);
             }}
             disabled={searchExercise === ""}
@@ -123,6 +130,7 @@ export default function SearchbarView({
                           setSelectedPart(bodyArea.apiCall);
                           // Increment the number of exercises shown by 10
                           setExercisesShown(100);
+                          setNumberOfEx(10);
                           setShowLoading(true);
                         }}
                       >
@@ -165,7 +173,7 @@ export default function SearchbarView({
                                 ? ""
                                 : equipment.apiCall;
                             setEquipments(selectedEquipment);
-                            setFilterbyEquipment(selectedEquipment !== "");
+							filterResults(selectedEquipment, (selectedEquipment !== ""))
                           }}
                         >
                           {equipment.equipment}
@@ -184,46 +192,40 @@ export default function SearchbarView({
           (console.log("Loading"), (<LoadingComp loading={showLoading} />))
         ) : exercise_results.length > 0 ? (
           <>
-            {exercise_results
-              .filter((exercise) => {
-                if (filterbyEquipment) {
-                  // If filterbyEquipment is true, filter by both equipment and body part
-
+            {exercise_results.map((exercise, idx) => {
+                if (idx < numberOfEx)
                   return (
-                    exercise.bodyPart === selectedPart &&
-                    exercise.equipment === equipments
-                  );
-                } else {
-                  // If filterbyEquipment is false, then check if bodypart is selected. If not then search by name
-                  if (selectedPart === "Select a body part") {
-                    return exercise.name.includes(searchExercise.toLowerCase());
-                  } else {
-                    return exercise.bodyPart === selectedPart;
-                  }
-                }
-              })
-              .map((exercise) => (
-                <div
-                  key={exercise.id}
-                  className="flex w-[14rem] bg-white rounded-3xl my-3 mx-2 cursor-pointer"
-                  onClick={() => {
-                    goToInstructionsPage(exercise);
-                  }}
-                >
-                  <div className="flex flex-col mx-2 items-center p-3 ">
-                    <div>
-                      <img src={exercise.gifUrl} alt={exercise.name} />
+                    <div
+                      key={exercise.id}
+                      className="flex w-[14rem] bg-white rounded-3xl my-3 mx-2 cursor-pointer"
+                      onClick={() => {
+                        goToInstructionsPage(exercise);
+                      }}
+                    >
+                      <div className="flex flex-col mx-2 items-center p-3 ">
+                        <div>
+                          <img src={exercise.gifUrl} alt={exercise.name} />
+                        </div>
+                        <div className="ml-1">{exercise.name}</div>
+                      </div>
                     </div>
-                    <div className="ml-1">{exercise.name}</div>
-                  </div>
-                </div>
-              ))}
-            <button
-              className="py-2 text-sm rounded-sm bg-lime-300 w-15 hover:bg-lime-200"
-              onClick={() => setExercisesShown(exercisesShown + 50)}
-            >
-              Load more exercises
-            </button>
+                  );
+				else{
+					return null;
+				}
+			
+				  
+              })}
+            {numberOfEx < exercise_results.length && (
+              <div className="flex items-center w-4/5 justify-center">
+                <button
+                  className="flex text-center items-center h-[50px] text-sm px-2 rounded-lg bg-lime-300 w-15 hover:bg-lime-200"
+                  onClick={() => setNumberOfEx(numberOfEx + 10)}
+                >
+                  Load more exercises
+                </button>
+              </div>
+            )}
           </>
         ) : (
           <div className="my-5 text-center">

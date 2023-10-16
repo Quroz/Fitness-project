@@ -1,8 +1,8 @@
 import React from "react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { AiOutlineClose, AiFillEdit } from "react-icons/ai";
+import { AiOutlineClose} from "react-icons/ai";
 import ExerciseDay from "../../interfaces/ExerciseDay";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 type Props = {
 	deleteWorkoutHandler: (name: number) => void;
@@ -28,6 +28,7 @@ function ItemView({
 			<img
 				src="https://assets.website-files.com/63765b8cfd2906b4a1713e44/63a204259f38bb4fbd9699a4_CROSSFIT%20GYM%20IN%20LAKE%20FOREST.jpg"
 				className="sticky object-cover w-full h-full"
+				alt=""
 			/>
 			<BsFillArrowLeftCircleFill
 				className="absolute z-20 cursor-pointer left-2 top-2"

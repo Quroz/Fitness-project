@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { select, Selection } from "d3-selection";
-import { text } from "d3";
 interface IProps {
   heightSVG: number;
   widthSVG: number;

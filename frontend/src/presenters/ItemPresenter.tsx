@@ -13,9 +13,8 @@ const AddExerciseToDay = lazy(
 	() => import("../pages/ItemPage/AddExerciseToDay")
 );
 
-type Props = {};
 
-function ItemPagePresenter({}: Props): JSX.Element {
+function ItemPagePresenter(): JSX.Element {
 	// WorkoutData = Data that comes from the API
 	const [workoutsData, setWorkoutsData] = useState<ExerciseDay[]>([]);
 	// MyWorkouts = Data that comes from the database --> User's choice
