@@ -22,7 +22,7 @@ function Dashboard({ workouts, favWorkout, barData }: IProps) {
     <div className="flex h-full w-full justify-center flex-col bg-[#edeaea]">
       <div className="flex justify-center mt-6 h-2/5 items-start">
         <div className="justify-around items-center flex h-4/5 w-4/5 rounded-3xl bg-lime-300 shadow-[20px_20px_25px_-20px]">
-          <CircleBar workouts = {workouts} widthSVG={200} heightSVG={200}  target={4} />
+          {(workouts.length && <CircleBar workouts = {workouts} widthSVG={200} heightSVG={200}  target={4} />) || <div></div>}
           <div className="w-2/6  h-full flex flex-col justify-center">
             <text className="font-bold text-black text-3xl">
               Ready For your next workout?
@@ -37,9 +37,9 @@ function Dashboard({ workouts, favWorkout, barData }: IProps) {
       </div>
       <div className="flex justify-center items-center h-3/5 ">
         <div className="bg-lime-500 h-4/5 w-1/5 rounded-3xl flex  flex-col shadow-[20px_20px_25px_-20px]">
-          <text className="h-3/5 font-bold text-white text-3xl mx-14 mt-14">
-            Your favourite workout is {favWorkout}
-          </text>
+          <div className="h-3/5 font-bold text-white text-3xl mx-14 mt-14">
+            {favWorkout}
+          </div>
 
           <div className="flex items-center justify-end h-2/5 me-4">
             <FontAwesomeIcon  style={{
@@ -51,7 +51,8 @@ function Dashboard({ workouts, favWorkout, barData }: IProps) {
           </div>
         </div>
         <div className="shadow-[20px_20px_25px_-20px] bg-lime-400 ml-10 rounded-3xl w-3/5 h-4/5 flex justify-center items-center">
-          <BarChart barData = {barData} widthSVG={(innerWidth * 3) / 5 - 150} heightSVG={350} />
+          <BarChart barData = {barData} widthSVG={(innerWidth * 3) / 5 - 150} heightSVG={350} /> 
+          
         </div>
       </div>
     </div>

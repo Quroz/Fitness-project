@@ -5,7 +5,7 @@ import { select, Selection } from "d3-selection";
 interface IProps {
   heightSVG: number;
   widthSVG: number;
-  barData: { name: string, value: number }[]
+  barData: { name: string; value: number }[];
 }
 function BarChart({ heightSVG, widthSVG, barData }: IProps) {
   let margin = { top: 10, right: 30, bottom: 90, left: 40 },
@@ -47,7 +47,15 @@ function BarChart({ heightSVG, widthSVG, barData }: IProps) {
         .attr("y", (d) => yAxis(d.value))
         .attr("fill", "darkslateblue")
         .attr("height", (d) => height - yAxis(d.value))
-        .attr("rx", "10");
+        .attr("rx", "10")
+        .attr("height", function(d) { return height - yAxis(0); }) // always equal to 0
+        .attr("y", function(d) { return yAxis(0); })
+        .transition()
+        .duration(800)
+        .attr("y", function(d) { return yAxis(d.value); })
+        .attr("height", function(d) { return height - yAxis(d.value); })
+        .delay(function(d,i){console.log(i) ; return(i*100)})
+
 
       selection
         .selectAll("text")
@@ -79,7 +87,7 @@ function BarChart({ heightSVG, widthSVG, barData }: IProps) {
 
       xLine.selectAll("line").style("stroke", "#fafafa"); // Set the stroke color to white
 
-      xLine.selectAll("text").style("fill", "#fafafa") // Set text to white
+      xLine.selectAll("text").style("fill", "#fafafa"); // Set text to white
     }
   }, [svg, barData]);
 

@@ -11,7 +11,6 @@ function DashboardPresenter() {
   const userJSON = localStorage.getItem("userFittness");
   const userParsed = userJSON ? JSON.parse(userJSON) : null;
   const user = userParsed.token;
-
   useEffect(() => {
     async function fetchCompletedWorkouts() {
 		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
@@ -37,8 +36,9 @@ function DashboardPresenter() {
     favouriteWorkout(filteredData);
 	}
     fetchCompletedWorkouts()
-  })
+  },[])
   function favouriteWorkout(workouts:CompWorkouts[]){
+    if(workouts.length){
     let mostCommon: { name: string, value: number }[] = [
   ];
 
@@ -64,9 +64,12 @@ function DashboardPresenter() {
       }
   }
 
-    setFavWorkout(maxWorkout.name);
+    setFavWorkout("Your favourite workout is  " + maxWorkout.name);
     setBarData(mostCommon);
-
+    }
+    else{
+      setFavWorkout("You have not performed a workout Yet")
+    }
   }
 
 
