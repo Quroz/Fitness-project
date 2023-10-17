@@ -51,11 +51,10 @@ function BarChart({ heightSVG, widthSVG, barData }: IProps) {
         .attr("height", function(d) { return height - yAxis(0); }) // always equal to 0
         .attr("y", function(d) { return yAxis(0); })
         .transition()
-        .duration(800)
+        .duration(1000)
+        .delay(1000)
         .attr("y", function(d) { return yAxis(d.value); })
         .attr("height", function(d) { return height - yAxis(d.value); })
-        .delay(function(d,i){console.log(i) ; return(i*100)})
-
 
       selection
         .selectAll("text")
@@ -64,8 +63,12 @@ function BarChart({ heightSVG, widthSVG, barData }: IProps) {
         .append("text")
         .text((d) => d.value) // Assuming you want to display the workouts data as labels
         .attr("x", (d) => xAxis(d.name)! + xAxis.bandwidth() / 2) // Position text in the middle of the rectangle
-        .attr("y", (d) => yAxis(d.value) - 5) // Adjust the y position for better placement
-        .attr("text-anchor", "middle"); // Center the text horizontally
+        .attr("y", (d) => height) // Adjust the y position for better placement
+        .attr("text-anchor", "middle") // Center the text horizontally
+        .transition()
+        .duration(1000)
+        .delay(1000)
+        .attr("y", function(d) { return yAxis(d.value) - 5; })
 
       selection
         .append("text")

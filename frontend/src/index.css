@@ -6,4 +6,67 @@
       @apply font-sans;
     }
   }
-  
+  .top-transition-container {
+    position: absolute;
+    top: -100%; /* Start off-screen */
+    transition: top 1s ease; /* Add a smooth transition for the top property */
+
+  }
+  .right-transition-container {
+    position: absolute;
+    right: -100%; /* Start off-screen */
+    transition: right 1s ease; /* Add a smooth transition for the top property */
+
+  }
+  .left-transition-container {
+    position: absolute;
+    left: -100%; /* Start off-screen */
+    transition: left 1s ease; /* Add a smooth transition for the top property */
+
+  }
+  @keyframes slideInFromTop {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 10%;
+  }
+
+
+}
+@keyframes slideInFromRight {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 8.5%;
+  }
+}
+@keyframes slideInFromLeft {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 11.5%;
+  }
+}
+
+/* Apply the animation when the 'animate' class is present */
+.top-transition-container.animate {
+  animation: slideInFromTop 1s ease;
+  animation-fill-mode: forwards; /* Keeps the element in its final position after the animation ends */
+}
+
+.right-transition-container.animate {
+  animation: slideInFromRight 1s ease;
+  animation-fill-mode: forwards; /* Keeps the element in its final position after the animation ends */
+
+}
+.left-transition-container.animate {
+  animation: slideInFromLeft 1s ease;
+  animation-fill-mode: forwards; /* Keeps the element in its final position after the animation ends */
+
+}
+
+
+

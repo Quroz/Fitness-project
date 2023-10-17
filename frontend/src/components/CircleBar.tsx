@@ -50,7 +50,7 @@ function CircleBar({ heightSVG, widthSVG, workouts, target }: IProps) {
 	foregroundPath
 	  .transition()
 	  .duration(2000)
-	  .delay(100)
+	  .delay(1000)
   .attrTween('d', function(d,i) {
     // for each chart 
     // create an interpolator between start angle 0
@@ -97,7 +97,7 @@ function CircleBar({ heightSVG, widthSVG, workouts, target }: IProps) {
 
       gradient.append("stop").attr("offset", "80%").attr("stop-color", "cyan");
     }
-  }, [svg]);
+  }, [arc, foregroundArc.endAngle, percentage, svg, target, transformValue, workouts.length]);
 
   return (
     <svg
