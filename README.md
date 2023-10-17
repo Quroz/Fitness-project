@@ -19,13 +19,20 @@ The website is suppose to be a gym-app application where users can track their p
 - HeadlessUI
 - React-router-dom
 
-## How to run
+## How to run locally
 
 1. Clone the repository
 2. Run `npm install` in frontend folder
 3. Run `npm install` in backend folder
 4. `cd backend` and run `node server.js`
 5. `cd frontend` and run `npm start`
+
+## How to run with Docker
+1. https://hub.docker.com/repository/docker/rakinali/fitness-project/general
+2. Pull the containers from docker
+3. Run both of them at the same time
+4. Start the app, open localhost:3000
+
 
 ## Possible points to collect
 
