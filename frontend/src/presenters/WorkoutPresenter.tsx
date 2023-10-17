@@ -9,8 +9,6 @@ const LazyLogAllWorkouts = lazy(
 );
 const LazyWorkoutPlans = lazy(() => import("../pages/Workout/WorkoutPlans"));
 
-
-
 const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 
@@ -77,7 +75,7 @@ function WorkoutPresenter(): JSX.Element {
 				}),
 			}
 		);
-		
+
 		if (response.status !== 200) {
 			alert("Could not delete workout plan");
 		} else {
@@ -102,21 +100,23 @@ function WorkoutPresenter(): JSX.Element {
 
 	// Add new plan to database
 	async function addToDatabase() {
-		const response = await fetch("https://fitnessproject.onrender.com/api/workout/add", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user.token}`,
-			},
-			body: JSON.stringify({
-				workoutName: name,
-				workoutDay: day,
-				excercises: [""],
-				plan_id: Date.now(),
-			}),
-		});
+		const response = await fetch(
+			"https://fitnessproject.onrender.com/api/workout/add",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user.token}`,
+				},
+				body: JSON.stringify({
+					workoutName: name,
+					workoutDay: day,
+					excercises: [""],
+					plan_id: Date.now(),
+				}),
+			}
+		);
 		const data = await response.json();
-		console.log(data);
 		if (response.status === 200) {
 			alert("Added new plan!");
 			window.location.reload();
@@ -127,16 +127,18 @@ function WorkoutPresenter(): JSX.Element {
 	}
 
 	async function fetchCompletedWorkouts() {
-		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user.token}`,
-			},
-		});
+		const response = await fetch(
+			"https://fitnessproject.onrender.com/api/workout/",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user.token}`,
+				},
+			}
+		);
 		const data = await response.json();
 
-		console.log("data log all workouts", data);
 		let filteredData: any = [];
 		for (let i = 0; i < data.length; i++) {
 			data[i].completedWorkouts.forEach((workout: any) => {
@@ -146,19 +148,21 @@ function WorkoutPresenter(): JSX.Element {
 				});
 			});
 		}
-		console.log("filtered data", filteredData);
 		setCompletedWorkouts(filteredData);
 	}
 
 	// Fetch all workouts from database
 	async function fetchWorkouts() {
-		const response = await fetch("https://fitnessproject.onrender.com/api/workout/", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${user.token}`,
-			},
-		});
+		const response = await fetch(
+			"https://fitnessproject.onrender.com/api/workout/",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user.token}`,
+				},
+			}
+		);
 		const data = await response.json();
 		//setmyWorkouts(data);
 		setWorkoutDays(data);

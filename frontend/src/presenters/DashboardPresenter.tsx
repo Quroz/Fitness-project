@@ -23,7 +23,6 @@ function DashboardPresenter() {
 		});
 		const data = await response.json();
 
-		console.log("data log all workouts", data);
 		let filteredData: any = [];
 		for (let i = 0; i < data.length; i++) {
 			data[i].completedWorkouts.forEach((workout: any) => {

@@ -95,7 +95,6 @@ export const ProgressPresenter = () => {
 		setCurrentWorkout(copy);
 	}, [workouts]);
 
-	console.log("currentWorkout test new", currentWorkout);
 
 	function addSet(nrOfSets: number) {
 		setCurrentWorkout((prevList: Workout[]) => {

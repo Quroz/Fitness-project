@@ -72,7 +72,6 @@ function ExplorePresenter() {
       }
     });
     setFilterData(newArray);
-    console.log(newArray);
   }
 
   return (

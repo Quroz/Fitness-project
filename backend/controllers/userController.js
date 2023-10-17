@@ -19,8 +19,6 @@ const login = async (req, res) => {
     try {
         const user = await userModel.findOne({ email }); 
 
-        console.log("user ere", user)
-
         if (!user) {
             return res.status(404).json({ Error: "User does not exist" });
         }
@@ -108,7 +106,6 @@ async function updateSettings(req, res) {
         );
 
         const token = createToken(updatedSettings._id);
-        console.log(updatedSettings)
         if (updatedSettings) {
             return res.status(200).json({ updatedSettings, token });
         } else {

@@ -11,7 +11,6 @@ function BarChart({ heightSVG, widthSVG, barData }: IProps) {
   let margin = { top: 10, right: 30, bottom: 90, left: 40 },
     width = widthSVG - margin.left - margin.right,
     height = heightSVG - margin.top - margin.bottom;
-  console.log(barData)
   const svgRef = useRef<null | SVGSVGElement>(null);
   const [svg, setSelection] = useState<null | Selection<
     SVGSVGElement | null,

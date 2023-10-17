@@ -77,8 +77,6 @@ function ItemPagePresenter(): JSX.Element {
 		// Check if workoutsData is already populated. If it is then use that data --> Cache data
 		if (workoutsData.length > 0) {
 			setLoading(false);
-			console.log("Skipped API call");
-
 			return; // Skip API call
 		}
 		Exercise_api.exercises_call(2000)
