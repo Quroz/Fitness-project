@@ -36,3 +36,6 @@ In the case that you want to create the images yourself then there's a docker-co
 ## Possible points to collect
 The Google grading template has been sent in Canvas. We were aiming for a C due to all of us having a lot of other courses in parallel.  
 
+## Architecture:
+https://docs.google.com/presentation/d/1qhnhDeCZBnA7_4QMujJmt4iGFCCg8lkphMHKV_GBGS0/edit?usp=sharing
+
