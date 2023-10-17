@@ -1,5 +1,5 @@
 # Fitness-project
-The web app is deployed here: https://652d71402f5f0b3d0024ed9f--gleaming-daifuku-5def17.netlify.app/
+The web app & server is deployed here: https://652d71402f5f0b3d0024ed9f--gleaming-daifuku-5def17.netlify.app/
 
 ## Description
 This project was done in the course DH2643 Advanced Interaction Programming (7.5Hp). The goal of the project was to create a web application that uses a backend API and a frontend client. The application should be able to create, read, update and delete data from the backend API. The application should also be able to handle user authentication and authorization. The application should be responsive and work on both mobile and desktop.
