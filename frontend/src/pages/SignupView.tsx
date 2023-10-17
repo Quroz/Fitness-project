@@ -25,7 +25,16 @@ export default function Signup(props: IAppProps) {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
     } else {
+      validateEmail(email);
       await signup(email, password, name, weight, height, age);
+    }
+  }
+  
+  function validateEmail(inputText: string) {
+    var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!inputText.match(mailformat)) {
+      alert("You have entered an invalid email address!")
+      return false;
     }
   }
 

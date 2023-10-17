@@ -1,40 +1,34 @@
 const WorkoutModel = require("../models/workoutTestModel");
 
-
 async function getWorkouts(req, res) {
     const user_id = req.user._id;
-    //const { plan_id } = req.body;
 
     try {
         const workouts = await WorkoutModel.find({ user_id }).sort({ createdAt: -1 });
-      
+        if (!workouts) {
+            return res.status(404).json({ error: "No workouts found" });
+        }
         res.status(200).json(workouts);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
 async function getExercises(req, res) {
     const user_id = req.user._id;
-    const { plan_id } = req.body; 
+    const { plan_id } = req.body;
 
     try {
-      
         const workouts = await WorkoutModel.find({ user_id, plan_id });
-
-        if (!workouts) {
-            return res.status(404).json({ Error: "No workouts found for the specified plan_id" });
+        if (!workouts || workouts.length === 0) {
+            return res.status(404).json({ error: "No workouts found for the specified plan_id" });
         }
-
-      
         const exercises = workouts.map((workout) => workout.exercises).flat();
-
         res.status(200).json(exercises);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
 
 async function addWorkout(req, res) {
     const { exercises, workoutName, workoutDay, plan_id } = req.body;
@@ -48,64 +42,55 @@ async function addWorkout(req, res) {
             plan_id,
             user_id,
         });
-
-        res.status(200).json(addedWorkout);
+        res.status(201).json(addedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
-async function addCompletedWorkout(req,res){
+async function addCompletedWorkout(req, res) {
     const { workout, plan_id, date } = req.body;
-   
 
     try {
         const user_id = req.user._id;
         const existingWorkout = await WorkoutModel.findOne({ plan_id, user_id });
 
         if (!existingWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
 
         const completedWorkout = existingWorkout.completedWorkouts;
-        completedWorkout.push({workout, date});
+        completedWorkout.push({ workout, date });
         const updatedWorkout = await existingWorkout.save();
 
         res.status(200).json(updatedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
 
 async function addExerciseToWorkout(req, res) {
     const user_id = req.user._id;
     const { plan_id, exercises } = req.body;
 
     try {
-    
         const existingWorkout = await WorkoutModel.findOne({ plan_id, user_id });
 
         if (!existingWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
 
-       
         exercises.forEach((exercise) => {
             existingWorkout.exercises.push(exercise);
         });
 
-       
         const updatedWorkout = await existingWorkout.save();
 
         res.status(200).json(updatedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
-
-
 
 async function deleteWorkout(req, res) {
     const user_id = req.user._id;
@@ -114,14 +99,13 @@ async function deleteWorkout(req, res) {
     try {
         const removedWorkout = await WorkoutModel.findOneAndDelete({ user_id, plan_id, 'exercises.name': name });
         if (!removedWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
         res.status(200).json(removedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
 
 async function deleteAllWorkouts(req, res) {
     const user_id = req.user._id;
@@ -129,12 +113,12 @@ async function deleteAllWorkouts(req, res) {
 
     try {
         const removedWorkouts = await WorkoutModel.deleteMany({ user_id, plan_id });
-        if (!removedWorkouts) {
-            return res.status(404).json({ Error: "Workouts not found" });
+        if (!removedWorkouts.deletedCount) {
+            return res.status(404).json({ error: "No workouts found to delete" });
         }
-        res.status(200).json(removedWorkouts);
+        res.status(200).json({ message: `Deleted ${removedWorkouts.deletedCount} workouts` });
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
@@ -144,30 +128,23 @@ async function deleteExerciseFromWorkout(req, res) {
 
     try {
         const existingWorkout = await WorkoutModel.findOne({ user_id, plan_id });
-        
 
         if (!existingWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
 
-   
         if (exercise_id < 0 || exercise_id >= existingWorkout.exercises.length) {
-            return res.status(400).json({ Error: "Invalid exercise index" });
+            return res.status(400).json({ error: "Invalid exercise index" });
         }
-
 
         existingWorkout.exercises.splice(exercise_id, 1);
-
-       
         const updatedWorkout = await existingWorkout.save();
 
         res.status(200).json(updatedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
-
 
 async function updateWorkout(req, res) {
     const { exercises, workoutName, workoutDay, plan_id, name } = req.body;
@@ -181,15 +158,14 @@ async function updateWorkout(req, res) {
         );
 
         if (!updatedWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
 
         res.status(200).json(updatedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
-
 
 async function checkWorkout(req, res) {
     const { check, plan_id, name } = req.body;
@@ -203,12 +179,12 @@ async function checkWorkout(req, res) {
         );
 
         if (!updatedWorkout) {
-            return res.status(404).json({ Error: "Workout not found" });
+            return res.status(404).json({ error: "Workout not found" });
         }
 
         res.status(200).json(updatedWorkout);
     } catch (error) {
-        res.status(400).json({ Error: error.message });
+        res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
 }
 
