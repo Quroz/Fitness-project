@@ -39,7 +39,6 @@ export const ProgressPresenter = () => {
 		fetchWorkouts();
 	}, []);
 
-	console.log("workouts test", workouts);
 
 	async function finishWorkout() {
 		const response = await fetch(

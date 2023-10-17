@@ -36,7 +36,10 @@ function ExplorePresenter() {
     if (searchExercise !== "") {
       setShowLoading(true);
       Exercise_api.exercise_name(searchExercise, exercisesShown)
-        .then((data) => setExerciseData(data))
+        .then((data) => {
+          setExerciseData(data)
+          setFilterData(data);
+        })
         .finally(() => {
           setShowLoading(false);
         });

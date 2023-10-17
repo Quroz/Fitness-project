@@ -58,7 +58,6 @@ export default function SearchbarView({
 	setNumberOfEx,
 	filterResults,
 }: SearchbarViewProps) {
-	useEffect(() => {}, [exercise_results]);
 
 	return (
 		<div className="flex flex-col items-center h-4/5">
@@ -74,6 +73,7 @@ export default function SearchbarView({
 								setSearchByName(searchByName + 1);
 								setExercisesShown(100);
 								setShowLoading(true);
+								setNumberOfEx(10);
 							}
 						}}
 						onChange={(e) => {
