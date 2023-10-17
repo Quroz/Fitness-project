@@ -1,10 +1,10 @@
 # Fitness-project
+The web-app is deployed here: https://652d71402f5f0b3d0024ed9f--gleaming-daifuku-5def17.netlify.app/
 
 ## Description
-
 This project was done in the course DH2643 Advanced Interaction Programming (7.5Hp). The goal of the project was to create a web application that uses a backend API and a frontend client. The application should be able to create, read, update and delete data from the backend API. The application should also be able to handle user authentication and authorization. The application should be responsive and work on both mobile and desktop.
 
-The website is suppose to be a gym-app application where users can track their progress, their workouts, create workoutplans, get inspiration from over 1300+ exercises from an API and much more. The application is built with React and uses a backend API built with Node.js and Express.js. The application uses a No-SQL database to store data. The application is responsive and works on both mobile and desktop (although it is not optimized for mobile).
+The website is suppose to be a gym-app application where users can track their progress, their workouts, create workoutplans, get inspiration from over 1300+ exercises from an API and much more. The application is built with React and uses a backend API built with Node.js and Express.js. The application uses Schema database (MongoDB) to store data on the server. The application is responsive and works on both mobile and desktop (although it is not optimized for mobile).
 
 ## Technologies
 
@@ -13,47 +13,24 @@ The website is suppose to be a gym-app application where users can track their p
 - Express.js
 - MongoDB (Specifically Moongoose) 
 
-## React packages (main ones used)
 
-- TailwindCSS
-- HeadlessUI
-- React-router-dom
+## How to run 
+This section describes how to run the application:
 
-## How to run locally
-
+### How to run it locally
 1. Clone the repository
 2. Run `npm install` in frontend folder
 3. Run `npm install` in backend folder
 4. `cd backend` and run `node server.js`
 5. `cd frontend` and run `npm start`
 
-## How to run with Docker
+### How to run with Docker
 1. https://hub.docker.com/repository/docker/rakinali/fitness-project/general
 2. Pull the containers from docker
 3. Run both of them at the same time
 4. Start the app, open localhost:3000
 
+In the case that you want to create the images yourself then there's a docker-compose.yml file in the root directory which you could use.
 
 ## Possible points to collect
-
-### Architecture
-
-- No bugs & clean console
-- Persistence - Model - Presenter - Views (You are free to choose other patterns, but you need to be consistent and separate concerns)
-
-### UX
-
-- Good feedback on user action
-- Good feedback on system status (e.g. requests, info displayed when needed)
-- "Efficient task accomplishment
-  "
-- Application functionality is easy to discover through exploration
-
-### Point System
-
-- Run own database (e.g. local MongoDB, MySQL, Elasticsearch, Redis)
-- Node (express.js framework or plain node)
-- Use d3.js or chart.js for displaying data
-- "Typescript: Excessive use of ""any"" (or similar) type is considered to be JS and will not be valid for TS points. "
-
-Among many more
+The Google grading template as been sent in canvas. We were aiming for a C due to all of us having a lot of other courses in parallel. 
