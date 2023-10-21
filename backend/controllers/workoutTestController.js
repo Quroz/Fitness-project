@@ -42,7 +42,7 @@ async function addWorkout(req, res) {
             plan_id,
             user_id,
         });
-        res.status(201).json(addedWorkout);
+        res.status(200).json(addedWorkout);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error", message: error.message });
     }

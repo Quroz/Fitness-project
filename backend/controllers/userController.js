@@ -11,6 +11,8 @@ const createToken = (_id) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
 
+    console.log("login")
+
     if (!email || !password) {
         return res.status(400).json({ error: "Both fields must be filled" });
     }
@@ -64,7 +66,7 @@ const signup = async (req, res) => {
 
         const token = createToken(newUser._id);
 
-        res.status(201).json({ token, email, name, weight, height, age, goals });
+        res.status(200).json({ token, email, name, weight, height, age, goals });
     } catch (error) {
         return res.status(500).json({ error: "Internal Server Error", message: error.message });
     }
