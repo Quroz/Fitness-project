@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Progress from "../pages/Progress";
 import { useLocation } from "react-router-dom";
 import Workout from "../interfaces/WorkoutInterface";
+import {  useNavigate } from "react-router-dom";
 
 export const ProgressPresenter = () => {
 	const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
@@ -16,6 +17,8 @@ export const ProgressPresenter = () => {
 	const userJSON = localStorage.getItem("userFittness");
 	const userParsed = userJSON ? JSON.parse(userJSON) : null;
 	const user = userParsed.token;
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		async function fetchWorkouts() {
@@ -67,7 +70,7 @@ export const ProgressPresenter = () => {
 			alert("Something went wrong, please try again");
 		} else {
 			alert("Workout completed");
-			window.location.reload();
+			navigate(`/workoutPlan`);
 		}
 	}
 

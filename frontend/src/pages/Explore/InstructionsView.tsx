@@ -16,7 +16,7 @@ function InstructionsPage(): JSX.Element {
 	return (
 		<div className="flex flex-col items-center justify-center h-screen p-4 relative">
 			<div className="mb-4 text-center">
-				<BsFillArrowLeftCircleFill className="absolute top-2 left-2 cursor-pointer" size = {24} onClick={() => navigate("/explore")}/>
+				<BsFillArrowLeftCircleFill className="absolute top-2 left-7 cursor-pointer" size = {24} onClick={() => navigate("/explore")}/>
 				<h1 className="text-3xl font-bold">{dataJSON?.exercise.name}</h1>
 			</div>
 			<div className="mb-4">
