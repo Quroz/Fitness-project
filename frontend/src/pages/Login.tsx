@@ -5,18 +5,14 @@ import { useAccount } from "../hooks/useAccount";
 export interface IAppProps {
 	login: Function;
 	loginError: String;
-	signup: Function;
-	signupError: String;
-	logout: Function;
 }
 
 export default function Login(props: IAppProps) {
-	const navigate = useNavigate();
+	
+	const { login, loginError} = useAccount({});
 
-	const { login, loginError, signup, signupError, logout } = useAccount({});
-
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 
 	async function clickHandler() {
 		await login(email, password);

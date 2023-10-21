@@ -188,7 +188,7 @@ function WorkoutPresenter(): JSX.Element {
 					renderHandler={renderHandler}
 					myWorkouts={myWorkouts}
 				/>
-				<div className="bg-[#edeaea] flex-1">
+				<div className="bg-[#edeaea] flex-1 relative">
 					{myWorkouts && (
 						<LazyWorkoutPlans
 							workoutDays={workoutDays}

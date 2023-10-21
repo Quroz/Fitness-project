@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 export interface IAppProps {}
 
 export function useAccount(props: IAppProps) {
-	const [loginError, setLoginError] = useState(null);
-	const [signupError, setSignupError] = useState(null);
+	const [loginError, setLoginError] = useState<string | null>(null);
+	const [signupError, setSignupError] = useState<string | null>(null);
 	const navigate = useNavigate();
 
 	async function login(email: String, password: String) {
@@ -39,7 +39,9 @@ export function useAccount(props: IAppProps) {
 		height: String,
 		age: String
 	) {
+	
 		setSignupError(null);
+		
 
 		const response = await fetch("https://fitnessproject.onrender.com/api/user/signup/", {
 			method: "POST",
@@ -51,12 +53,12 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
-			setSignupError(data.error);
-			alert(data.error);
+				setSignupError(data.error);
+				alert(data.error);
 		} else {
-			localStorage.setItem("userFittness", JSON.stringify(data));
-			navigate("/dashboard");
-			window.location.reload();
+				localStorage.setItem("userFittness", JSON.stringify(data));
+				navigate("/dashboard");
+				window.location.reload();
 		}
 	}
 
@@ -65,5 +67,5 @@ export function useAccount(props: IAppProps) {
 		window.location.reload();
 	}
 
-	return { login, loginError, signup, signupError, logout };
+	return { login, loginError, signup, signupError, logout,setSignupError };
 }
