@@ -45,7 +45,7 @@ function App() {
 								<Route
 									path="/explore"
 									element={
-										<Suspense fallback={<div>Loading...</div>}>
+										<Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
 											<Explore />
 										</Suspense>
 									}
@@ -56,7 +56,7 @@ function App() {
 								<Route
 									path="/instructions"
 									element={
-										<Suspense fallback={<div>Loading...</div>}>
+										<Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
 											<InstructionsPage />
 										</Suspense>
 									}

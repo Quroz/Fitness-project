@@ -150,7 +150,7 @@ function ItemPagePresenter(): JSX.Element {
 	});
 	return (
 		<div>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
 				<ItemView
 					deleteWorkoutHandler={deleteWorkoutHandler}
 					myworkouts={myworkouts}

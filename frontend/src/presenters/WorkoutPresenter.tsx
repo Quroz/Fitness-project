@@ -182,7 +182,7 @@ function WorkoutPresenter(): JSX.Element {
 
 	return (
 		<div className="flex flex-col w-full min-h-screen">
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
 				<LazyChooseView
 					showLog={showLog}
 					renderHandler={renderHandler}

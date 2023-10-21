@@ -82,7 +82,7 @@ function ExplorePresenter() {
       <div className="w-full py-1 mt-8">
         <h1 className="text-5xl text-center">Explore Page</h1>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
         <SearchbarView
           bodyPart={bodyPart}
           selectedPart={selectedPart}
