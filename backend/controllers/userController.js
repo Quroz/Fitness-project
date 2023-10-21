@@ -41,7 +41,8 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
     const { email, password, name, weight, height, age } = req.body;
 
-  
+    var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
     if (!email.match(mailformat)) {
         return res.status(400).json({ error: "You have entered an invalid email address!"});
     }
@@ -54,10 +55,6 @@ const signup = async (req, res) => {
     if (!validator.isStrongPassword(password)) {
         return res.status(400).json({ error: "Please enter a strong password. Atleast one uppercase, one special character and one number (example: Test123!)" });
     }
-
-   
-    var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
 
     try {
         const existingUser = await userModel.findOne({ email });
