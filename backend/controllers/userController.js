@@ -50,7 +50,7 @@ const signup = async (req, res) => {
 
     if (!validator.isStrongPassword(password)) {
         console.log("strong pass")
-        return res.status(400).json({ error: "Please enter a strong password" });
+        return res.status(400).json({ error: "Please enter a strong password. Atleast one uppercase, one special character and one number (example: Test123!)" });
     }
 
     try {
