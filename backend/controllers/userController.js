@@ -11,7 +11,6 @@ const createToken = (_id) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
 
-    console.log("login")
 
     if (!email || !password) {
         return res.status(400).json({ error: "Both fields must be filled" });
@@ -42,12 +41,15 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
     const { email, password, name, weight, height, age } = req.body;
 
+    console.log("signup here")
+
     if (!email || !password) {
         return res.status(400).json({ error: "Both fields must be filled" });
     }
 
 
     if (!validator.isStrongPassword(password)) {
+        console.log("strong pass")
         return res.status(400).json({ error: "Please enter a strong password" });
     }
 
