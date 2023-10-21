@@ -41,14 +41,14 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
     const { email, password, name, weight, height, age } = req.body;
 
+    if (!password || !name || !weight || !height || !age) {
+        return res.status(400).json({ error: "All fields must be filled" });
+    }
+
     var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (!email.match(mailformat)) {
         return res.status(400).json({ error: "You have entered an invalid email address!"});
-    }
-
-    if (!password || !name || !weight || !height || !age) {
-        return res.status(400).json({ error: "All fields must be filled" });
     }
 
 
