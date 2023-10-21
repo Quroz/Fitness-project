@@ -22,8 +22,8 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
-			setLoginError(data.Error);
-			console.log(data.Error);
+			setLoginError(data.error);
+			alert(data.error)
 		} else {
 			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");
@@ -51,8 +51,8 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
-			setSignupError(data.Error);
-			console.log(data.Error);
+			setSignupError(data.error);
+			alert(data.error);
 		} else {
 			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");

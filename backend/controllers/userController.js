@@ -43,8 +43,8 @@ const signup = async (req, res) => {
 
     console.log("signup here")
 
-    if (!email || !password) {
-        return res.status(400).json({ error: "Both fields must be filled" });
+    if (!password || !name || !weight || !height || !age) {
+        return res.status(400).json({ error: "All fields must be filled" });
     }
 
 
