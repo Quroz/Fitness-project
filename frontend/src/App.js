@@ -1,26 +1,30 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
-import Login from "./pages/Login";
-import Signup from "./pages/SignupView";
-import NavbarView from "./components/Navbar";
+//Navbar
+import NavbarPresenter from "./presenters/NavbarPresenter";
+
 import DashboardPresenter from "./presenters/DashboardPresenter";
-import StartPage from "./pages/StartPage";
+import StartPage from "./pages/StartPage/StartPageView";
 import WorkoutPresenter from "./presenters/WorkoutPresenter";
 import ItemPagePresenter from "./presenters/ItemPresenter";
 import { ProgressPresenter } from "./presenters/ProgressPresenter";
 import SettingsPresenter from "./presenters/SettingsPresenter";
+
+//Authentication
+import LoginPresenter from "./presenters/LoginPresenter";
+import SignupPresenter from "./presenters/SignupPresenter";
 
 const loggedIn = localStorage.getItem("userFittness");
 
 // Lazy-loaded components
 const Explore = React.lazy(() => import("./presenters/Explore"));
 const InstructionsPage = React.lazy(() =>
-	import("./pages/Explore/InstructionsView")
+	import("./presenters/InstructionsPresenter")
 );
 
 function App() {
-	//const pathname = window.location.pathname;
+	
 
 	return (
 		<div>
@@ -28,15 +32,15 @@ function App() {
 				{!loggedIn && (
 					<Routes>
 						<Route path="/" element={<StartPage />} />
-						<Route path="/login" element={<Login />} />
-						<Route path="/signup" element={<Signup />} />
+						<Route path="/login" element={<LoginPresenter />} />
+						<Route path="/signup" element={<SignupPresenter />} />
 						<Route path="/*" element={<Navigate to="/login" />} />
 					</Routes>
 				)}
 
 				{loggedIn && (
 					<div className="flex h-screen">
-						<NavbarView />
+						<NavbarPresenter />
 						<div className="flex-1 ml-11">
 							<Routes>
 								<Route path="/" element={<DashboardPresenter />} />

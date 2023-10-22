@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const logo = require("../assets/logo.png");
+const logo = require("../../assets/logo.png");
 
 function StartPage() {
 	return (
