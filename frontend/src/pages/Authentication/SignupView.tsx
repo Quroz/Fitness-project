@@ -1,45 +1,59 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAccount } from "../hooks/useAccount";
+import React from "react";
+import LoadingComp from "../../components/Loading"
+import { Link } from "react-router-dom";
 
-export interface IAppProps {}
+interface ISignupViewProps {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  name: string;
+  weight: string;
+  height: string;
+  age: string;
+  signupError: string | null;
+  isLoading: boolean;
+  setEmail: (email: string) => void;
+  setPassword: (password: string) => void;
+  setConfirmPassword: (confirmPassword: string) => void;
+  setName: (name: string) => void;
+  setWeight: (weight: string) => void;
+  setHeight: (height: string) => void;
+  setAge: (age: string) => void;
+  onSignupClick: () => void;
+  heightOptions: number[];
+  ageOptions: number[];
+  weightOptions: number[];
+}
 
-export default function Signup(props: IAppProps) {
-  const { signup, signupError } = useAccount(props);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [name, setName] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [age, setAge] = useState(""); 
-
-  const heightOptions = Array.from({ length: 121 }, (_, index) => 100 + index);
-  const ageOptions = Array.from({ length: 100 }, (_, index) => index + 1);
-  const weightOptions = Array.from({ length: 181 }, (_, index) => 20 + index);
-  const navigate = useNavigate();
-
-  async function clickHandler() {
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-    } else {
-      validateEmail(email);
-      await signup(email, password, name, weight, height, age);
-    }
-  }
-  
-  function validateEmail(inputText: string) {
-    var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (!inputText.match(mailformat)) {
-      alert("You have entered an invalid email address!")
-      return false;
-    }
-  }
-
+const SignupView: React.FC<ISignupViewProps> = ({
+  email,
+  password,
+  confirmPassword,
+  name,
+  weight,
+  height,
+  age,
+  signupError,
+  isLoading,
+  setEmail,
+  setPassword,
+  setConfirmPassword,
+  setName,
+  setWeight,
+  setHeight,
+  setAge,
+  onSignupClick,
+  heightOptions,
+  ageOptions,
+  weightOptions,
+}) => {
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen relative">
+      {isLoading && (
+        <div className="absolute w-full h-full flex items-center justify-center">
+          <LoadingComp loading={isLoading} />
+        </div>
+      )}
       <div className="w-full m-auto flex h-full">
         <div className="w-[40%] bg-black h-full flex flex-col px-4 py-16">
           <h1 className="text-4xl font-bold text-white">Signup</h1>
@@ -88,12 +102,12 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your height (in cm)</label>
             <select
-              id='weightDropdown' 
+              id="heightDropdown"
               value={height}
               className="border-black border-[1px] rounded-md p-2"
               onChange={(e) => setHeight(e.target.value)}
             >
-              <option value=''>--------</option>
+              <option value="">--------</option>
               {heightOptions.map((height) => (
                 <option key={height} value={height}>
                   {height} cm
@@ -104,12 +118,12 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your weight (in kg)</label>
             <select
-              id='weightDropdown' 
+              id="weightDropdown"
               value={weight}
               className="border-black border-[1px] rounded-md p-2"
               onChange={(e) => setWeight(e.target.value)}
             >
-              <option value=''>--------</option>
+              <option value="">--------</option>
               {weightOptions.map((weight) => (
                 <option key={weight} value={weight}>
                   {weight} kg
@@ -120,12 +134,12 @@ export default function Signup(props: IAppProps) {
           <div className="flex flex-col gap-1 mt-5">
             <label className="text-xl text-white">Enter your age</label>
             <select
-              id='weightDropdown'
+              id="ageDropdown"
               value={age}
               className="border-black border-[1px] rounded-md p-2"
               onChange={(e) => setAge(e.target.value)}
             >
-              <option value=''>--------</option>
+              <option value="">--------</option>
               {ageOptions.map((age) => (
                 <option key={age} value={age}>
                   {age} years
@@ -134,10 +148,9 @@ export default function Signup(props: IAppProps) {
             </select>
           </div>
           {signupError && <p className="text-red-500 mt-1 text-md">{signupError}</p>}
-          {error && <p className="text-red-500 mt-1 text-md">{error}</p>}
           <button
             className="text-center p-4 bg-green-400 mt-12 rounded-md hover:bg-green-300 text-white text-xl"
-            onClick={clickHandler}
+            onClick={onSignupClick}
           >
             SIGNUP
           </button>
@@ -152,4 +165,6 @@ export default function Signup(props: IAppProps) {
       </div>
     </div>
   );
-}
+};
+
+export default SignupView;

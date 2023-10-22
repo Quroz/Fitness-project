@@ -11,6 +11,7 @@ const createToken = (_id) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
 
+
     if (!email || !password) {
         return res.status(400).json({ error: "Both fields must be filled" });
     }
@@ -40,14 +41,19 @@ const login = async (req, res) => {
 const signup = async (req, res) => {
     const { email, password, name, weight, height, age } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ error: "Both fields must be filled" });
-        
+    if (!password || !name || !weight || !height || !age) {
+        return res.status(400).json({ error: "All fields must be filled" });
+    }
+
+    var mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (!email.match(mailformat)) {
+        return res.status(400).json({ error: "You have entered an invalid email address!"});
     }
 
 
     if (!validator.isStrongPassword(password)) {
-        return res.status(400).json({ error: "Please enter a strong password" });
+        return res.status(400).json({ error: "Please enter a strong password. Atleast one uppercase, one special character and one number (example: Test123!)" });
     }
 
     try {
@@ -65,7 +71,7 @@ const signup = async (req, res) => {
 
         const token = createToken(newUser._id);
 
-        res.status(201).json({ token, email, name, weight, height, age, goals });
+        res.status(200).json({ token, email, name, weight, height, age, goals });
     } catch (error) {
         return res.status(500).json({ error: "Internal Server Error", message: error.message });
     }

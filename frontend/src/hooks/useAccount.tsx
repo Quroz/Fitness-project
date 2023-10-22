@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export interface IAppProps {}
 
 export function useAccount(props: IAppProps) {
-	const [loginError, setLoginError] = useState(null);
-	const [signupError, setSignupError] = useState(null);
+	const [loginError, setLoginError] = useState<string | null>(null);
+	const [signupError, setSignupError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	async function login(email: String, password: String) {
 		setLoginError(null);
 
+		setIsLoading(true)
 		const response = await fetch("https://fitnessproject.onrender.com/api/user/login/", {
 			method: "POST",
 			headers: {
@@ -22,9 +25,11 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
-			setLoginError(data.Error);
-			console.log(data.Error);
+			setIsLoading(false)
+			setLoginError(data.error);
+			alert(data.error)
 		} else {
+			setIsLoading(false)
 			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");
 			window.location.reload();
@@ -39,8 +44,10 @@ export function useAccount(props: IAppProps) {
 		height: String,
 		age: String
 	) {
+	
 		setSignupError(null);
-
+		
+		setIsLoading(true)
 		const response = await fetch("https://fitnessproject.onrender.com/api/user/signup/", {
 			method: "POST",
 			headers: {
@@ -51,12 +58,14 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
-			setSignupError(data.Error);
-			console.log(data.Error);
+				setIsLoading(false)
+				setSignupError(data.error);
+				alert(data.error);
 		} else {
-			localStorage.setItem("userFittness", JSON.stringify(data));
-			navigate("/dashboard");
-			window.location.reload();
+				setIsLoading(false)
+				localStorage.setItem("userFittness", JSON.stringify(data));
+				navigate("/dashboard");
+				window.location.reload();
 		}
 	}
 
@@ -65,5 +74,5 @@ export function useAccount(props: IAppProps) {
 		window.location.reload();
 	}
 
-	return { login, loginError, signup, signupError, logout };
+	return { login, loginError, signup, signupError, logout,setSignupError, isLoading };
 }

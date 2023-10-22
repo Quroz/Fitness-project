@@ -5,6 +5,7 @@ import Exercise from "../interfaces/Exercise";
 import bodyPart from "../interfaces/Bodypart";
 import EquipmentList from "../interfaces/Equipment";
 import { useNavigate } from "react-router-dom";
+import LoadingComp from "../components/Loading";
 
 // Lazy-loaded components
 const SearchbarView = lazy(() => import("../pages/Explore/SearchbarView"));
@@ -56,11 +57,11 @@ function ExplorePresenter() {
         setShowLoading(false);
       });
   }, [exercisesShown, selectedPart, searchByName]);
+
   function filterResults(selectedEquipment:string, filter:boolean) {
     let newArray = exerciseData.filter((exercise) => {
       if (filter) {
         // If filterbyEquipment is true, filter by both equipment and body part
-
         return (
           exercise.bodyPart === selectedPart &&
           exercise.equipment === selectedEquipment
@@ -78,11 +79,8 @@ function ExplorePresenter() {
   }
 
   return (
-    <div className="flex flex-col w-full h-screen bg-gray-100 first-letter">
-      <div className="w-full py-1 mt-8">
-        <h1 className="text-5xl text-center">Explore Page</h1>
-      </div>
-      <Suspense fallback={<div>Loading...</div>}>
+    <div>
+      <Suspense fallback={<div> <LoadingComp loading={true}/> </div>}>
         <SearchbarView
           bodyPart={bodyPart}
           selectedPart={selectedPart}

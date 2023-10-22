@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const logo = require("../assets/logo.png");
-
+const logo = require("../../assets/logo.png");
 
 function StartPage() {
 	return (
 		<div className="relative w-full h-screen">
 			<div className="h-[70px] bg-black w-full absolute top-0 left-0 z-10 flex items-center justify-between">
-				<img src={logo} className="object-cover ml-8 rounded-full w-14 h-14" alt=""/>
+				<img
+					src={logo}
+					className="object-cover ml-8 rounded-full w-14 h-14"
+					alt=""
+				/>
 			</div>
 			<img
 				src="https://images.contentstack.io/v3/assets/blt1d89a78b502b83f3/bltaecb379f0961ddc7/61dca18b1f6a6a388b94cda9/Dsktp_Homepage_Hero.jpg?quality=50"

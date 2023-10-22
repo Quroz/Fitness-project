@@ -2,6 +2,8 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import LoadingComp from "../components/Loading";
+
 // Interfaces
 import ExerciseDay from "../interfaces/ExerciseDay";
 
@@ -150,7 +152,7 @@ function ItemPagePresenter(): JSX.Element {
 	});
 	return (
 		<div>
-			<Suspense fallback={<div>Loading...</div>}>
+			<Suspense fallback={<div> <LoadingComp loading={true}/>  </div>}>
 				<ItemView
 					deleteWorkoutHandler={deleteWorkoutHandler}
 					myworkouts={myworkouts}

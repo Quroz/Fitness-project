@@ -34,13 +34,16 @@ function SettingsPresenter() {
 			email = userData?.updatedSettings.email;
 		}
 
-		const response = await fetch("https://fitnessproject.onrender.com/api/user/getUser", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email }),
-		});
+		const response = await fetch(
+			"https://fitnessproject.onrender.com/api/user/getUser",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			}
+		);
 
 		const data = await response.json();
 
