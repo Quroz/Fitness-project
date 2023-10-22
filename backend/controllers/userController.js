@@ -42,6 +42,7 @@ const signup = async (req, res) => {
 
     if (!email || !password) {
         return res.status(400).json({ error: "Both fields must be filled" });
+        
     }
 
 
