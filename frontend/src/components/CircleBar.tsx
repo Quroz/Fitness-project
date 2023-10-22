@@ -2,12 +2,14 @@ import * as d3 from "d3";
 import CompWorkouts from "../interfaces/CompWorkouts";
 import React, { useEffect, useRef, useState } from "react";
 import { select, Selection } from "d3-selection";
+
 interface IProps {
   heightSVG: number;
   widthSVG: number;
   workouts: CompWorkouts[];
   target: number;
 }
+
 function CircleBar({ heightSVG, widthSVG, workouts, target }: IProps) {
   const svgRef = useRef<null | SVGSVGElement>(null);
   const [svg, setSelection] = useState<null | Selection<

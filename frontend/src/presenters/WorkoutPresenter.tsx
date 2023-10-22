@@ -2,6 +2,7 @@ import React, { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import WorkoutDay from "../interfaces/WorkoutDay";
 import AddPlan from "../components/Workout/AddPlanPopup";
+import LoadingComp from "../components/Loading";
 
 const LazyChooseView = lazy(() => import("../pages/Workout/ChooseView"));
 const LazyLogAllWorkouts = lazy(
@@ -181,14 +182,14 @@ function WorkoutPresenter(): JSX.Element {
 	}
 
 	return (
-		<div className="flex flex-col w-full min-h-screen">
-			<Suspense fallback={<div className="w-full h-full flex items-center justify-center mt-8">Loading...</div>}>
+		<div>
+			<Suspense fallback={<div> <LoadingComp loading={true}/> </div>}>
 				<LazyChooseView
 					showLog={showLog}
 					renderHandler={renderHandler}
 					myWorkouts={myWorkouts}
 				/>
-				<div className="bg-[#edeaea] flex-1 relative">
+				<div >
 					{myWorkouts && (
 						<LazyWorkoutPlans
 							workoutDays={workoutDays}

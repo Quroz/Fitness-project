@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export interface IAppProps {}
 
 export function useAccount(props: IAppProps) {
@@ -24,11 +25,12 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
+			setIsLoading(false)
 			setLoginError(data.error);
 			alert(data.error)
 		} else {
-			localStorage.setItem("userFittness", JSON.stringify(data));
 			setIsLoading(false)
+			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");
 			window.location.reload();
 		}
