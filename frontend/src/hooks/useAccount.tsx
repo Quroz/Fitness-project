@@ -6,11 +6,13 @@ export interface IAppProps {}
 export function useAccount(props: IAppProps) {
 	const [loginError, setLoginError] = useState<string | null>(null);
 	const [signupError, setSignupError] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
 
 	async function login(email: String, password: String) {
 		setLoginError(null);
 
+		setIsLoading(true)
 		const response = await fetch("https://fitnessproject.onrender.com/api/user/login/", {
 			method: "POST",
 			headers: {
@@ -26,6 +28,7 @@ export function useAccount(props: IAppProps) {
 			alert(data.error)
 		} else {
 			localStorage.setItem("userFittness", JSON.stringify(data));
+			setIsLoading(false)
 			navigate("/dashboard");
 			window.location.reload();
 		}
@@ -42,7 +45,7 @@ export function useAccount(props: IAppProps) {
 	
 		setSignupError(null);
 		
-
+		setIsLoading(true)
 		const response = await fetch("https://fitnessproject.onrender.com/api/user/signup/", {
 			method: "POST",
 			headers: {
@@ -53,9 +56,11 @@ export function useAccount(props: IAppProps) {
 		const data = await response.json();
 
 		if (response.status !== 200) {
+				setIsLoading(false)
 				setSignupError(data.error);
 				alert(data.error);
 		} else {
+				setIsLoading(false)
 				localStorage.setItem("userFittness", JSON.stringify(data));
 				navigate("/dashboard");
 				window.location.reload();
@@ -67,5 +72,5 @@ export function useAccount(props: IAppProps) {
 		window.location.reload();
 	}
 
-	return { login, loginError, signup, signupError, logout,setSignupError };
+	return { login, loginError, signup, signupError, logout,setSignupError, isLoading };
 }

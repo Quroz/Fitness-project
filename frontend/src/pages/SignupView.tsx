@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAccount } from "../hooks/useAccount";
+import LoadingComp from "../components/Loading";
 
 export interface IAppProps {
   heightOptions: number[];
@@ -12,7 +13,7 @@ export interface IAppProps {
 }
 
 export default function Signup(props: IAppProps) {
-  const { signup, signupError, setSignupError } = useAccount(props);
+  const { signup, signupError, setSignupError, isLoading } = useAccount(props);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -38,7 +39,12 @@ export default function Signup(props: IAppProps) {
   }
   
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen relative">
+      {isLoading && 
+        <div className="absolute w-full h-full flex items-center justify-center">
+          <LoadingComp loading = {isLoading}/>
+        </div>
+      }
       <div className="w-full m-auto flex h-full">
         <div className="w-[40%] bg-black h-full flex flex-col px-4 py-16">
           <h1 className="text-4xl font-bold text-white">Signup</h1>

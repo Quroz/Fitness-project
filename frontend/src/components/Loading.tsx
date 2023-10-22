@@ -10,7 +10,7 @@ function LoadingComp({ loading }: Props): JSX.Element {
 	return (
 		<div>
 			<ClipLoader
-				color="#000000"
+				color="white"
 				loading={loading}
 				size={150}
 				aria-label="Loading Spinner"
