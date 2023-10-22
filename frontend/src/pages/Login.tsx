@@ -8,8 +8,7 @@ export interface IAppProps {
 }
 
 export default function Login(props: IAppProps) {
-	
-	const { login, loginError} = useAccount({});
+	const { login, loginError } = useAccount({});
 
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
@@ -17,7 +16,6 @@ export default function Login(props: IAppProps) {
 	async function clickHandler() {
 		await login(email, password);
 	}
-	
 
 	return (
 		<div className="w-full h-screen">

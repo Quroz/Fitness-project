@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Progress from "../pages/Progress";
 import { useLocation } from "react-router-dom";
 import Workout from "../interfaces/WorkoutInterface";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ProgressPresenter = () => {
 	const [currentWorkout, setCurrentWorkout] = useState<Workout[]>([]);
@@ -41,7 +41,6 @@ export const ProgressPresenter = () => {
 		}
 		fetchWorkouts();
 	}, []);
-
 
 	async function finishWorkout() {
 		const response = await fetch(
@@ -96,7 +95,6 @@ export const ProgressPresenter = () => {
 
 		setCurrentWorkout(copy);
 	}, [workouts]);
-
 
 	function addSet(nrOfSets: number) {
 		setCurrentWorkout((prevList: Workout[]) => {
