@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CircleBar from "../../components/CircleBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 import BarChart from "../../components/BarChart";
 import { useNavigate } from "react-router-dom";

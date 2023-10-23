@@ -17,7 +17,6 @@ type Props = {
 	age: string;
 	showGoals: boolean;
 	setShowGoals: React.Dispatch<React.SetStateAction<boolean>>;
-	filteredGoals: string[];
 	ageOptions: number[];
 };
 
@@ -36,7 +35,6 @@ function SettingsPage({
 	age,
 	showGoals,
 	setShowGoals,
-	filteredGoals,
 	ageOptions,
 }: Props): JSX.Element {
 	return (
@@ -132,13 +130,14 @@ function SettingsPage({
 								size={24}
 								onClick={() => setShowGoals(!showGoals)}
 							/>
-							{filteredGoals.map((goal: string, index: number) => (
-								<div
+							{user?.goals.map((goal: string, index: number) => (
+								
+								goal !== " " && <div
 									className="border-black border-[1px] bg-gray-100 p-8 relative rounded-md"
 									key={index}
 								>
 									<h1 className="absolute font-bold top-1 left-1">
-										{index + 1}
+										{index}
 									</h1>
 									<p>{goal}</p>
 								</div>

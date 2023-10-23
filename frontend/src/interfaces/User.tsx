@@ -3,6 +3,7 @@ interface User {
 	weight: string;
 	height: string;
 	age: string;
+	email:string
 	weightOptions: { value: string; label: string }[];
 	heightOptions: { value: string; label: string }[];
 	ageOptions: { value: string; label: string }[];

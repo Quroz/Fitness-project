@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
-
+import AppContext from "../context/app/AppContext";
 
 export interface IAppProps {}
 
@@ -9,6 +9,8 @@ export function useAccount(props: IAppProps) {
 	const [signupError, setSignupError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
+	const context = useContext(AppContext);
+	const {setData, setUser, setCompleted, setDashboard} = context as {setData:()=>void, setUser:()=>void, setCompleted: ()=>void, setDashboard: ()=> void};
 
 	async function login(email: String, password: String) {
 		setLoginError(null);
@@ -33,6 +35,9 @@ export function useAccount(props: IAppProps) {
 			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");
 			window.location.reload();
+			setData();
+
+			
 		}
 	}
 

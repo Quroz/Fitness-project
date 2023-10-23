@@ -6,6 +6,8 @@
         "dom.iterable",
         "esnext"
       ],
+
+
       "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
@@ -22,6 +24,7 @@
     },
     "include": [
       "src",
-      "custom.d.ts"
+      "custom.d.ts",
+      "node_modules/@fortawesome/react-fontawesome"
     ]
   }
