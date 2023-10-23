@@ -186,6 +186,7 @@ function WorkoutPresenter(): JSX.Element {
 	return (
 		<div>
 			<Suspense fallback={<div> <LoadingComp loading={true}/> </div>}>
+				<div className="flex flex-col h-screen">
 				<LazyChooseView
 					showLog={showLog}
 					renderHandler={renderHandler}
@@ -193,7 +194,6 @@ function WorkoutPresenter(): JSX.Element {
 					click = {click}
 					setClick = {setClick}
 				/>
-				<div>
 					{myWorkouts && (
 						<LazyWorkoutPlans
 							workoutDays={workoutDays}
@@ -218,6 +218,7 @@ function WorkoutPresenter(): JSX.Element {
 							}
 						/>
 					)}
+					
 					{showLog && (
 						<LazyLogAllWorkouts completedWorkouts={completedWorkouts} />
 					)}

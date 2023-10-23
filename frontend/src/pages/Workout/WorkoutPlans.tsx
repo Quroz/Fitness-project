@@ -28,7 +28,7 @@ function WorkoutPlans({
 	toWorkout,
 }: Props): JSX.Element {
 	return (
-		<div className="bg-[#edeaea] relative overflow-y-scroll h-screen">
+		<div className="bg-[#edeaea] relative flex-1">
 			<div className="mt-24 w-[80%] mx-auto">
 				<div className="flex flex-col items-center justify-between w-full gap-2 md:gap-2 md:flex-row">
 					<h1><strong>Total workouts: </strong>{workoutDays.length}</h1>
