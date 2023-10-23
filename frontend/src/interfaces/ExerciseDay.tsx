@@ -1,5 +1,4 @@
 interface ExerciseDay {
-
 	bodyPart: string;
 	equipment: string;
 	gifUrl: string;
@@ -8,8 +7,8 @@ interface ExerciseDay {
 	muscleTarget: string;
 	secondaryMuscles: string[];
 	instructions: string[];
-	sets: number | null;
-	reps: number | null;
+	sets: number;
+	reps: number;
 }
 
 export default ExerciseDay;

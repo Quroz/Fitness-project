@@ -13,27 +13,29 @@ const FINISH_WORKOUT = "FINISH_WORKOUT";
 const REMOVE_WORKOUT = "REMOVE_WORKOUT";
 const RESET_STATE = "RESET_STATE";
 const REMOVE_EXCERCISE = "REMOVE_EXCERCISE";
+const SET_DASHBOARD = "SET_DASHBOARD";
+const UPDATE_SETTINGS = "UPDATE_SETTINGS";
 
 function AppState(props) {
   const initialState = {
     user: [],
     workoutData: [],
     completedWorkouts: [],
-    favouriteWorkout: undefined,
+    dashboardData: { favouriteWorkout: "", barData: [] },
     currentWorkout: undefined,
   };
   const [state, dispatch] = useReducer(AppReducer, initialState);
-
   async function setUser() {
     let data = await APIController.fetchUser();
-    dispatch({ type: SET_USER, payload: data });
+    dispatch({ type: SET_USER, payload: data.user });
   }
   async function setData() {
     let data = await APIController.fetchWorkouts();
     dispatch({ type: GET_DATA, payload: data });
+    setCompleted(data);
+    setUser();
   }
-  async function setCompleted() {
-    let data = state.workoutData;
+  async function setCompleted(data) {
     let filteredData = [];
     for (let i = 0; i < data.length; i++) {
       data[i].completedWorkouts.forEach((workout) => {
@@ -44,21 +46,69 @@ function AppState(props) {
       });
     }
     dispatch({ type: SET_WORKOUTS, payload: filteredData });
+    setDashboardData(filteredData);
+  }
+  async function setDashboardData(data) {
+    if (data.length) {
+      let mostCommon = [];
+
+      for (let i = 0; i < data.length; i++) {
+        let found = false;
+        for (let j = 0; j < mostCommon.length; j++) {
+          if (mostCommon[j].name === data[i].name) {
+            mostCommon[j].value++;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          mostCommon.push({ name: data[i].name, value: 1 });
+        }
+      }
+
+      let maxWorkout = mostCommon[0];
+
+      for (let i = 1; i < mostCommon.length; i++) {
+        if (mostCommon[i].value > maxWorkout.value) {
+          maxWorkout = mostCommon[i];
+        }
+      }
+      dispatch({
+        type: SET_DASHBOARD,
+        payload: {
+          favouriteWorkout: "Your favourite workout is  " + maxWorkout.name,
+          barData: mostCommon,
+        },
+      });
+    } else {
+      dispatch({
+        type: SET_DASHBOARD,
+        payload: {
+          favouriteWorkout: "You have not performed a workout Yet",
+          barData: [],
+        },
+      });
+    }
   }
   async function setCurrentWorkout(workout) {
     dispatch({ type: SET_CURR_WORKOUT, payload: workout });
   }
   async function addWorkout(name, day) {
     await APIController.addToDatabase(name, day);
-    dispatch({
-      type: ADD_WORKOUT,
-      payload: {
-        workoutName: name,
-        workoutDay: day,
-        excercises: [""],
-        plan_id: Date.now(),
-      },
-    });
+    let newWorkout = {
+      workoutName: name,
+      workoutDay: day,
+      excercises: [""],
+      plan_id: Date.now(),
+    };
+    if (name !== "" && day !== "") {
+      let newData = state.workoutData;
+      newData.unshift(newWorkout);
+      dispatch({
+        type: ADD_WORKOUT,
+        payload: newData,
+      });
+    }
   }
   async function addExercise(
     id,
@@ -76,47 +126,70 @@ function AppState(props) {
       numberOfSets,
       numberOfReps
     );
-    dispatch({
-      type: ADD_EXCERCISE,
-      payload: {
+    if (
+      id &&
+      selectedWorkoutName !== "" &&
+      selectedBodyPart !== "" &&
+      selectedEquipment !== ""
+    ) {
+      let newExercise = {
         name: selectedWorkoutName,
         bodyPart: selectedBodyPart,
         equipment: selectedEquipment,
         sets: numberOfSets,
         reps: numberOfReps,
-      },
-    });
+      };
+      let newData = state.currentWorkout;
+      newData.exercises.unshift(newExercise);
+      dispatch({
+        type: ADD_EXCERCISE,
+        payload: newExercise,
+      });
+    }
   }
   async function finishWorkout(id, workout) {
     await APIController.addFinishedWorkout(id, workout);
-    dispatch({
-      type: FINISH_WORKOUT,
-      payload: {
-        plan_id: id,
-        workout: workout,
-        date:
-          new Date().getDate() +
-          "/" +
-          new Date().getMonth() +
-          "/" +
-          new Date().getFullYear(),
-      },
-    });
+    let finishedWorkout = {
+      name: state.currentWorkout.workoutName,
+      workout: {
+      plan_id: id,
+      workout: workout,
+      date:
+        new Date().getDate() +
+        "/" +
+        new Date().getMonth() +
+        "/" +
+        new Date().getFullYear(),
+      }
+    };
+    let cw = state.completedWorkouts;
+    cw.unshift(finishedWorkout);
+    dispatch({ type: FINISH_WORKOUT, payload: cw });
+    console.log(cw);
   }
-  async function removeWorkout(id){
+  async function removeWorkout(id) {
     await APIController.deleteWorkoutPlan(id);
-    let data = state.workoutData.filter(wo => wo.plan_id !== id);
-    dispatch({type: REMOVE_WORKOUT, payload: data})
-    
+    let data = state.workoutData.filter((wo) => wo.plan_id !== id);
+    dispatch({ type: REMOVE_WORKOUT, payload: data });
   }
-  function resetState(){
-    dispatch({type: RESET_STATE})
+  function resetState() {
+    dispatch({ type: RESET_STATE });
   }
-  async function removeExercise(exId, workoutId){
-    await APIController.deleteExercise(exId, workoutId);
+  async function removeExercise(exId) {
+    await APIController.deleteExercise(exId, state.currentWorkout.plan_id);
 
-    let exercises = state.currentWorkout.excercises.splice(exId, 1);
-    dispatch({type: REMOVE_EXCERCISE, dispatch: exercises})
+    let exercises = state.currentWorkout.exercises.splice(exId, 1);
+    dispatch({ type: REMOVE_EXCERCISE, dispatch: exercises });
+  }
+  async function updateSettings(email, weight, height, age, goal) {
+    let newUser = await APIController.updateSettings(
+      email,
+      weight,
+      height,
+      age,
+      goal
+    );
+    dispatch({ type: UPDATE_SETTINGS, payload: newUser.updatedSettings });
   }
   return (
     <AppContext.Provider
@@ -124,7 +197,7 @@ function AppState(props) {
         user: state.user,
         workoutData: state.workoutData,
         completedWorkouts: state.completedWorkouts,
-        favouriteWorkout: state.favouriteWorkout,
+        dashboardData: state.dashboardData,
         currentWorkout: state.currentWorkout,
         setUser,
         setData,
@@ -135,8 +208,9 @@ function AppState(props) {
         finishWorkout,
         removeWorkout,
         resetState,
-        removeExercise
-
+        removeExercise,
+        setDashboardData,
+        updateSettings,
       }}
     >
       {props.children}

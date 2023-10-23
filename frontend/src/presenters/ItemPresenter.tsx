@@ -1,5 +1,5 @@
 // Components and Custom components
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect, lazy, Suspense, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import LoadingComp from "../components/Loading";
@@ -10,18 +10,31 @@ import ExerciseDay from "../interfaces/ExerciseDay";
 // APi
 import {APIController} from "../models/apimodel";
 import Exercise from "../interfaces/Exercise";
+import AppContext from "../context/app/AppContext";
+import WorkoutDay from "../interfaces/WorkoutDay";
 
 const ItemView = lazy(() => import("../pages/ItemPage/ItemView"));
 const AddExerciseToDay = lazy(
 	() => import("../pages/ItemPage/AddExerciseToDay")
 );
 
-
+interface Context {
+	currentWorkout: WorkoutDay
+	addExercise:( id:number,selectedWorkoutName:string,selectedBodyPart:string,selectedEquipment:string,numberOfSets:number,numberOfReps:number ) => void;
+	removeExercise: (exId: number) => void;
+	workoutData: WorkoutDay[]
+	
+  }
 function ItemPagePresenter(): JSX.Element {
+	const context = useContext(AppContext);
+	const {
+	  currentWorkout,
+	  addExercise,
+	  removeExercise,
+	  workoutData
+	} = context as Context;
 	// WorkoutData = Data that comes from the API
 	const [workoutsData, setWorkoutsData] = useState<ExerciseDay[]>([]);
-	// MyWorkouts = Data that comes from the database --> User's choice
-	const [myworkouts, setmyWorkouts] = useState<ExerciseDay[]>([]);
 	// To show the loading screen when fetching data from the API
 	const [loading, setLoading] = useState(false);
 	// Render the AddExerciseToDay component
@@ -30,48 +43,18 @@ function ItemPagePresenter(): JSX.Element {
 	// For the user to add workouts
 	const [selectedWorkoutName, setSelectedWorkoutName] = useState("");
 	const [selectedBodyPart, setSelectedBodyPart] = useState("");
-	const [selectedTarget, setSelectedTarget] = useState("");
 	const [selectedEquipment, setSelectedEquipment] = useState("");
 	const [numberOfSets, setNumberOfSets] = useState(0);
 	const [numberOfReps, setNumberOfReps] = useState(0);
 
-	// To bring in userData
-	const userJSON = localStorage.getItem("userFittness");
-	const userParsed = userJSON ? JSON.parse(userJSON) : null;
-	const user = userParsed.token;
-
 	// To get data from the URL
-	const location = useLocation();
-	const searchData = new URLSearchParams(location.search).get("data");
-	const dataJSON = searchData
-		? JSON.parse(decodeURIComponent(searchData))
-		: null;
 	const navigate = useNavigate();
-
-	// Delete workout from the database
-	async function deleteWorkoutHandler(index: number) {
-		const response = await fetch(
-			"https://fitnessproject.onrender.com/api/workout/deleteExerciseFromWorkout",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
-				},
-				body: JSON.stringify({
-					exercise_id: index,
-					plan_id: dataJSON.id,
-				}),
-			}
-		);
-
-		if (response.status !== 200) {
-			alert("Could not delete workout");
-		} else {
-			window.location.reload();
+	useEffect(() => {
+		if(!currentWorkout){
+			navigate("/workoutPlan")
 		}
-	}
-
+	}, [])
+	
 	// Adds workout to the database
 	async function addWorkoutHandler() {
 		setAddWorkout(true);
@@ -86,8 +69,8 @@ function ItemPagePresenter(): JSX.Element {
 			.then((data:Exercise[]) => {
 				const updatedWorkouts = data.map((exercise:Exercise) => ({
 					...exercise,
-					sets: null,
-					reps: null,
+					sets: 0,
+					reps: 0,
 				}));
 				setWorkoutsData(updatedWorkouts);
 			})
@@ -96,94 +79,39 @@ function ItemPagePresenter(): JSX.Element {
 			});
 	}
 
-	// Fetches the workouts from the database
-	async function fetchWorkouts() {
-		const response = await fetch(
-			"https://fitnessproject.onrender.com/api/workout/getExercises",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
-				},
-				body: JSON.stringify({
-					plan_id: dataJSON.id,
-				}),
-			}
-		);
-		const data = await response.json();
-		setmyWorkouts(data);
-	}
-
-	async function addToDatabase(id: String) {
-		const response = await fetch(
-			"https://fitnessproject.onrender.com/api/workout/addExerciseToWorkout",
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
-				},
-				body: JSON.stringify({
-					exercises: [
-						{
-							name: selectedWorkoutName,
-							bodyPart: selectedBodyPart,
-							equipment: selectedEquipment,
-							sets: numberOfSets,
-							reps: numberOfReps,
-						},
-					],
-					plan_id: id,
-				}),
-			}
-		);
-		const data = await response.json();
-		if (response.status === 200) {
-			alert("Added!");
-			setAddWorkout(false);
-		} else {
-			console.log(data.Error);
-			alert("Fail");
-		}
-	}
 
 	useEffect(() => {
-		fetchWorkouts();
+		console.log("hello")
 	});
 	return (
-		<div>
+		currentWorkout  && <div>
 			<Suspense fallback={<div> <LoadingComp loading={true}/>  </div>}>
 				<ItemView
-					deleteWorkoutHandler={deleteWorkoutHandler}
-					myworkouts={myworkouts}
+					deleteWorkoutHandler={removeExercise}
+					myworkouts={currentWorkout.exercises}
 					addWorkoutHandler={addWorkoutHandler}
 					navigate={navigate}
-					workoutName={dataJSON.name}
+					workoutName={currentWorkout.workoutName}
 					addExerciseToDay={
 						<AddExerciseToDay
 							// Function that adds workouts to the database
-							addToDatabase={addToDatabase}
+							addToDatabase={addExercise}
 							// To fetch data from the API
 							workoutsData={workoutsData}
-							// To fetch workouts from the database
-							setmyWorkouts={setmyWorkouts}
 							// To Render Add page or not
 							setAddWorkout={setAddWorkout}
 							// To show the loading screen when fetching data from the API
 							loading={loading}
-							id={dataJSON.id}
+							id={currentWorkout.plan_id}
 							// These are going to be added to the database
 							selectedWorkoutName={selectedWorkoutName}
 							selectedBodyPart={selectedBodyPart}
-							selectedTarget={selectedTarget}
 							selectedEquipment={selectedEquipment}
 							numberOfSets={numberOfSets}
 							numberOfReps={numberOfReps}
 							// To add workouts to the database
 							setSelectedWorkoutName={setSelectedWorkoutName}
 							setSelectedBodyPart={setSelectedBodyPart}
-							setSelectedTarget={setSelectedTarget}
 							setSelectedEquipment={setSelectedEquipment}
 							setNumberOfSets={setNumberOfSets}
 							setNumberOfReps={setNumberOfReps}
@@ -193,6 +121,7 @@ function ItemPagePresenter(): JSX.Element {
 				/>
 			</Suspense>
 		</div>
+	
 	);
 }
 

@@ -31,7 +31,7 @@ export const APIController = (function () {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
+					Authorization: `Bearer ${user.token}`,
 				},
 				body: JSON.stringify({
 					exercise_id: index,
@@ -46,7 +46,7 @@ export const APIController = (function () {
 			alert("Exercise deleted");
 		}
 	}
-  async function updateSettings(email:string, weight:number, height:string, age:number, goal:string) {
+  async function updateSettings(email:string, weight:string, height:string, age:string, goal:string) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/user/updateSettings",
 			{
@@ -61,7 +61,6 @@ export const APIController = (function () {
 		if (response.status !== 200) {
 			alert(data.Error);
 		} else {
-			localStorage.setItem("userFittness", JSON.stringify(data));
       return data;
 		}
 
@@ -166,7 +165,7 @@ export const APIController = (function () {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user}`,
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({
           plan_id: id,
@@ -190,7 +189,7 @@ export const APIController = (function () {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${user}`,
+					Authorization: `Bearer ${user.token}`,
 				},
 				body: JSON.stringify({
 					exercises: [

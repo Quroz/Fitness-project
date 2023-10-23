@@ -4,27 +4,21 @@ import { AiOutlineArrowRight, AiOutlineClose } from "react-icons/ai";
 
 type Props = {
 	workoutDays: WorkoutDay[];
-	search: string;
-	setSearch: React.Dispatch<React.SetStateAction<string>>;
 	addPlan: boolean;
 	setAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
 	itemPage: (item: WorkoutDay) => void;
 	toWorkout: (item: WorkoutDay) => void;
 	deleteWorkoutPlan: (id: number) => void;
 	addPlanPopup: JSX.Element;
-	searchHandler: (name: string) => void;
 };
 
 function WorkoutPlans({
 	workoutDays,
-	search,
-	setSearch,
 	addPlan,
 	setAddPlan,
 	itemPage,
 	deleteWorkoutPlan,
 	addPlanPopup,
-	searchHandler,
 	toWorkout,
 }: Props): JSX.Element {
 	return (

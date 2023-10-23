@@ -6,17 +6,15 @@ import Exercise from "../../interfaces/Exercise";
 
 type Props = {
 	//
-	addToDatabase: (id: String) => void; // Function to add the workout to the database
+	addToDatabase:( id:number,selectedWorkoutName:string,selectedBodyPart:string,selectedEquipment:string,numberOfSets:number,numberOfReps:number ) => void;// Function to add the workout to the database
 	workoutsData: ExerciseDay[]; // Data from the API
-	setmyWorkouts: React.Dispatch<React.SetStateAction<ExerciseDay[]>>; // To set the data in the database
 	setAddWorkout: React.Dispatch<React.SetStateAction<boolean>>; // To render the AddExerciseToDay component
 	loading: boolean; // To show the loading screen when fetching data from the API
-	id: String; // To add the workout to the database
+	id: number; // To add the workout to the database
 
 	// Values to be added into the database
 	selectedWorkoutName: string;
 	selectedBodyPart: string;
-	selectedTarget: string;
 	selectedEquipment: string;
 	numberOfSets: number;
 	numberOfReps: number;
@@ -24,7 +22,6 @@ type Props = {
 	// To set them in the database
 	setSelectedWorkoutName: React.Dispatch<React.SetStateAction<string>>;
 	setSelectedBodyPart: React.Dispatch<React.SetStateAction<string>>;
-	setSelectedTarget: React.Dispatch<React.SetStateAction<string>>;
 	setSelectedEquipment: React.Dispatch<React.SetStateAction<string>>;
 	setNumberOfSets: React.Dispatch<React.SetStateAction<number>>;
 	setNumberOfReps: React.Dispatch<React.SetStateAction<number>>;
@@ -33,7 +30,6 @@ type Props = {
 function AddExerciseToDay({
 	addToDatabase,
 	workoutsData,
-	setmyWorkouts,
 	setAddWorkout,
 	loading,
 	id,
@@ -41,7 +37,6 @@ function AddExerciseToDay({
 	// Values to be added into the database
 	selectedWorkoutName,
 	selectedBodyPart,
-	selectedTarget,
 	selectedEquipment,
 	numberOfSets,
 	numberOfReps,
@@ -49,7 +44,6 @@ function AddExerciseToDay({
 	// To set them in the database
 	setSelectedWorkoutName,
 	setSelectedBodyPart,
-	setSelectedTarget,
 	setSelectedEquipment,
 	setNumberOfSets,
 	setNumberOfReps,
@@ -129,7 +123,7 @@ function AddExerciseToDay({
 				)}
 				<button
 					className="px-2 py-2 mt-8 text-sm font-bold text-white rounded-md bg-lime-300 hover:bg-lime-200"
-					onClick={() => addToDatabase(id)}
+					onClick={() => {addToDatabase(id, selectedWorkoutName, selectedBodyPart, selectedEquipment, numberOfSets, numberOfReps); setAddWorkout(false)}}
 				>
 					Add
 				</button>

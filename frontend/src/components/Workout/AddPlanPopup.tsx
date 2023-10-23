@@ -4,17 +4,15 @@ import { AiOutlineClose } from "react-icons/ai";
 
 type Props = {
 	setAddPlan: React.Dispatch<React.SetStateAction<boolean>>;
-	addHandler: () => void;
 	day: string;
 	setDay: React.Dispatch<React.SetStateAction<string>>;
 	name: string;
 	setName: React.Dispatch<React.SetStateAction<string>>;
-	addToDatabase: () => void;
+	addToDatabase: (name:string, day:string) => void;
 };
 
 function AddPlanPopup({
 	setAddPlan,
-	addHandler,
 	day,
 	setDay,
 	name,
@@ -55,7 +53,7 @@ function AddPlanPopup({
 				</div>
 				<button
 					className="px-2 py-2 mt-8 text-sm font-bold text-white rounded-md bg-lime-300 hover:bg-lime-200"
-					onClick={addToDatabase}
+					onClick={()=> {addToDatabase(day, name); setAddPlan(false)}}
 				>
 					Add
 				</button>

@@ -8,8 +8,8 @@ const FINISH_WORKOUT = "FINISH_WORKOUT";
 const REMOVE_WORKOUT = "REMOVE_WORKOUT";
 const RESET_STATE = "RESET_STATE";
 const REMOVE_EXCERCISE = "REMOVE_EXCERCISE";
-const SET_FAVOURITE = "SET_FAVOURITE"
-
+const SET_DASHBOARD = "SET_DASHBOARD";
+const UPDATE_SETTINGS = "UPDATE_SETTINGS";
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state,action) => {
     switch(action.type){
@@ -24,22 +24,24 @@ export default (state,action) => {
         case SET_CURR_WORKOUT:
             return { ...state, currentWorkout: action.payload};
         case ADD_WORKOUT:
-            return { ...state, workoutData: [ ...action.payload ] }
+            return { ...state, workoutData: action.payload}
         case FINISH_WORKOUT:
-            return { ...state, completedWorkouts: [ ...action.payload ]}
+            return { ...state, completedWorkouts: action.payload}
         case REMOVE_WORKOUT:
             return { ...state, workoutData: action.payload };
         case REMOVE_EXCERCISE:
             return { ...state, currentWorkout: {...state.currentWorkout , excercises: action.payload}};
-        case SET_FAVOURITE:
-            return { ...state, favouriteWorkout: action.payload };
+        case SET_DASHBOARD:
+            return { ...state, dashboardData: action.payload };
+        case UPDATE_SETTINGS:
+            return { ...state, user: action.payload };
         case RESET_STATE:
 			return {
 				...state,
                 user: [],
                 workoutData: [],
                 completedWorkouts: [],
-                favouriteWorkout: undefined,
+                dashboardData: {favouriteWorkout: "", barData:[]},
                 currentWorkout: undefined,
 			};
         default:
