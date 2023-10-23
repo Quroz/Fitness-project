@@ -40,6 +40,8 @@ function WorkoutPresenter(): JSX.Element {
 	  setCurrentWorkout
 	} = context as Context;
 
+	const [click, setClick] = useState<boolean>(false)
+
 	// Used for navigation
 	const navigate = useNavigate();
 
@@ -68,12 +70,14 @@ function WorkoutPresenter(): JSX.Element {
 	return (
 		<div>
 			<Suspense fallback={<div> <LoadingComp loading={true}/> </div>}>
+				<div className="flex flex-col h-screen">
 				<LazyChooseView
 					showLog={showLog}
 					renderHandler={renderHandler}
 					myWorkouts={myWorkouts}
+					click = {click}
+					setClick = {setClick}
 				/>
-				<div >
 					{myWorkouts && (
 						<LazyWorkoutPlans
 							workoutDays={workoutData}
@@ -94,6 +98,7 @@ function WorkoutPresenter(): JSX.Element {
 							}
 						/>
 					)}
+					
 					{showLog && (
 						<LazyLogAllWorkouts completedWorkouts={completedWorkouts} />
 					)}
