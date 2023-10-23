@@ -28,7 +28,7 @@ function WorkoutPlans({
 	toWorkout,
 }: Props): JSX.Element {
 	return (
-		<div className="bg-[#edeaea] flex-1 relative overflow-y-scroll">
+		<div className="bg-[#edeaea] relative overflow-y-scroll h-screen">
 			<div className="mt-24 w-[80%] mx-auto">
 				<div className="flex flex-col absolute top-2">
 					<h1>Click <strong>"Add Workout"</strong> to create a new workout session.</h1>
@@ -48,7 +48,7 @@ function WorkoutPlans({
 						</div>
 					</div>
 				</div>
-				<div className="relative flex flex-col w-full gap-4 my-8 overflow-y-auto">
+				<div className="relative flex flex-col w-full gap-4 my-8 overflow-y-scroll">
 					{workoutDays.map((item: WorkoutDay, index: number) => (
 						<div
 							className="gap-4 md:gap-0 flex flex-col md:flex-row items-center justify-around w-full py-4 bg-white border-[1px] border-gray-300 rounded-md relative"

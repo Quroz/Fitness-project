@@ -189,7 +189,7 @@ function WorkoutPresenter(): JSX.Element {
 					renderHandler={renderHandler}
 					myWorkouts={myWorkouts}
 				/>
-				<div >
+				<div>
 					{myWorkouts && (
 						<LazyWorkoutPlans
 							workoutDays={workoutDays}
