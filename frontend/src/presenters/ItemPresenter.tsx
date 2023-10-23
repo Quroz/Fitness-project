@@ -8,7 +8,8 @@ import LoadingComp from "../components/Loading";
 import ExerciseDay from "../interfaces/ExerciseDay";
 
 // APi
-import Exercise_api from "../models/apimodel";
+import {APIController} from "../models/apimodel";
+import Exercise from "../interfaces/Exercise";
 
 const ItemView = lazy(() => import("../pages/ItemPage/ItemView"));
 const AddExerciseToDay = lazy(
@@ -81,9 +82,9 @@ function ItemPagePresenter(): JSX.Element {
 			setLoading(false);
 			return; // Skip API call
 		}
-		Exercise_api.exercises_call(2000)
-			.then((data) => {
-				const updatedWorkouts = data.map((exercise) => ({
+		APIController.exercises_call(2000)
+			.then((data:Exercise[]) => {
+				const updatedWorkouts = data.map((exercise:Exercise) => ({
 					...exercise,
 					sets: null,
 					reps: null,

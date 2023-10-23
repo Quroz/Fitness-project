@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
-import Exercise_api from "../models/apimodel";
+import {APIController} from "../models/apimodel";
 import Exercise from "../interfaces/Exercise";
 import bodyPart from "../interfaces/Bodypart";
 import EquipmentList from "../interfaces/Equipment";
@@ -36,7 +36,7 @@ function ExplorePresenter() {
   useEffect(() => {
     if (searchExercise !== "") {
       setShowLoading(true);
-      Exercise_api.exercise_name(searchExercise, exercisesShown)
+      APIController.exercise_name(searchExercise, exercisesShown)
         .then((data) => {
           setExerciseData(data)
           setFilterData(data);
@@ -47,7 +47,7 @@ function ExplorePresenter() {
     }
 
     if (selectedPart === "Select a body part") return;
-    Exercise_api.exercise_part(selectedPart, exercisesShown)
+    APIController.exercise_part(selectedPart, exercisesShown)
       .then((data) => {
         setShowLoading(true);
         setExerciseData(data);

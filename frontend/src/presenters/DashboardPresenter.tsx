@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import CompWorkouts from "../interfaces/CompWorkouts";
 import DashboardView from "../pages/Dashboard/Dashboard"
+import AppContext from "../context/app/AppContext";
 
-
+interface Context {
+  setData: () => void;
+  workoutData: any;
+  setUser: () => void;
+}
 function DashboardPresenter() {
   const [workouts, setWorkouts] = useState([]);
   const [favWorkout, setFavWorkout] = useState("");

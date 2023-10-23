@@ -1,6 +1,9 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
+//Context
+import AppState from "./context/app/AppState";
+
 //Navbar
 import NavbarPresenter from "./presenters/NavbarPresenter";
 
@@ -28,6 +31,7 @@ function App() {
 
 	return (
 		<div>
+			<AppState>
 			<BrowserRouter>
 				{!loggedIn && (
 					<Routes>
@@ -70,6 +74,7 @@ function App() {
 					</div>
 				)}
 			</BrowserRouter>
+			</AppState>
 		</div>
 	);
 }

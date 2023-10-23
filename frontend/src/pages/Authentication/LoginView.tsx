@@ -21,8 +21,6 @@ const LoginView: React.FC<ILoginViewProps> = ({
   setPassword,
   onLoginClick,
 }) => {
-
-    console.log(isLoading)
   return (
     <div className="w-full h-screen">
       {isLoading && (
