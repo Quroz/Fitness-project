@@ -24,6 +24,8 @@ function WorkoutPresenter(): JSX.Element {
 	const [name, setName] = useState("");
 	const [completedWorkouts, setCompletedWorkouts] = useState<any[]>([]);
 
+	const [click, setClick] = useState<boolean>(false)
+
 	// Used for navigation
 	const navigate = useNavigate();
 
@@ -188,6 +190,8 @@ function WorkoutPresenter(): JSX.Element {
 					showLog={showLog}
 					renderHandler={renderHandler}
 					myWorkouts={myWorkouts}
+					click = {click}
+					setClick = {setClick}
 				/>
 				<div>
 					{myWorkouts && (

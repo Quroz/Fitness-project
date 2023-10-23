@@ -30,13 +30,8 @@ function WorkoutPlans({
 	return (
 		<div className="bg-[#edeaea] relative overflow-y-scroll h-screen">
 			<div className="mt-24 w-[80%] mx-auto">
-				<div className="flex flex-col absolute top-2">
-					<h1>Click <strong>"Add Workout"</strong> to create a new workout session.</h1>
-					<h1>Select <strong>"Edit Workout"</strong> to add exercises to your workout.</h1>
-					<h1>Access <strong>"Workout Logs"</strong> to view your completed workouts.</h1>
-				</div>
 				<div className="flex flex-col items-center justify-between w-full gap-2 md:gap-2 md:flex-row">
-					<h1>{workoutDays.length} Workouts</h1>
+					<h1><strong>Total workouts: </strong>{workoutDays.length}</h1>
 					<div className="flex items-center justify-between w-full gap-2 md:w-auto">
 						<div className="flex items-center w-full gap-1">
 							<button
