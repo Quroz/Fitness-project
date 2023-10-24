@@ -136,25 +136,28 @@ function Progress({
 				</div>
 				<div className="flex justify-center h-14 w-full">
 					<button
-						className="rounded-xl w-1/5 h-4/5 shadow"
+						className= {currentWorkout.length === 0 ? "ml-5 bg-gray-200 rounded-xl h-4/5 shadow w-1/5" : "rounded-xl w-1/5 h-4/5 shadow hover:bg-gray-200"}
 						onClick={() => {
 							handleExcerciseChange(current - 1);
 						}}
+						disabled = {currentWorkout.length === 0}
 					>
 						Previous
 					</button>
 
 					<button
-						className="ml-5 rounded-xl h-4/5 shadow w-1/5"
+						className= {currentWorkout.length === 0 ? "ml-5 bg-gray-200 rounded-xl h-4/5 shadow w-1/5" : "rounded-xl w-1/5 h-4/5 shadow hover:bg-gray-200"}
 						onClick={() => {
 							handleExcerciseChange(current + 1);
 						}}
+						disabled = {currentWorkout.length === 0}
 					>
 						Next
 					</button>
 					<button
-						className="ml-5 bg-green-400 rounded-xl h-4/5 shadow w-1/5"
+						className= {currentWorkout.length === 0 ? "ml-5 bg-gray-200 rounded-xl h-4/5 shadow w-1/5" : "ml-5 bg-green-400 rounded-xl h-4/5 shadow w-1/5 hover:bg-green-200"}
 						onClick={finishWorkout}
+						disabled = {currentWorkout.length === 0}
 					>
 						Finish
 					</button>

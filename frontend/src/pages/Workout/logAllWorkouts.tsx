@@ -8,7 +8,7 @@ type Props = {
 function LogAllWorkouts({ completedWorkouts }: Props) {
 
   return (
-    <div className="bg-[#edeaea] flex-1 flex flex-col items-center w-full">
+    <div className="bg-[#edeaea] h-screen overflow-y-scroll flex flex-col items-center w-full">
       <h1 className="my-8 text-4xl">Completed Workouts</h1>
       {completedWorkouts.map((wo, index) => {
         return (
