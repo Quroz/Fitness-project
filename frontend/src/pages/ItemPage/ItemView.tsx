@@ -54,7 +54,7 @@ function ItemView({
 						Add workout
 					</button>
 				</div>
-				{myworkouts.length > 0 ? (
+				{myworkouts ? (
 					<div className="overflow-y-auto flex flex-col gap-8 pt-4 w-full md:w-[50%]">
 						{myworkouts?.map((workout: ExerciseDay, index: number) => (
 							<div className="relative flex flex-col items-center justify-around w-full gap-2 py-4 rounded-lg cursor-pointer bg-gray-200/70 hover:bg-gray-50">

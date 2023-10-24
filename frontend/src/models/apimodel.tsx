@@ -153,9 +153,11 @@ export const APIController = (function () {
 		const data = await response.json();
 		if (response.status === 200) {
 			alert("Added new plan!");
+			return data;
 		} else {
 			console.log(data.Error);
 			alert("Fail");
+			return "Fail";
 		}
 	}
   async function addFinishedWorkout(id:number, workout:Workout[]){

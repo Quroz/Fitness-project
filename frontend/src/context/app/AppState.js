@@ -25,6 +25,8 @@ function AppState(props) {
     currentWorkout: undefined,
   };
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  console.log(state)
+
   async function setUser() {
     let data = await APIController.fetchUser();
     dispatch({ type: SET_USER, payload: data.user });
@@ -94,16 +96,10 @@ function AppState(props) {
     dispatch({ type: SET_CURR_WORKOUT, payload: workout });
   }
   async function addWorkout(name, day) {
-    await APIController.addToDatabase(name, day);
-    let newWorkout = {
-      workoutName: name,
-      workoutDay: day,
-      excercises: [""],
-      plan_id: Date.now(),
-    };
-    if (name !== "" && day !== "") {
+   let data =  await APIController.addToDatabase(name, day);
+    if (data !== "Fail") {
       let newData = state.workoutData;
-      newData.unshift(newWorkout);
+      newData.unshift(data);
       dispatch({
         type: ADD_WORKOUT,
         payload: newData,
