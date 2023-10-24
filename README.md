@@ -1,6 +1,6 @@
 # Fitness-project
 
-The web app & server is deployed here: https://gleaming-daifuku-5def17.netlify.app/
+The web app & server is deployed here: https://6536ef04e0affd538bbd742d--gleaming-daifuku-5def17.netlify.app/
 
 ## Description
 
