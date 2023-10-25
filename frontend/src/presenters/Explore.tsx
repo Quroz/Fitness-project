@@ -20,6 +20,7 @@ function ExplorePresenter() {
   const [searchByName, setSearchByName] = useState(1);
   const [showLoading, setShowLoading] = useState(false);
   const [numberOfEx, setNumberOfEx] = useState(10);
+  const [clicked, setClicked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -101,6 +102,9 @@ function ExplorePresenter() {
           numberOfEx={numberOfEx}
           setNumberOfEx={setNumberOfEx}
           filterResults={filterResults}
+          clicked={clicked}
+          setClicked={setClicked}
+
         />
       </Suspense>
     </div>
