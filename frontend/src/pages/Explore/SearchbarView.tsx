@@ -4,6 +4,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Exercise from "../../interfaces/Exercise";
 import LoadingComp from "../../components/Loading";
+import { AiOutlineQuestionCircle, AiOutlineClose } from "react-icons/ai";
 
 interface SearchbarViewProps {
 	// Searching for body part
@@ -36,6 +37,10 @@ interface SearchbarViewProps {
 	numberOfEx: number;
 	setNumberOfEx: (numberOfEx: number) => void;
 	filterResults: (selectedEquipment: string, filter: boolean) => void;
+
+	// Clicking on question mark
+	clicked: boolean;
+	setClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SearchbarView({
@@ -57,11 +62,51 @@ export default function SearchbarView({
 	numberOfEx,
 	setNumberOfEx,
 	filterResults,
+	clicked,
+	setClicked,
 }: SearchbarViewProps) {
-
 	return (
 		<div className="flex flex-col w-full h-screen bg-gray-100 first-letter">
-        <h1 className="text-5xl text-center">Explore Page</h1>
+			<div>
+				<h1 className="text-5xl text-center">Explore Page</h1>
+				<div>
+					{!clicked ? (
+						<AiOutlineQuestionCircle
+							className="absolute z-50 transition duration-300 ease-in cursor-pointer right-2 top-2 hover:opacity-70"
+							size={24}
+							onClick={() => setClicked(!clicked)}
+						/>
+					) : (
+						<AiOutlineClose
+							className="absolute z-50 transition duration-300 ease-in cursor-pointer right-2 top-2 hover:opacity-70"
+							size={20}
+							onClick={() => setClicked(!clicked)}
+						/>
+					)}
+					<div
+						className={`${
+							clicked
+								? "absolute top-2 transform duration-300 ease-in flex items-center justify-center w-full mt-4 z-50 opacity-100"
+								: "absolute top-[-100%] opacity-50"
+						} transition-all`}
+					>
+						<div className="flex flex-col items-center w-[400px] bg-gray-200 rounded-md p-2 relative">
+							<h1>
+								Type <strong>"in the searchbar"</strong> to search for a
+								specific workout by name. Press the glass to search.
+							</h1>
+							<h1>
+								Select <strong>"Body part"</strong> to search exercises to
+								search for exercises by body part.
+							</h1>
+							<h1>
+								Select <strong>"Equipment"</strong> to filter exercises by
+								equipment.
+							</h1>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div className="flex flex-col items-center h-4/5">
 				<div className="flex flex-col items-center gap-2 mt-5 md:gap-0 md:flex-row md:items-start h-fit">
 					<div className="flex divide-x">
@@ -164,7 +209,9 @@ export default function SearchbarView({
 												{({ active }) => (
 													<button
 														className={`${
-															active ? "bg-lime-300 text-white" : "text-gray-900 "
+															active
+																? "bg-lime-300 text-white"
+																: "text-gray-900 "
 														} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
 														onClick={() => {
 															const selectedEquipment =
