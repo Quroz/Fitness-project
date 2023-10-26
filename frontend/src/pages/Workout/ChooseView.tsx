@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineQuestionCircle, AiOutlineClose } from "react-icons/ai";
-
 type Props = {
 	showLog: boolean;
 	renderHandler: (choice: string) => void;

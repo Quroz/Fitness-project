@@ -24,19 +24,21 @@ function AppState(props) {
     dashboardData: { favouriteWorkout: "", barData: [] },
     currentWorkout: undefined,
   };
+
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  console.log(state)
 
   async function setUser() {
     let data = await APIController.fetchUser();
     dispatch({ type: SET_USER, payload: data.user });
   }
+
   async function setData() {
     let data = await APIController.fetchWorkouts();
     dispatch({ type: GET_DATA, payload: data });
     setCompleted(data);
     setUser();
   }
+
   async function setCompleted(data) {
     let filteredData = [];
     for (let i = 0; i < data.length; i++) {
@@ -50,6 +52,7 @@ function AppState(props) {
     dispatch({ type: SET_WORKOUTS, payload: filteredData });
     setDashboardData(filteredData);
   }
+
   async function setDashboardData(data) {
     if (data.length) {
       let mostCommon = [];
@@ -95,6 +98,7 @@ function AppState(props) {
   async function setCurrentWorkout(workout) {
     dispatch({ type: SET_CURR_WORKOUT, payload: workout });
   }
+
   async function addWorkout(name, day) {
    let data =  await APIController.addToDatabase(name, day);
     if (data !== "Fail") {

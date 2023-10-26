@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Menu } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
@@ -96,8 +96,7 @@ export default function SearchbarView({
 								specific workout by name. Press the glass to search.
 							</h1>
 							<h1>
-								Select <strong>"Body part"</strong> to search exercises to
-								search for exercises by body part.
+								Select <strong>"Body part"</strong> to search exercises by body part.
 							</h1>
 							<h1>
 								Select <strong>"Equipment"</strong> to filter exercises by
