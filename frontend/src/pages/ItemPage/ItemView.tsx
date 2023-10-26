@@ -2,26 +2,26 @@ import React from "react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { AiOutlineClose} from "react-icons/ai";
 import ExerciseDay from "../../interfaces/ExerciseDay";
-import {  useNavigate } from "react-router-dom";
+
 
 type Props = {
 	deleteWorkoutHandler: (name: number) => void;
 	myworkouts: ExerciseDay[];
 	addWorkoutHandler: () => void;
-	navigate: ReturnType<typeof useNavigate>;
 	addExerciseToDay: JSX.Element; // Custom component
 	addWorkout: React.SetStateAction<boolean>;
 	workoutName: String;
+	navigateHandler: () => void;
 };
 
 function ItemView({
 	deleteWorkoutHandler,
 	myworkouts,
 	addWorkoutHandler,
-	navigate,
 	addExerciseToDay,
 	addWorkout,
 	workoutName,
+	navigateHandler
 }: Props): JSX.Element {
 	return (
 		<div className="relative w-full h-screen">
@@ -34,7 +34,7 @@ function ItemView({
 				className="absolute z-20 cursor-pointer left-7 top-2"
 				size={24}
 				color="white"
-				onClick={() => navigate(`/workoutPlan`)}
+				onClick={() => navigateHandler()}
 			/>
 			<div className="absolute top-0 left-0 z-10 flex flex-col items-center justify-center w-full h-full gap-4 p-8 pt-48 bg-black/40">
 				<h1 className="font-bold text-center text-white text-7xl">

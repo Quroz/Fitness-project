@@ -3,7 +3,6 @@ import CircleBar from "../../components/CircleBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 import BarChart from "../../components/BarChart";
-import { useNavigate } from "react-router-dom";
 import CompWorkouts from "../../interfaces/CompWorkouts";
 
 interface IProps {
@@ -12,11 +11,12 @@ interface IProps {
   barData: { name: string; value: number }[];
   isAnimating: boolean;
   innerWidth: number;
+  navigateHandler: () => void;
 }
 
-function DashboardView({ workouts, favWorkout, barData, isAnimating, innerWidth }: IProps) {
+function DashboardView({ workouts, favWorkout, barData, isAnimating, innerWidth, navigateHandler }: IProps) {
  
-  const navigate = useNavigate();
+
 
   return (
     <div className="flex h-full w-full justify-center flex-col bg-[#edeaea]">
@@ -43,7 +43,7 @@ function DashboardView({ workouts, favWorkout, barData, isAnimating, innerWidth 
             <div className="mt-5 bg-[#716FFF] w-3/5 rounded-3xl h-1/6 justify-center flex items-center cursor-pointer hover:bg-[#716fffd1]">
               <div
                 className="font-bold text-white text-3xl"
-                onClick={() => navigate(`/workoutPlan`)}
+                onClick={() => navigateHandler()}
               >
                 Workout
               </div>

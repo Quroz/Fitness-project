@@ -18,6 +18,7 @@ export const ProgressPresenter = () => {
   const location = useLocation();
   
   const searchData = new URLSearchParams(location.search).get("data");
+  const [click, setClick] = useState<boolean>(false)
   const dataJSON = useMemo(() => {
     return searchData ? JSON.parse(decodeURIComponent(searchData)) : null;
   }, [searchData]);
@@ -118,6 +119,11 @@ export const ProgressPresenter = () => {
     finishWorkout(currentWorkout.plan_id, workout);
     navigate("/workoutPlan");
   }
+
+  function navigateHandler(){
+		navigate("/workoutPlan")
+	}
+
   return (
     currentWorkout && 
     <Progress
@@ -130,6 +136,9 @@ export const ProgressPresenter = () => {
       currentWorkout={workout}
       setCurrentWorkout={setWorkout} 
       workoutName={currentWorkout.workoutName}
+      navigateHandler={navigateHandler}
+      setClick={setClick}
+      click={click}
     />
   );
 };

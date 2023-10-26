@@ -25,6 +25,7 @@ type Props = {
 	setSelectedEquipment: React.Dispatch<React.SetStateAction<string>>;
 	setNumberOfSets: React.Dispatch<React.SetStateAction<number>>;
 	setNumberOfReps: React.Dispatch<React.SetStateAction<number>>;
+	workoutName: string[];
 };
 
 function AddExerciseToDay({
@@ -47,10 +48,9 @@ function AddExerciseToDay({
 	setSelectedEquipment,
 	setNumberOfSets,
 	setNumberOfReps,
+	workoutName
 }: Props) {
-	const workoutName = Array.from(
-		new Set(workoutsData.map((item: Exercise) => item.name))
-	);
+
 
 	return (
 		<div className="flex flex-col">

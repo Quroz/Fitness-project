@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import CompWorkouts from "../interfaces/CompWorkouts";
 import DashboardView from "../pages/Dashboard/Dashboard";
 import AppContext from "../context/app/AppContext";
+import { useNavigate } from "react-router-dom";
 
 interface Context {
   workoutData: any;
@@ -16,6 +17,7 @@ interface Context {
 function DashboardPresenter() {
   const [isAnimating, setIsAnimating] = useState(false);
   const innerWidth = window.innerWidth;
+  const navigate = useNavigate();
 
   const context = useContext(AppContext);
   const {
@@ -33,6 +35,10 @@ function DashboardPresenter() {
     }, 500); // Delay of 1 second
   }, []);
 
+  function navigateHandler(){
+    navigate("/workoutPlan")
+  }
+
   return (
     (dashboardData.favouriteWorkout !== "")  &&    <DashboardView
     workouts={completedWorkouts}
@@ -40,6 +46,7 @@ function DashboardPresenter() {
     barData={dashboardData.barData}
     isAnimating={isAnimating}
     innerWidth={innerWidth}
+    navigateHandler = {navigateHandler}
   />
 
   );

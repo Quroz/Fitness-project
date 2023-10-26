@@ -79,10 +79,14 @@ function ItemPagePresenter(): JSX.Element {
 			});
 	}
 
+	function navigateHandler(){
+		navigate("/workoutPlan")
+	}
 
-	useEffect(() => {
-		console.log("hello")
-	});
+	const workoutName = Array.from(
+		new Set(workoutsData.map((item: Exercise) => item.name))
+	);
+
 	return (
 		currentWorkout  && <div>
 			<Suspense fallback={<div> <LoadingComp loading={true}/>  </div>}>
@@ -90,8 +94,8 @@ function ItemPagePresenter(): JSX.Element {
 					deleteWorkoutHandler={removeExercise}
 					myworkouts={currentWorkout.exercises}
 					addWorkoutHandler={addWorkoutHandler}
-					navigate={navigate}
 					workoutName={currentWorkout.workoutName}
+					navigateHandler={navigateHandler}
 					addExerciseToDay={
 						<AddExerciseToDay
 							// Function that adds workouts to the database
@@ -115,6 +119,7 @@ function ItemPagePresenter(): JSX.Element {
 							setSelectedEquipment={setSelectedEquipment}
 							setNumberOfSets={setNumberOfSets}
 							setNumberOfReps={setNumberOfReps}
+							workoutName={workoutName}
 						/>
 					}
 					addWorkout={addWorkout}

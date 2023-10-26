@@ -20,18 +20,18 @@ function StartPage() {
 			<div className="absolute top-0 left-0 w-full h-full bg-black/50" />
 			<div className="absolute top-[200px] flex flex-col items-center gap-4 bg-black/20 p-16">
 				<h1 className="text-5xl text-white font-[500]">RFN Fitness App</h1>
-				<h1 className="text-4xl text-white font-[500]">
+				<h1 className="text-4xl text-white font-[500] text-center">
 					Start your fitness journey today!
 				</h1>
 				<h1 className="text-2xl text-white">What are you waiting for?</h1>
 				<div className="flex items-center gap-2 mt-4">
 					<Link to="/signup">
-						<button className="rounded-md bg-green-400 text-black py-4 px-5 w-[250px] text-xl font-bold hover:bg-green-200">
+						<button className="rounded-md bg-green-400 text-black py-4 px-5 w-full md:w-[250px] text-xl font-bold hover:bg-green-200">
 							Sign up now!
 						</button>
 					</Link>
 					<Link to="/login">
-						<button className="rounded-md bg-orange-400 text-black py-4 px-5 w-[250px] text-xl font-bold hover:bg-orange-200">
+						<button className="rounded-md bg-orange-400 text-black py-4 px-5 w-full md:w-[250px] text-xl font-bold hover:bg-orange-200">
 							Login
 						</button>
 					</Link>

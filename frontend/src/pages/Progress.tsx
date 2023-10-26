@@ -1,7 +1,8 @@
 import React from "react";
 import Workout from "../interfaces/WorkoutInterface";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { AiOutlineQuestionCircle, AiOutlineClose } from "react-icons/ai";
+
 
 interface IProps {
 	currentWorkout: Workout[];
@@ -13,6 +14,9 @@ interface IProps {
 	handleExcerciseChange: (id: number) => void;
 	finishWorkout: () => void;
 	workoutName: String;
+	navigateHandler: () => void;
+	setClick: (click: boolean) => void;
+	click: boolean;
 }
 function Progress({
 	currentWorkout,
@@ -23,16 +27,55 @@ function Progress({
 	current,
 	finishWorkout,
 	workoutName,
+	navigateHandler,
+	setClick,
+	click
 }: IProps) {
-	const navigate = useNavigate();
+	
 
 	return (
 		<div className="flex w-full h-screen relative">
+			{!click ? (
+				<AiOutlineQuestionCircle
+					className="absolute z-50 cursor-pointer right-2 top-2"
+					size={24}
+					onClick={() => setClick(!click)}
+				/>
+			) : (
+				<AiOutlineClose
+					className="absolute z-50 cursor-pointer right-2 top-2"
+					size={20}
+					onClick={() => setClick(!click)}
+				/>
+			)}
+			<div
+				className={
+					click
+						? "absolute top-2 transform duration-300 ease-in flex items-center justify-center w-full mt-4"
+						: "absolute top-[-100%]"
+				}
+			>
+				<div className="flex flex-col w-[400px] bg-gray-200 rounded-md p-2 relative">
+					<h1>
+						Welcome to your workout!
+					</h1>
+					<h1>
+						On this page you can track your progress. 
+					</h1>
+					<h1>
+						Click on the exercise you want to track and add your sets, reps and weight.
+					</h1>
+					<h1>
+						When you are done, click on the "Finish" button.
+					</h1>
+				</div>
+			</div>
+
 			<BsFillArrowLeftCircleFill
 				className="absolute z-20 cursor-pointer left-7 top-2"
 				size={24}
 				color="black"
-				onClick={() => navigate(`/workoutPlan`)}
+				onClick={() => navigateHandler()}
 			/>
 			<div className="flex w-1/6 flex-col justify-center text-center">
 				{currentWorkout.map((ex, id) => {
