@@ -35,9 +35,7 @@ export function useAccount(props: IAppProps) {
 			localStorage.setItem("userFittness", JSON.stringify(data));
 			navigate("/dashboard");
 			window.location.reload();
-			setData();
-
-			
+			setData();		
 		}
 	}
 

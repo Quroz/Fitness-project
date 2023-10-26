@@ -1,6 +1,6 @@
-import React from 'react';
-import Exercise from '../interfaces/Exercise';
-import Workout from '../interfaces/WorkoutInterface';
+import React from "react";
+import Exercise from "../interfaces/Exercise";
+import Workout from "../interfaces/WorkoutInterface";
 const Base_URL = "https://exercisedb.p.rapidapi.com/exercises";
 const headers = {
 	"X-RapidAPI-Key": "8a354e8a27msh1bad040c9cceae5p1e730fjsn03fd27ba67a5",
@@ -9,22 +9,20 @@ const headers = {
 const userJSON = localStorage.getItem("userFittness");
 const user = userJSON ? JSON.parse(userJSON) : null;
 export const APIController = (function () {
-
-
-  async function exercises_call(limit: number): Promise<Exercise[]> {
-    try {
-      const response = await fetch(`${Base_URL}?limit=${limit}`, {
-        method: "GET",
-        headers,
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-      return [];
-    }
-  }
-  async function deleteExercise(index: number, workoutId: number) {
+	async function exercises_call(limit: number): Promise<Exercise[]> {
+		try {
+			const response = await fetch(`${Base_URL}?limit=${limit}`, {
+				method: "GET",
+				headers,
+			});
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error("Error fetching exercises:", error);
+			return [];
+		}
+	}
+	async function deleteExercise(index: number, workoutId: number) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/workout/deleteExerciseFromWorkout",
 			{
@@ -46,7 +44,13 @@ export const APIController = (function () {
 			alert("Exercise deleted");
 		}
 	}
-  async function updateSettings(email:string, weight:string, height:string, age:string, goal:string) {
+	async function updateSettings(
+		email: string,
+		weight: string,
+		height: string,
+		age: string,
+		goal: string
+	) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/user/updateSettings",
 			{
@@ -57,16 +61,15 @@ export const APIController = (function () {
 				body: JSON.stringify({ email, weight, height, age, goals: [goal] }),
 			}
 		);
-    const data = await response.json();
+		const data = await response.json();
 		if (response.status !== 200) {
 			alert(data.Error);
 		} else {
-      return data;
+			return data;
 		}
-
 	}
 
-  async function fetchWorkouts() {
+	async function fetchWorkouts() {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/workout/",
 			{
@@ -78,39 +81,42 @@ export const APIController = (function () {
 			}
 		);
 		const data = await response.json();
-    return data;
+		return data;
 	}
-  async function exercise_name(name: string, limit: number): Promise<Exercise[]> {
-    try {
-      const response = await fetch(
-        `${Base_URL}/name/${name.toLowerCase()}?limit=${limit}`,
-        {
-          method: "GET",
-          headers,
-        }
-      );
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching exercises by name:", error);
-      return [];
-    }
-  }
+	async function exercise_name(
+		name: string,
+		limit: number
+	): Promise<Exercise[]> {
+		try {
+			const response = await fetch(
+				`${Base_URL}/name/${name.toLowerCase()}?limit=${limit}`,
+				{
+					method: "GET",
+					headers,
+				}
+			);
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error("Error fetching exercises by name:", error);
+			return [];
+		}
+	}
 
-  async function exercise_id(id_number: number): Promise<Exercise[]> {
-    try {
-      const response = await fetch(`${Base_URL}/exercise/${id_number}`, {
-        method: "GET",
-        headers,
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching exercises by ID:", error);
-      return [];
-    }
-  }
-  async function deleteWorkoutPlan(id: number) {
+	async function exercise_id(id_number: number): Promise<Exercise[]> {
+		try {
+			const response = await fetch(`${Base_URL}/exercise/${id_number}`, {
+				method: "GET",
+				headers,
+			});
+			const data = await response.json();
+			return data;
+		} catch (error) {
+			console.error("Error fetching exercises by ID:", error);
+			return [];
+		}
+	}
+	async function deleteWorkoutPlan(id: number) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/workout/deleteAllWorkouts",
 			{
@@ -122,18 +128,15 @@ export const APIController = (function () {
 				body: JSON.stringify({
 					plan_id: id,
 				}),
-        
 			}
-      
 		);
-    if (response.status !== 200) {
+		if (response.status !== 200) {
 			alert("Could not delete workout plan");
 		} else {
 			alert("Deleted!");
-
 		}
 	}
-  async function addToDatabase(name:string, day:string) {
+	async function addToDatabase(name: string, day: string) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/workout/add",
 			{
@@ -160,31 +163,43 @@ export const APIController = (function () {
 			return "Fail";
 		}
 	}
-  async function addFinishedWorkout(id:number, workout:Workout[]){
-    const response = await fetch(
-      "https://fitnessproject.onrender.com/api/workout/addCompletedWorkout",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          plan_id: id,
-          workout: workout,
-          date: new Date().getDate() + "/" + new Date().getMonth() + "/" + new Date().getFullYear(),
-        }),
-      }
-    );
-    const data = await response.json();
+	async function addFinishedWorkout(id: number, workout: Workout[]) {
+		const response = await fetch(
+			"https://fitnessproject.onrender.com/api/workout/addCompletedWorkout",
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${user.token}`,
+				},
+				body: JSON.stringify({
+					plan_id: id,
+					workout: workout,
+					date:
+						new Date().getDate() +
+						"/" +
+						new Date().getMonth() +
+						"/" +
+						new Date().getFullYear(),
+				}),
+			}
+		);
+		const data = await response.json();
 
-    if (response.status !== 200) {
-      alert("Something went wrong, please try again");
-    } else {
-      alert("Workout completed");
-    }
-  }
-  async function addExercise(id: String, selectedWorkoutName:string, selectedBodyPart:string, selectedEquipment:string, numberOfSets:number, numberOfReps:number) {
+		if (response.status !== 200) {
+			alert("Something went wrong, please try again");
+		} else {
+			alert("Workout completed");
+		}
+	}
+	async function addExercise(
+		id: String,
+		selectedWorkoutName: string,
+		selectedBodyPart: string,
+		selectedEquipment: string,
+		numberOfSets: number,
+		numberOfReps: number
+	) {
 		const response = await fetch(
 			"https://fitnessproject.onrender.com/api/workout/addExerciseToWorkout",
 			{
@@ -210,32 +225,34 @@ export const APIController = (function () {
 		const data = await response.json();
 		if (response.status === 200) {
 			alert("Added!");
-      return data;
+			return data;
 		} else {
 			console.log(data.Error);
 			alert("Fail");
 		}
 	}
 
-  async function exercise_part(bodyPart: string, limit: number): Promise<Exercise[]> {
-    const url = `https://${headers["X-RapidAPI-Host"]}/exercises/bodyPart/${encodeURIComponent(
-      bodyPart
-    )}?limit=${limit}`;
+	async function exercise_part(
+		bodyPart: string,
+		limit: number
+	): Promise<Exercise[]> {
+		const url = `https://${
+			headers["X-RapidAPI-Host"]
+		}/exercises/bodyPart/${encodeURIComponent(bodyPart)}?limit=${limit}`;
 
-    try {
-      const response = await fetch(url, {
-        method: "GET",
-        headers,
-      });
-      const result = await response.json();
-      return result;
-    } catch (error) {
-      console.error("Error fetching exercises by body part:", error);
-      return [];
-    }
-  }
-  async function fetchUser() {
-
+		try {
+			const response = await fetch(url, {
+				method: "GET",
+				headers,
+			});
+			const result = await response.json();
+			return result;
+		} catch (error) {
+			console.error("Error fetching exercises by body part:", error);
+			return [];
+		}
+	}
+	async function fetchUser() {
 		let email = "";
 
 		if (user?.updatedSettings === undefined) {
@@ -256,21 +273,21 @@ export const APIController = (function () {
 		);
 
 		const data = await response.json();
-    return data;
+		return data;
 	}
 
-  return {
-    exercises_call,
-    exercise_name,
-    exercise_id,
-    exercise_part,
-    deleteWorkoutPlan,
-    fetchWorkouts,
-    updateSettings,
-    fetchUser,
-    addToDatabase,
-    addFinishedWorkout,
-    addExercise,
-    deleteExercise
-  };
+	return {
+		exercises_call,
+		exercise_name,
+		exercise_id,
+		exercise_part,
+		deleteWorkoutPlan,
+		fetchWorkouts,
+		updateSettings,
+		fetchUser,
+		addToDatabase,
+		addFinishedWorkout,
+		addExercise,
+		deleteExercise,
+	};
 })();
