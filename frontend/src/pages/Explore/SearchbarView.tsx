@@ -67,7 +67,7 @@ export default function SearchbarView({
 }: SearchbarViewProps) {
 	return (
 		<div className="flex flex-col w-full h-screen bg-gray-100 first-letter">
-			<div>
+			<div className="mt-8">
 				<h1 className="text-5xl text-center">Explore Page</h1>
 				<div>
 					{!clicked ? (
