@@ -28,14 +28,11 @@ function InstructionsPage(props: InstructionsProps): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen p-4 relative">
-      <div className="mb-4 text-center">
         <BsFillArrowLeftCircleFill
           className="absolute top-2 left-7 cursor-pointer"
           size={24}
           onClick={() => props.navigateHandler()}
         />
-        <h1 className="text-3xl font-bold">{exercise?.name}</h1>
-      </div>
       <div className="mb-4">
         <img
           src={exercise?.gifUrl}
@@ -43,6 +40,7 @@ function InstructionsPage(props: InstructionsProps): JSX.Element {
           className="max-w-full max-h-96 mt-12 md:mt-0"
         />
       </div>
+      <h1 className="text-3xl font-bold text-center">{exercise?.name}</h1>
       <div className="text-left">
         <h2 className="mb-2 text-xl font-semibold text-center md:text-left ml-8">Exercise Details:</h2>
         <p className="text-center md:text-left ml-8">
