@@ -41,7 +41,7 @@ In the case that you want to create the images yourself then there's a docker-co
 
 ## Possible points to collect
 
-The Google grading template has been sent in Canvas. We were aiming for a C due to all of us having a lot of other courses in parallel.
+The Google grading template has been sent in Canvas. We were aiming for a C due to all of us having a lot of other courses in parallel. The final grade became a B with 90 points collected! 
 
 ## Architecture:
 
